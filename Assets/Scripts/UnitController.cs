@@ -74,7 +74,15 @@ public class UnitController : MonoBehaviour
     private bool IsEnemyInFront()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, stats.attackRange-attackBuffer, enemyLayer);
-        return hit.collider != null;
+        if(hit.collider != null)
+        {
+            UnitController unit = hit.collider.GetComponent<UnitController>();
+            if (unit != null && unit.IsAlly != this.IsAlly)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public LayerMask GetEnemyLayer()

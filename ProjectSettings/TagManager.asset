@@ -50,5 +50,8 @@ TagManager:
   - name: Units
     uniqueID: 3276323269
     locked: 0
+  - name: Bars
+    uniqueID: 1754485175
+    locked: 0
   m_RenderingLayers:
   - Default

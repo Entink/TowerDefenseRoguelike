@@ -1,18 +1,28 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class UnitController : MonoBehaviour
+public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private UnitStats stats;
+
     [SerializeField, ReadOnly] private float currentHP;
+    [SerializeField, ReadOnly] private HPBar hpBar;
+
     [SerializeField, ReadOnly] private bool isAlly;
     private Vector3 moveDirection;
 
     [SerializeField, ReadOnly] private LayerMask enemyLayer;
 
+
+
     public float CurrentHP
     {
         get { return currentHP;  }
-        set { currentHP = Mathf.Clamp(value,0,stats.maxHP); }
+        set
+        { 
+            currentHP = Mathf.Clamp(value,0,stats.maxHP);
+            hpBar.SetHP(currentHP, stats.maxHP);
+        }
     }
 
     public bool IsAlly
@@ -23,7 +33,11 @@ public class UnitController : MonoBehaviour
 
     private void Awake()
     {
+
         stats = GetComponent<UnitStats>();
+        hpBar = GetComponentInChildren<HPBar>();
+
+
         IsAlly = stats.ally;
         enemyLayer = isAlly ? LayerMask.GetMask("Enemies") : LayerMask.GetMask("Allies");
 
@@ -37,6 +51,7 @@ public class UnitController : MonoBehaviour
         }
 
         CurrentHP = stats.maxHP;
+        hpBar.Hide();
 
         moveDirection = isAlly ? Vector3.left : Vector3.right;
 
@@ -88,5 +103,15 @@ public class UnitController : MonoBehaviour
     public LayerMask GetEnemyLayer()
     {
         return enemyLayer;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        hpBar.Show();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        hpBar.Hide();
     }
 }

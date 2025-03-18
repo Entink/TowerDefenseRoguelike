@@ -7,6 +7,8 @@ public class UnitController : MonoBehaviour
     [SerializeField, ReadOnly] private bool isAlly;
     private Vector3 moveDirection;
 
+    [SerializeField, ReadOnly] private LayerMask enemyLayer;
+
     public float CurrentHP
     {
         get { return currentHP;  }
@@ -18,9 +20,16 @@ public class UnitController : MonoBehaviour
         get { return isAlly; }
         set { isAlly = value;  }
     }
-    private void Start()
+
+    private void Awake()
     {
         stats = GetComponent<UnitStats>();
+        IsAlly = stats.ally;
+        enemyLayer = isAlly ? LayerMask.GetMask("Enemies") : LayerMask.GetMask("Allies");
+
+    }
+    private void Start()
+    {
 
         if (!string.IsNullOrEmpty(stats.unitName))
         {
@@ -28,14 +37,17 @@ public class UnitController : MonoBehaviour
         }
 
         CurrentHP = stats.maxHP;
-        IsAlly = stats.ally;
 
         moveDirection = isAlly ? Vector3.left : Vector3.right;
+
     }
 
     private void FixedUpdate()
     {
-        Move();
+        if(!IsEnemyInFront())
+        {
+            Move();
+        }
     }
 
     public void TakeDamage(float dmg)
@@ -57,5 +69,16 @@ public class UnitController : MonoBehaviour
         transform.Translate(moveDirection * stats.speed * Time.deltaTime);
     }
 
-    
+    private float attackBuffer = 0.1f;
+
+    private bool IsEnemyInFront()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, stats.attackRange-attackBuffer, enemyLayer);
+        return hit.collider != null;
+    }
+
+    public LayerMask GetEnemyLayer()
+    {
+        return enemyLayer;
+    }
 }

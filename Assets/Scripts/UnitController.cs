@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -7,6 +8,7 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [SerializeField, ReadOnly] private float currentHP;
     [SerializeField, ReadOnly] private HPBar hpBar;
+    [SerializeField, ReadOnly] private SpriteRenderer spriteRenderer;
 
     [SerializeField, ReadOnly] private bool isAlly;
     private Vector3 moveDirection;
@@ -36,6 +38,7 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         stats = GetComponent<UnitStats>();
         hpBar = GetComponentInChildren<HPBar>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         IsAlly = stats.ally;
 
@@ -68,10 +71,19 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void TakeDamage(float dmg)
     {
         CurrentHP -= dmg;
+        StartCoroutine(HitEffect());
+
         if (CurrentHP <= 0)
         {
             Die();
         }
+    }
+
+    private IEnumerator HitEffect()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.color = Color.white;
     }
 
     private void Die()

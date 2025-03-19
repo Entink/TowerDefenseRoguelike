@@ -37,8 +37,8 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         stats = GetComponent<UnitStats>();
         hpBar = GetComponentInChildren<HPBar>();
 
-
         IsAlly = stats.ally;
+
         enemyLayer = isAlly ? LayerMask.GetMask("Enemies") : LayerMask.GetMask("Allies");
 
     }
@@ -76,6 +76,11 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Die()
     {
+        if(hpBar != null)
+        {
+            HPBarManager.instance.UnregisterHPBar(hpBar);
+        }
+
         Destroy(gameObject);
     }
 
@@ -108,10 +113,13 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerEnter(PointerEventData eventData)
     {
         hpBar.Show();
+        HPBarManager.instance.SetHoveredState(hpBar, true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         hpBar.Hide();
+        HPBarManager.instance.SetHoveredState(hpBar, false);
+
     }
 }

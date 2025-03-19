@@ -8,15 +8,28 @@ public class HPBar : MonoBehaviour
     private CanvasGroup canvasGroup;
     private Coroutine fadeCoroutine;
 
+
     private void Awake()
     {
         canvasGroup = GetComponentInParent<CanvasGroup>();
+
         if (canvasGroup == null)
         {
             Debug.LogError($"{gameObject.name} - CanvasGroup nie zosta³ znaleziony!");
         }
 
         canvasGroup.alpha = 0;
+
+        
+    }
+
+    private void Start()
+    {
+        UnitController unitController = GetComponentInParent<UnitController>();
+        if (unitController)
+        {
+            HPBarManager.instance.RegisterHPBar(this, unitController.IsAlly);
+        }
     }
 
     public void SetHP(float current, float max)
@@ -41,6 +54,8 @@ public class HPBar : MonoBehaviour
         }
         fadeCoroutine = StartCoroutine(FadeCanvas(0));
     }
+
+    
 
     private IEnumerator FadeCanvas(float targetAlpha)
     {

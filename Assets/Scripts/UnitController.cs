@@ -8,7 +8,9 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [SerializeField, ReadOnly] private float currentHP;
     [SerializeField, ReadOnly] private HPBar hpBar;
+
     [SerializeField, ReadOnly] private SpriteRenderer spriteRenderer;
+    [ReadOnly] private ParticleSystem deathEffect;
 
     [SerializeField, ReadOnly] private bool isAlly;
     private Vector3 moveDirection;
@@ -39,6 +41,7 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         stats = GetComponent<UnitStats>();
         hpBar = GetComponentInChildren<HPBar>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        deathEffect = GetComponentInChildren<ParticleSystem>();
 
         IsAlly = stats.ally;
 
@@ -48,9 +51,21 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private void Start()
     {
 
+
+
         if (!string.IsNullOrEmpty(stats.unitName))
         {
             gameObject.name = stats.unitName;
+        }
+
+        if (GameManager.instance.CanSpawnUnit())
+        {
+            GameManager.instance.RegisterUnit();
+        }
+        else
+        {
+            Debug.LogWarning($"Nie mo¿na pojawiæ wiêcej jednostek. Osi¹gniêto limit {GameManager.instance.currentUnits}/{GameManager.instance.maxUnits}");
+            Destroy(gameObject);
         }
 
         CurrentHP = stats.maxHP;
@@ -81,9 +96,20 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private IEnumerator HitEffect()
     {
-        spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        spriteRenderer.color = Color.white;
+        Color hitColor = new Color(1f, 0.5f, 0.5f, 1f);
+        Color originalColor = Color.white;
+
+        float duration = 0.1f;
+        float time = 0;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            spriteRenderer.color = Color.Lerp(hitColor, originalColor, time / duration);
+            yield return null;
+        }
+
+        spriteRenderer.color = originalColor;
     }
 
     private void Die()
@@ -91,6 +117,15 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if(hpBar != null)
         {
             HPBarManager.instance.UnregisterHPBar(hpBar);
+        }
+
+        GameManager.instance.UnregisterUnit();
+
+        if(deathEffect != null)
+        {
+            deathEffect.transform.parent = null;
+            deathEffect.Play();
+            Destroy(deathEffect.gameObject, 1f);
         }
 
         Destroy(gameObject);

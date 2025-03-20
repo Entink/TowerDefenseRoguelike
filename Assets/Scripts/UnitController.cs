@@ -83,15 +83,41 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
-    public void TakeDamage(float dmg)
+
+    //Health subsystem
+    public void TakeDamage(float dmg, float kbPower)
     {
         CurrentHP -= dmg;
         StartCoroutine(HitEffect());
+
+        float finalKB = kbPower * (1f - stats.kbRes);
+        if(kbPower > 0f)
+        {
+            StartCoroutine(Knockback(finalKB));
+        }
 
         if (CurrentHP <= 0)
         {
             Die();
         }
+    }
+
+    private IEnumerator Knockback(float force)
+    {
+        float duration = 0.1f;
+        float time = 0;
+
+        Vector3 startPosition = transform.position;
+        Vector3 knockbackPosition = startPosition - moveDirection * force;
+
+        while (time<duration)
+        {
+            time += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, knockbackPosition, time / duration);
+            yield return null;
+        }
+
+        transform.position = knockbackPosition;
     }
 
     private IEnumerator HitEffect()
@@ -131,6 +157,8 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         Destroy(gameObject);
     }
 
+
+    //Movement subsystem
     public void Move()
     {
         transform.Translate(moveDirection * stats.speed * Time.deltaTime);
@@ -151,6 +179,9 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
         return false;
     }
+
+
+    //Misc 
 
     public LayerMask GetEnemyLayer()
     {

@@ -176,6 +176,12 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             {
                 return true;
             }
+
+            BaseController baseController = hit.collider.GetComponent<BaseController>();
+            if (baseController != null && baseController.isPlayerBase != this.IsAlly)
+            {
+                return true;
+            }
         }
         return false;
     }

@@ -36,6 +36,12 @@ public class UnitAttack : MonoBehaviour
                 {
                     enemyController.TakeDamage(stats.damage, stats.kbForce);
                 }
+
+                BaseController baseController = enemy.GetComponent<BaseController>();
+                if (baseController != null)
+                {
+                    baseController.TakeDamage(stats.damage);
+                }
             }
         }
     }

@@ -29,4 +29,16 @@ public class GameManager : MonoBehaviour
     {
         currentUnits--;
     }
+
+    public void OnBaseDestroyed(bool playerBase)
+    {
+        if(playerBase)
+        {
+            Debug.Log("Lose");
+        }
+        else
+        {
+            Debug.Log("Win");
+        }
+    }
 }

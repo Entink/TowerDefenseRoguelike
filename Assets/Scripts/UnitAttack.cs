@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UnitAttack : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class UnitAttack : MonoBehaviour
     private Coroutine attackCoroutine;
 
     [SerializeField, ReadOnly] private LayerMask enemyLayer;
+
+    private Vector3? lastAOECenter = null;
+    
 
     private void Start()
     {
@@ -24,25 +28,62 @@ public class UnitAttack : MonoBehaviour
 
     private IEnumerator AttackCoroutine()
     {
+        yield return new WaitForSeconds((1f / stats.attackSpeed) / 2f);
+        
         while(true)
         {
-            yield return new WaitForSeconds(1f / stats.attackSpeed);
+            List<Collider2D> targets = new List<Collider2D>();
 
-            Collider2D enemy = Physics2D.OverlapCircle(transform.position, stats.attackRange, enemyLayer);
-            if (enemy != null)
+            if (stats.isAOE)
             {
-                UnitController enemyController = enemy.GetComponent<UnitController>();
-                if (enemyController != null)
+                Collider2D closest = Physics2D.OverlapCircle(transform.position, stats.attackRange, enemyLayer);
+                if (closest != null)
                 {
-                    enemyController.TakeDamage(stats.damage, stats.kbForce);
-                }
+                    Vector3 aoeCenter = closest.transform.position;
+                    lastAOECenter = aoeCenter;
+                    targets.AddRange(Physics2D.OverlapCircleAll(aoeCenter, stats.aoeRadius, enemyLayer));
 
-                BaseController baseController = enemy.GetComponent<BaseController>();
-                if (baseController != null)
-                {
-                    baseController.TakeDamage(stats.damage);
                 }
             }
+            else
+            {
+                Collider2D single = Physics2D.OverlapCircle(transform.position, stats.attackRange, enemyLayer);
+                if(single != null)
+                {
+                    targets.Add(single);
+                }
+            }
+
+
+            for (int i = 0; i < stats.multiStrikeCount; i++)
+            {
+                foreach (Collider2D target in targets)
+                {
+                    if (target == null)
+                    {
+                        continue;
+                    }
+
+                    UnitController uc = target.GetComponent<UnitController>();
+                    if (uc != null)
+                    {
+                        uc.TakeDamage(stats.damage, stats.kbForce);
+                        continue;
+                    }
+
+                    BaseController bc = target.GetComponent<BaseController>();
+                    if (bc != null)
+                    {
+                        bc.TakeDamage(stats.damage);
+                    }
+                }
+
+                if (i < stats.multiStrikeCount - 1)
+                {
+                    yield return new WaitForSeconds(stats.multiStrikeDelay);
+                }
+            }
+            yield return new WaitForSeconds(1f / stats.attackSpeed);
         }
     }
 
@@ -56,5 +97,11 @@ public class UnitAttack : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, stats.attackRange);
+
+        if(stats.isAOE && lastAOECenter.HasValue)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(lastAOECenter.Value, stats.aoeRadius);
+        }
     }
 }

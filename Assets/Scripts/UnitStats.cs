@@ -16,6 +16,12 @@ public class UnitStats : MonoBehaviour
     public float attackSpeed;
     public int damage;
     public float attackRange;
+    public int multiStrikeCount;
+    public float multiStrikeDelay;
+
+    [Header("AOE")]
+    public bool isAOE;
+    public float aoeRadius;
 
     [Header("Knockback")]
     public float kbForce;

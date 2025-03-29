@@ -84,4 +84,19 @@ public class UnitSpawner : MonoBehaviour
             Debug.Log("Nie staæ lub limit jednostek");
         }
     }
+
+    public float GetCooldownRemaming(int index)
+    {
+        return Mathf.Max(0, nextAvailableTimes[index] - Time.time);
+    }
+
+    public float GetUnitCooldown(int index)
+    {
+        return units[index].prefab.GetComponent<UnitStats>().cooldown;
+    }
+
+    public int GetUnitCost(int index)
+    {
+        return units[index].prefab.GetComponent<UnitStats>().cost;
+    }
 }

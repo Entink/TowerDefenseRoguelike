@@ -75,7 +75,7 @@ public class UnitSpawner : MonoBehaviour
         {
             CurrencyManager.instance.SpendGold(stats.cost);
             GameObject unit = Instantiate(units[index].prefab, spawnPoint.position, Quaternion.identity);
-            GameManager.instance.RegisterUnit();
+            //GameManager.instance.RegisterUnit();
 
             nextAvailableTimes[index] = currentTime + stats.cooldown;
         }

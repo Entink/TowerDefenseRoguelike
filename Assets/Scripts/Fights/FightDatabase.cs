@@ -4,9 +4,23 @@ using System.Linq;
 
 public class FightDatabase : MonoBehaviour
 {
+    public static FightDatabase instance;
+
     [Header("List of available fights")]
     public List<FightData> allFights;
 
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public FightData GetRandomFight(int difficulty)
     {
         List<FightData> candidates = allFights.Where(f => f.difficulty == difficulty && !f.isBoss).ToList();

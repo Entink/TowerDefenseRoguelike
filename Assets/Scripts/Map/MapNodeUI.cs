@@ -2,11 +2,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+using System.Collections.Generic;
 
 public class MapNodeUI : MonoBehaviour
 {
     public TextMeshProUGUI label;
     private MapNodeData data;
+
 
     public void Setup(MapNodeData nodeData)
     {

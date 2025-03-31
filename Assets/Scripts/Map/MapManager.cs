@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class MapManager : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject nodePrefab;
 
 
+
     [SerializeField] private MapGenerator generator;
+
     
 
 
@@ -45,6 +48,8 @@ public class MapManager : MonoBehaviour
                 nodeUI.Setup(node);
             }
         }
+
+        
     }
 
     private void PrintMapDebug(MapData map)

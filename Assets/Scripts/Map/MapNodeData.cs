@@ -8,4 +8,6 @@ public class MapNodeData
     public NodeType type;
     public List<int> connectedTo = new List<int>();
     public int fightIndex;
+
+    public bool wasVisisted = false;
 }

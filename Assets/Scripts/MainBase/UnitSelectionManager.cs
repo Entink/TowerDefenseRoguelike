@@ -19,7 +19,9 @@ public class UnitSelectionManager : MonoBehaviour
 
     private void Start()
     {
-        
+        GenerateUnitButtons();
+        confirmButton.interactable = false;
+        confirmButton.onClick.AddListener(OnConfirm);
     }
 
     private void GenerateUnitButtons()
@@ -28,26 +30,30 @@ public class UnitSelectionManager : MonoBehaviour
         {
             GameObject buttonObj = Instantiate(unitButtonPrefab, unitButtonContainer);
             UnitSelectionButton usb = buttonObj.GetComponent<UnitSelectionButton>();
-            //usb.Setup(unit, this);
+            usb.Setup(unit, this);
         }
     }
 
-    public void ToggleSelection(GameObject unit)
+    public bool ToggleSelection(GameObject unit)
     {
         if(selectedUnits.Contains(unit))
         {
             selectedUnits.Remove(unit);
+            confirmButton.interactable = selectedUnits.Count > 0;
+            return false;
         }
         else
         {
             if(selectedUnits.Count >= maxSelectableUnits)
             {
-                return;
+                return false;
             }
             selectedUnits.Add(unit);
+            confirmButton.interactable = true;
+            return true;
         }
 
-        confirmButton.interactable = selectedUnits.Count > 0;
+        
 
     }
 

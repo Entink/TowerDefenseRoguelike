@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 public class UnitSpawner : MonoBehaviour
 {
@@ -37,6 +38,10 @@ public class UnitSpawner : MonoBehaviour
 
     private void Start()
     {
+        if(RunData.selectedUnits != null && RunData.selectedUnits.Count > 0)
+        {
+            units = RunData.selectedUnits.Select(u => new SpawnableUnit { prefab = u }).ToArray();
+        }
         nextAvailableTimes = new float[units.Length];
     }
 
@@ -75,7 +80,7 @@ public class UnitSpawner : MonoBehaviour
         {
             CurrencyManager.instance.SpendGold(stats.cost);
             GameObject unit = Instantiate(units[index].prefab, spawnPoint.position, Quaternion.identity);
-            //GameManager.instance.RegisterUnit();
+            
 
             nextAvailableTimes[index] = currentTime + stats.cooldown;
         }

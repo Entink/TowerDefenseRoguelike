@@ -19,6 +19,12 @@ public class UnitButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         spawner = FindAnyObjectByType<UnitSpawner>();
         button = GetComponent<Button>();
         tooltipBox.SetActive(false);
+
+        GetComponent<Button>().onClick.AddListener(() =>
+        {
+            UnitSpawner spawner = FindObjectOfType<UnitSpawner>();
+            spawner.TrySpawnUnit(unitIndex);
+        });
     }
 
     private void FixedUpdate()

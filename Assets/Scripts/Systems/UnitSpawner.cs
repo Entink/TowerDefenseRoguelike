@@ -104,4 +104,9 @@ public class UnitSpawner : MonoBehaviour
     {
         return units[index].prefab.GetComponent<UnitStats>().cost;
     }
+
+    public string GetUnitName(int index)
+    {
+        return units[index].prefab.name;
+    }
 }

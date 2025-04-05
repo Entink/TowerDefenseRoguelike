@@ -35,15 +35,14 @@ public class GameManager : MonoBehaviour
         if(playerBase)
         {
             Debug.Log("Lose");
+            SceneLoader.LoadScene("MapScene");
+
         }
         else
         {
             Debug.Log("Win");
+            SceneLoader.LoadScene("VictoryScene");
         }
     }
 
-    public void EndFight()
-    {
-        SceneLoader.LoadScene("MapScene");
-    }
 }

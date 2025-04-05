@@ -32,7 +32,7 @@ public class BaseController : MonoBehaviour
         Debug.Log($"{gameObject.name} was destroyed!");
         GameManager.instance.OnBaseDestroyed(isPlayerBase);
 
-        GameManager.instance.EndFight();
+        //GameManager.instance.EndFight();
         Destroy(gameObject);
     }
 }

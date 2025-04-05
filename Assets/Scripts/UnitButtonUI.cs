@@ -9,6 +9,8 @@ public class UnitButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public int unitIndex;
     public Image cooldownOverlay;
     public TextMeshProUGUI tooltipText;
+    public TextMeshProUGUI nameText;
+
     public GameObject tooltipBox;
 
     public UnitSpawner spawner;
@@ -29,6 +31,10 @@ public class UnitButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void FixedUpdate()
     {
+        string name = spawner.GetUnitName(unitIndex);
+        SetLabel(name);
+        
+
         float remaining = spawner.GetCooldownRemaming(unitIndex);
         float total = spawner.GetUnitCooldown(unitIndex);
 
@@ -62,5 +68,10 @@ public class UnitButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerExit(PointerEventData eventData)
     {
         tooltipBox.SetActive(false);
+    }
+
+    public void SetLabel(string name)
+    {
+        nameText.text = name;
     }
 }

@@ -18,7 +18,8 @@ public class MapManager : MonoBehaviour
     {
         if (MapRunData.currentMap == null)
         {
-            MapRunData.currentSeed = generator.seed;
+            //MapRunData.currentSeed = generator.seed;
+            generator.seed = MapRunData.currentSeed;
             MapRunData.currentMap = generator.GenerateMap();
         }
 

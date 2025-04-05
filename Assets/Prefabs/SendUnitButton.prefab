@@ -153,6 +153,7 @@ MonoBehaviour:
   unitIndex: 0
   cooldownOverlay: {fileID: 3398155521390065331}
   tooltipText: {fileID: 4021591083773819429}
+  nameText: {fileID: 909078726608612992}
   tooltipBox: {fileID: 6456718472496333231}
   spawner: {fileID: 0}
   button: {fileID: 1449034364563780953}
@@ -370,8 +371,8 @@ MonoBehaviour:
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
-  m_fontSizeMin: 0
-  m_fontSizeMax: 0
+  m_fontSizeMin: 14
+  m_fontSizeMax: 100
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -382,7 +383,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

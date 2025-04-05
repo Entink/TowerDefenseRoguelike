@@ -26,6 +26,8 @@ public class SendUnitButtonManager : MonoBehaviour
             GameObject buttonGO = Instantiate(buttonPrefab, buttonContainer);
             UnitButtonUI buttonUI = buttonGO.GetComponent<UnitButtonUI>();
 
+            
+
             buttonUI.unitIndex = i;
             buttonUI.spawner = spawner;
 

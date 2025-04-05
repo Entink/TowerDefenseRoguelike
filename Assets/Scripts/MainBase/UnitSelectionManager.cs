@@ -60,6 +60,7 @@ public class UnitSelectionManager : MonoBehaviour
     private void OnConfirm()
     {
         RunData.selectedUnits = selectedUnits;
+        MapRunData.currentSeed = Random.Range(0, int.MaxValue);
         SceneLoader.LoadScene("MapScene");
     }
 }

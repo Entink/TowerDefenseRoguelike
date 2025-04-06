@@ -34,6 +34,10 @@ public class MapNodeUI : MonoBehaviour
             BattleDataCarrier.selectedFight = FightDatabase.instance.allFights[data.fightIndex];
             SceneLoader.LoadScene("LoadingScene");
         }
+        else if (data.type == NodeType.Shop)
+        {
+            SceneLoader.LoadScene("ShopScene");
+        }
     }
 
     public void AddConnection(MapNodeUI target)

@@ -275,11 +275,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Test Unit
   ally: 1
-  maxHP: 1
-  speed: 1
-  attackSpeed: 1
-  damage: 1
+  maxHP: 9999
+  speed: 3
+  attackSpeed: 9999
+  damage: 9999
   attackRange: 1
+  multiStrikeCount: 1
+  multiStrikeDelay: 0
+  isAOE: 0
+  aoeRadius: 0
+  kbForce: 0
+  kbRes: 0
   cost: 0
   cooldown: 0
 --- !u!114 &5054475821399374824

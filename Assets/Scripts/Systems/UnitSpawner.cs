@@ -69,6 +69,11 @@ public class UnitSpawner : MonoBehaviour
             return;
         }
 
+        foreach (var item in RunData.purchasedItems)
+        {
+            item.effect?.ApplyEffect(stats);
+        }
+
         float currentTime = Time.time;
         if(currentTime < nextAvailableTimes[index])
         {
@@ -88,6 +93,8 @@ public class UnitSpawner : MonoBehaviour
         {
             Debug.Log("Nie staæ lub limit jednostek");
         }
+
+        
     }
 
     public float GetCooldownRemaming(int index)

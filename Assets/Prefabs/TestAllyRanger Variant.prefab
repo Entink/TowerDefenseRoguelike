@@ -98,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: unitName
-      value: Ally Test Unit
+      value: Ally Test Ranger
       objectReference: {fileID: 0}
     - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: attackRange

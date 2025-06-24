@@ -1,54 +1,43 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class ShopManager : MonoBehaviour
 {
-    public TextMeshProUGUI cashText;
-    public Button[] itemButtons;
-    public Button returnButton;
-    public ShopItem[] availableItems;
+    [SerializeField] private List<ShopItemData> itemPool;
+    [SerializeField] private GameObject itemUIPrefab;
+    [SerializeField] private Transform container;
+    [SerializeField] private int itemsToShow = 3;
+
+    [SerializeField] private TextMeshProUGUI cashText;
+    [SerializeField] private Button returnButton;
 
     private void Start()
     {
+        returnButton.onClick.AddListener(ReturnToMap);
+        List<ShopItemData> chosen = new();
 
-        RunResources.AddCash(49);
-        UpdateCashDisplay();
-
-        for(int i = 0; i < itemButtons.Length && i < availableItems.Length; i++)
+        while (chosen.Count < itemsToShow)
         {
-            int index = i;
-            TextMeshProUGUI btnText = itemButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            btnText.text = $"{availableItems[i].name}\n({availableItems[i].cost}$)";
+            var item = itemPool[Random.Range(0, itemPool.Count)];
 
-            availableItems[i].effect = new BonusHPItem(2f);
-            itemButtons[i].onClick.AddListener(() => TryBuy(index));
+            if(!chosen.Contains(item))
+            {
+                chosen.Add(item);
+            }
         }
 
-        returnButton.onClick.AddListener(() => ReturnToMap());
+        foreach (var item in chosen)
+        {
+            GameObject go = Instantiate(itemUIPrefab, container);
+            go.GetComponent<ShopItemUI>().Setup(item);
+        }
     }
 
-    private void UpdateCashDisplay()
+    private void FixedUpdate()
     {
-        cashText.text = $"Cash: {RunResources.GetCash()}";
-    }
-
-    private void TryBuy(int index)
-    {
-        int cost = availableItems[index].cost;
-        if(RunResources.GetCash() >= cost)
-        {
-            RunResources.AddCash(-cost);
-            RunData.AddShopItem(availableItems[index]);
-            Debug.Log($"Zakupiono: {availableItems[index].name} - {availableItems[index].description}");
-            UpdateCashDisplay();
-            itemButtons[index].interactable = false;
-            
-        }
-        else
-        {
-            Debug.LogWarning("Za ma³o cash!");
-        }
+        cashText.text = $"Cash: {RunResources.GetCash()}$";
     }
 
     private void ReturnToMap()

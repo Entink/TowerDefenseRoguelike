@@ -13,9 +13,15 @@ public class UnitSelectionManager : MonoBehaviour
     public Button confirmButton;
 
     [Header("Settings")]
-    public int maxSelectableUnits = 5;
+    public int maxSelectableUnits = 3;
 
     private List<GameObject> selectedUnits = new List<GameObject>();
+
+    private void Awake()
+    {
+        maxSelectableUnits = UpgradeManager.GetCurrentUnitLimit();
+
+    }
 
     private void Start()
     {

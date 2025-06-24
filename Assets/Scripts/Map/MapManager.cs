@@ -1,55 +1,54 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 public class MapManager : MonoBehaviour
 {
+    public static MapManager instance;
+    
+
     [Header("UI")]
     [SerializeField] private Transform nodeContainer;
     [SerializeField] private GameObject nodePrefab;
+    public Transform lineContainer;
 
     [SerializeField] private MapGenerator generator;
 
     Dictionary<int, MapNodeUI> nodeUIById = new();
     private MapNodeUI currentNode;
 
+
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         if (MapRunData.currentMap == null)
         {
-            //MapRunData.currentSeed = generator.seed;
             generator.seed = MapRunData.currentSeed;
             MapRunData.currentMap = generator.GenerateMap();
         }
 
         PrintMapDebug(MapRunData.currentMap);
-        GenerateMapUI(MapRunData.currentMap);
 
-        if (MapRunData.currentNode != null && nodeUIById.TryGetValue(MapRunData.currentNode.id, out var selectedNode))
-        {
-            SelectNode(selectedNode);
-        }
-        else
-        {
-            // Brak wybranego node'a – tylko Start aktywny
-            foreach (var kvp in nodeUIById)
-            {
-                bool isStart = kvp.Value.GetNodeData().type == NodeType.Start;
-                kvp.Value.SetInteractable(isStart);
-            }
-
-            MapRunData.currentNode = null;
-        }
+        
+        StartCoroutine(GenerateMapUIAsync(MapRunData.currentMap));
     }
 
-    private void GenerateMapUI(MapData map)
+    private IEnumerator GenerateMapUIAsync(MapData map)
     {
+        nodeUIById.Clear();
+
+        
         foreach (Transform child in nodeContainer)
         {
             Destroy(child.gameObject);
         }
 
+        
         for (int col = 0; col < map.columns.Count; col++)
         {
             GameObject columnGroup = new GameObject($"Column{col}", typeof(RectTransform));
@@ -69,7 +68,12 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        foreach (var col in MapRunData.currentMap.columns)
+        
+        yield return null;
+        Canvas.ForceUpdateCanvases();
+
+        
+        foreach (var col in map.columns)
         {
             foreach (var nodeData in col)
             {
@@ -80,10 +84,27 @@ public class MapManager : MonoBehaviour
                         if (nodeUIById.TryGetValue(targetId, out MapNodeUI toNode))
                         {
                             fromNode.AddConnection(toNode);
+                            fromNode.DrawConnectionTo(toNode);
                         }
                     }
                 }
             }
+        }
+
+        
+        if (MapRunData.currentNode != null && nodeUIById.TryGetValue(MapRunData.currentNode.id, out var selectedNode))
+        {
+            SelectNode(selectedNode);
+        }
+        else
+        {
+            foreach (var kvp in nodeUIById)
+            {
+                bool isStart = kvp.Value.GetNodeData().type == NodeType.Start;
+                kvp.Value.SetInteractable(isStart);
+            }
+
+            MapRunData.currentNode = null;
         }
     }
 
@@ -126,4 +147,6 @@ public class MapManager : MonoBehaviour
         MapRunData.currentNode.wasVisisted = true;
         node.UpdateVisual();
     }
+
+    
 }

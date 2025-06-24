@@ -114,16 +114,18 @@ public class MapGenerator : MonoBehaviour
         }
 
 
+
         for (int col = 0; col < map.columns.Count - 1; col++)
         {
-            foreach (var current in map.columns[col])
-            {
-                var nextColumn = map.columns[col + 1];
+            var currentColumn = map.columns[col];
+            var nextColumn = map.columns[col + 1];
 
+            foreach(var current in currentColumn)
+            {
                 int connections = Random.Range(1, Mathf.Min(3, nextColumn.Count + 1));
                 var used = new HashSet<int>();
 
-                for (int c = 0; c < connections; c++)
+                for (int i = 0; i < connections; i++)
                 {
                     int index;
                     do
@@ -132,6 +134,16 @@ public class MapGenerator : MonoBehaviour
                     } while (!used.Add(index));
 
                     current.connectedTo.Add(nextColumn[index].id);
+                }
+            }
+
+            foreach(var target in nextColumn)
+            {
+                bool isConnected = currentColumn.Any(node => node.connectedTo.Contains(target.id));
+                if(!isConnected)
+                {
+                    var randomSource = currentColumn[Random.Range(0, currentColumn.Count)];
+                    randomSource.connectedTo.Add(target.id);
                 }
             }
         }

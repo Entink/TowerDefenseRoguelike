@@ -708,6 +708,7 @@ GameObject:
   - component: {fileID: 847003786}
   - component: {fileID: 847003788}
   - component: {fileID: 847003787}
+  - component: {fileID: 847003789}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -791,6 +792,18 @@ MonoBehaviour:
   OnGoldChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &847003789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847003783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffcd0a0402a62864d80f289d8f70c717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &881750442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4663869503012152823, guid: 01e22de5a04aea64d821e7dae7a875cd, type: 3}
@@ -1360,6 +1373,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 678520034377100008, guid: 8e0a90a6c40983345b3d5c4b8d77bf48, type: 3}
+      propertyPath: unitype
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2206786114333225966, guid: 8e0a90a6c40983345b3d5c4b8d77bf48, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.56
@@ -1465,6 +1482,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1988726814654187173, guid: 1f836d74f97b9974db9c13a90edc41c7, type: 3}
+      propertyPath: damage
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4583388451463704840, guid: 1f836d74f97b9974db9c13a90edc41c7, type: 3}
       propertyPath: m_Name
       value: TestAllyWarrior
@@ -1537,6 +1558,18 @@ PrefabInstance:
     - target: {fileID: 2273109985452707672, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
+      propertyPath: maxHP
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
+      propertyPath: unitype
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5667778855852757539, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
       propertyPath: m_Name

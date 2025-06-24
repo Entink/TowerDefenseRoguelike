@@ -29,6 +29,19 @@ public class VictoryScreenManager : MonoBehaviour
 
     private void OnContinue()
     {
-        SceneLoader.LoadScene("MapScene");
+        if(MapRunData.currentNode.type == NodeType.Boss)
+        {
+            RunData.ResetRun();
+            MapRunData.Reset();
+            RunResources.Reset();
+
+            SceneLoader.LoadScene("MainBaseScene");
+        }
+        else
+        {
+            SceneLoader.LoadScene("MapScene");
+
+        }
+
     }
 }

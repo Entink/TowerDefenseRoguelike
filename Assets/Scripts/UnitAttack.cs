@@ -67,7 +67,18 @@ public class UnitAttack : MonoBehaviour
                     UnitController uc = target.GetComponent<UnitController>();
                     if (uc != null)
                     {
-                        uc.TakeDamage(stats.damage, stats.kbForce);
+                        UnitStats attackerStats = stats;
+                        UnitStats targetStats = target.GetComponent<UnitStats>();
+
+                        float multiplier = 1f;
+
+                        if(attackerStats != null && targetStats != null)
+                        {
+                            multiplier = UnitTypeHelper.GetBonusMultiplier(attackerStats.unitype, targetStats.unitype);
+                        }
+
+                        float finalDamage = attackerStats.damage * multiplier;
+                        uc.TakeDamage(finalDamage, stats.kbForce);
                         continue;
                     }
 

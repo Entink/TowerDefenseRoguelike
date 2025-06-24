@@ -1,18 +1,12 @@
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 public class UnitSpawner : MonoBehaviour
 {
-    [System.Serializable]
-    public class SpawnableUnit
-    {
-        public GameObject prefab;
-        public KeyCode hotkey;
-    }
-
     public Transform spawnPoint;
-    public SpawnableUnit[] units;
-
+    
+    public List<UnitTemplate> units = new List<UnitTemplate>();
     private float[] nextAvailableTimes;
 
     private void Awake()
@@ -22,14 +16,14 @@ public class UnitSpawner : MonoBehaviour
             BaseController[] bases = FindObjectsOfType<BaseController>();
             foreach (var b in bases)
             {
-                if(b.isPlayerBase)
+                if (b.isPlayerBase)
                 {
                     spawnPoint = b.transform;
                     break;
                 }
             }
 
-            if(spawnPoint == null)
+            if (spawnPoint == null)
             {
                 Debug.LogWarning("Nie znaleziono bazy gracza.");
             }
@@ -38,18 +32,39 @@ public class UnitSpawner : MonoBehaviour
 
     private void Start()
     {
-        if(RunData.selectedUnits != null && RunData.selectedUnits.Count > 0)
+        units.Clear();
+
+        for(int i = 0; i < RunData.selectedUnits.Count; i++)
         {
-            units = RunData.selectedUnits.Select(u => new SpawnableUnit { prefab = u }).ToArray();
+            GameObject prefab = RunData.selectedUnits[i];
+            KeyCode hotkey = GetHotkeyForIndex(i);
+            units.Add(new UnitTemplate(prefab, hotkey));
         }
-        nextAvailableTimes = new float[units.Length];
+
+        nextAvailableTimes = new float[units.Count];
+    }
+
+    private KeyCode GetHotkeyForIndex(int index)
+    {
+        if(index >= 0 && index <= 8)
+        {
+            return KeyCode.Alpha1 + index;
+        }
+        else if(index == 9)
+        {
+            return KeyCode.Alpha0;
+        }
+        else
+        {
+            return KeyCode.None;
+        }
     }
 
     private void FixedUpdate()
     {
-        for (int i = 0; i < units.Length; i++)
+        for (int i = 0; i < units.Count; i++)
         {
-            if(Input.GetKeyDown(units[i].hotkey))
+            if (Input.GetKeyDown(units[i].hotkey))
             {
                 TrySpawnUnit(i);
             }
@@ -58,43 +73,42 @@ public class UnitSpawner : MonoBehaviour
 
     public void TrySpawnUnit(int index)
     {
-        if (index < 0 || index >= units.Length)
+        if (index < 0 || index >= units.Count)
         {
             return;
         }
 
-        UnitStats stats = units[index].prefab.GetComponent<UnitStats>();
-        if(stats == null)
+
+        UnitTemplate template = units[index];
+        UnitStats stats = template.prefab.GetComponent<UnitStats>();
+        if (stats == null)
         {
             return;
         }
 
-        foreach (var item in RunData.purchasedItems)
-        {
-            item.effect?.ApplyEffect(stats);
-        }
+
 
         float currentTime = Time.time;
-        if(currentTime < nextAvailableTimes[index])
+        if (currentTime < nextAvailableTimes[index])
         {
             Debug.Log("Jednostka jest na cooldownie");
             return;
         }
 
-        if (CurrencyManager.instance.CanAfford(stats.cost) && GameManager.instance.CanSpawnUnit())
+        if (CurrencyManager.instance.CanAfford(template.cost) && GameManager.instance.CanSpawnUnit())
         {
-            CurrencyManager.instance.SpendGold(stats.cost);
-            GameObject unit = Instantiate(units[index].prefab, spawnPoint.position, Quaternion.identity);
-            
+            CurrencyManager.instance.SpendGold(template.cost);
+            GameObject unit = Instantiate(template.prefab, spawnPoint.position, Quaternion.identity);
 
-            nextAvailableTimes[index] = currentTime + stats.cooldown;
+
+            nextAvailableTimes[index] = currentTime + template.cooldown;
         }
         else
         {
             Debug.Log("Nie staæ lub limit jednostek");
         }
 
-        
+
     }
 
     public float GetCooldownRemaming(int index)
@@ -104,16 +118,16 @@ public class UnitSpawner : MonoBehaviour
 
     public float GetUnitCooldown(int index)
     {
-        return units[index].prefab.GetComponent<UnitStats>().cooldown;
+        return units[index].cooldown;
     }
 
     public int GetUnitCost(int index)
     {
-        return units[index].prefab.GetComponent<UnitStats>().cost;
+        return units[index].cost;
     }
 
     public string GetUnitName(int index)
     {
-        return units[index].prefab.name;
+        return units[index].unitName;
     }
 }

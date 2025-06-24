@@ -27,6 +27,17 @@ public static class RunResources
         materials += amount;
     }
 
+    public static bool TrySpendCash(int amount)
+    {
+        if(cash >= amount)
+        {
+            cash -= amount;
+            return true;
+        }
+
+        return false;
+    }
+
     public static int GetCash() => cash;
     public static int GetMaterials() => materials;
 

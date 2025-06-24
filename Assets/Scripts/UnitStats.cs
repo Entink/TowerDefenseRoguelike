@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class UnitStats : MonoBehaviour
 {
+
     [Header("Unit Info")]
     public string unitName;
     public bool ally;
+
+    [Header("Type")]
+    public UnitType unitype;
 
     [Header("Health")]
     public float maxHP;
@@ -14,7 +18,7 @@ public class UnitStats : MonoBehaviour
 
     [Header("Combat")]
     public float attackSpeed;
-    public int damage;
+    public float damage;
     public float attackRange;
     public int multiStrikeCount;
     public float multiStrikeDelay;
@@ -30,5 +34,12 @@ public class UnitStats : MonoBehaviour
     [Header("Economy")]
     public int cost;
     public float cooldown;
+
+
+    private void Awake()
+    {
+        maxHP *= UnitStatsModifiers.hpMultiplier;
+        damage *= UnitStatsModifiers.damageMultiplier;
+    }
 
 }

@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class UnitButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public int unitIndex;
@@ -22,18 +21,18 @@ public class UnitButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         button = GetComponent<Button>();
         tooltipBox.SetActive(false);
 
-        GetComponent<Button>().onClick.AddListener(() =>
+        button.onClick.AddListener(() =>
         {
-            UnitSpawner spawner = FindObjectOfType<UnitSpawner>();
             spawner.TrySpawnUnit(unitIndex);
         });
     }
 
     private void FixedUpdate()
     {
+        if (unitIndex >= spawner.units.Count) return;
+
         string name = spawner.GetUnitName(unitIndex);
         SetLabel(name);
-        
 
         float remaining = spawner.GetCooldownRemaming(unitIndex);
         float total = spawner.GetUnitCooldown(unitIndex);
@@ -50,18 +49,16 @@ public class UnitButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             button.interactable = true;
         }
 
-        if(tooltipBox.activeSelf)
+        if (tooltipBox.activeSelf)
         {
             int cost = spawner.GetUnitCost(unitIndex);
             float cd = spawner.GetCooldownRemaming(unitIndex);
-
             tooltipText.text = $"Cost: {cost}\nCD: {cd:0.0}s";
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        
         tooltipBox.SetActive(true);
     }
 

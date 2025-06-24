@@ -17,11 +17,15 @@ public class SendUnitButtonManager : MonoBehaviour
             return;
         }
 
-        spawner.units = new UnitSpawner.SpawnableUnit[selectedUnits.Count];
+        spawner.units = new List<UnitTemplate>();
 
         for(int i = 0; i < selectedUnits.Count; i++)
         {
             GameObject unit = selectedUnits[i];
+            KeyCode hotkey = GetHotkey(i);
+
+            UnitTemplate template = new UnitTemplate(unit, hotkey);
+            spawner.units.Add(template);
 
             GameObject buttonGO = Instantiate(buttonPrefab, buttonContainer);
             UnitButtonUI buttonUI = buttonGO.GetComponent<UnitButtonUI>();
@@ -31,13 +35,24 @@ public class SendUnitButtonManager : MonoBehaviour
             buttonUI.unitIndex = i;
             buttonUI.spawner = spawner;
 
-            spawner.units[i] = new UnitSpawner.SpawnableUnit
-            {
-                prefab = unit,
-                hotkey = KeyCode.Alpha1 + i
-            };
         }
 
-        Debug.Log($"Przypisano {spawner.units.Length} jednostek do spawnera.");
+        Debug.Log($"Przypisano {spawner.units.Count} jednostek do spawnera.");
+    }
+
+    private KeyCode GetHotkey(int index)
+    {
+        if (index >= 0 && index <= 8)
+        {
+            return KeyCode.Alpha1 + index;
+        }
+        else if (index == 9)
+        {
+            return KeyCode.Alpha0;
+        }
+        else
+        {
+            return KeyCode.None;
+        }
     }
 }

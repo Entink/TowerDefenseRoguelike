@@ -4,17 +4,21 @@ using UnityEngine;
 public static class RunData
 {
     public static List<GameObject> selectedUnits = new List<GameObject>();
+    public static List<ShopItemData> purchasedItems = new List<ShopItemData>();
 
-    public static List<ShopItem> purchasedItems = new List<ShopItem>();
 
-    public static void AddShopItem(ShopItem item)
+    public static void AddShopItem(ShopItemData item)
     {
         purchasedItems.Add(item);
     }
+
+
 
     public static void ResetRun()
     {
         selectedUnits.Clear();
         purchasedItems.Clear();
+        UnitStatsModifiers.Reset();
+        
     }
 }

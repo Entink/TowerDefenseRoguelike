@@ -17,11 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("== PRZEDMIOTY W RUNIE ==");
-        foreach(var item in RunData.purchasedItems)
-        {
-            Debug.Log($"- {item.name}: {item.description}");
-        }
+        
     }
 
     public bool CanSpawnUnit()

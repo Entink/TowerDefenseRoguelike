@@ -641,9 +641,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 17db576d5c14c224cab458f03d898e3a, type: 2}
   - {fileID: 11400000, guid: 4956a5c9e5cd3324ba6ca2006c6dc928, type: 2}
   - {fileID: 11400000, guid: 9a616d3a32d202a4c9f9e93c58d15abc, type: 2}
+  - {fileID: 11400000, guid: 0cacb5e7a0b95134e85664fb7eaa77de, type: 2}
   itemUIPrefab: {fileID: 1941749846920336067, guid: b3ddb877567eb974d9243d68eebab4a3, type: 3}
   container: {fileID: 849670584}
-  itemsToShow: 3
+  itemsToShow: 4
   cashText: {fileID: 264109360}
   returnButton: {fileID: 1142995273}
 --- !u!4 &1074214420

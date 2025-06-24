@@ -40,6 +40,7 @@ public class UnitStats : MonoBehaviour
     {
         maxHP *= UnitStatsModifiers.hpMultiplier;
         damage *= UnitStatsModifiers.damageMultiplier;
+        cooldown *= UnitStatsModifiers.cooldownMultiplier;
     }
 
 }

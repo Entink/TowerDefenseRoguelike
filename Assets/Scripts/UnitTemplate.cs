@@ -18,7 +18,7 @@ public class UnitTemplate
         UnitStats stats = prefab.GetComponent<UnitStats>();
         unitName = stats.unitName;
         cost = Mathf.RoundToInt(stats.cost * UnitStatsModifiers.discountMultiplier);
-        cooldown = stats.cooldown;
+        cooldown = stats.cooldown * UnitStatsModifiers.cooldownMultiplier;
     }
 
 

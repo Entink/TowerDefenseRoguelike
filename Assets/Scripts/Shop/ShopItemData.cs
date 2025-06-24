@@ -27,6 +27,10 @@ public class ShopItemData : ScriptableObject
                 UnitStatsModifiers.discountMultiplier *= effectValue;
                 break;
 
+            case ShopItemEffectType.Cooldown:
+                UnitStatsModifiers.cooldownMultiplier *= effectValue;
+                break;
+
             default:
                 Debug.LogWarning($"Nieobs³ugiwany efekt przedmiotu: {effectType}");
                 break;
@@ -42,6 +46,7 @@ public enum ShopItemEffectType
     BonusHP,
     BonusDamage,
     Discount,
+    Cooldown,
     None
 }
 

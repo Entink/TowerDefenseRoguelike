@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 688893676}
   - component: {fileID: 688893678}
   - component: {fileID: 688893679}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,9 +593,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 349614403
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -59
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1417,6 +1417,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2652816014551984396, guid: 8e0a90a6c40983345b3d5c4b8d77bf48, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5731584507761909605, guid: cbafe56d017d88e4e9261bfadab84a8f, type: 3}
     - target: {fileID: 3272007393060756805, guid: 8e0a90a6c40983345b3d5c4b8d77bf48, type: 3}
       propertyPath: m_Name
       value: TestAllyRanger
@@ -1444,11 +1448,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 888302760302288803, guid: 1f836d74f97b9974db9c13a90edc41c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.94
+      value: 6.91
       objectReference: {fileID: 0}
     - target: {fileID: 888302760302288803, guid: 1f836d74f97b9974db9c13a90edc41c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.85
+      value: -3.72
       objectReference: {fileID: 0}
     - target: {fileID: 888302760302288803, guid: 1f836d74f97b9974db9c13a90edc41c7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1486,6 +1490,10 @@ PrefabInstance:
       propertyPath: damage
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3901037552179545409, guid: 1f836d74f97b9974db9c13a90edc41c7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4495478712733764576, guid: a9f37448daca71049af323d5197fe797, type: 3}
     - target: {fileID: 4583388451463704840, guid: 1f836d74f97b9974db9c13a90edc41c7, type: 3}
       propertyPath: m_Name
       value: TestAllyWarrior

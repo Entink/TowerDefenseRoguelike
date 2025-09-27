@@ -13,6 +13,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1327659905863972453, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4495478712733764576, guid: a9f37448daca71049af323d5197fe797, type: 3}
+    - target: {fileID: 1327659905863972453, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
@@ -125,8 +129,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7633094224591314503, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_Size.y
+      value: 1.3264778
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633094224591314503, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633094224591314503, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.039521098
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633094224591314503, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633094224591314503, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.95555556
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633094224591314503, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.4222223
       objectReference: {fileID: 0}
     - target: {fileID: 7902042828665981605, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: m_AnchorMax.x
@@ -183,15 +207,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.039521098}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.95555556, y: 1.4222223}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.3264778}
   m_EdgeRadius: 0

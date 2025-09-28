@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            
             Debug.Log("Win");
             SceneLoader.LoadScene("VictoryScene");
         }

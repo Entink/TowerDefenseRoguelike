@@ -17,15 +17,15 @@ public class SendUnitButtonManager : MonoBehaviour
             return;
         }
 
-        spawner.units = new List<UnitTemplate>();
+        //spawner.units = new List<UnitTemplate>();
 
         for(int i = 0; i < selectedUnits.Count; i++)
         {
             GameObject unit = selectedUnits[i];
             KeyCode hotkey = GetHotkey(i);
 
-            UnitTemplate template = new UnitTemplate(unit, hotkey);
-            spawner.units.Add(template);
+            //UnitTemplate template = new UnitTemplate(unit, hotkey);
+            //spawner.units.Add(template);
 
             GameObject buttonGO = Instantiate(buttonPrefab, buttonContainer);
             UnitButtonUI buttonUI = buttonGO.GetComponent<UnitButtonUI>();

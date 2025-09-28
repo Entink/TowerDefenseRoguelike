@@ -8,17 +8,21 @@ public class VictoryScreenManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cashText;
     [SerializeField] private TextMeshProUGUI materialsText;
 
+    [SerializeField] private RunData runData;
+
     public int cashReward;
     public int materialsReward;
 
 
     private void Start()
     {
+        runData = FindAnyObjectByType<RunData>();
         continueButton.onClick.AddListener(OnContinue);
 
         int cash = RunResources.GetCash();
         int materials = RunResources.GetMaterials();
 
+        runData.AddModifier(RunModifierId.RecruitmentDrive, 1);
         RunResources.AddCash(cashReward);
         RunResources.AddMaterials(materialsReward);
         Debug.Log($"Cash: {RunResources.GetCash()} | Materials: {RunResources.GetMaterials()}");
@@ -31,6 +35,7 @@ public class VictoryScreenManager : MonoBehaviour
     {
         if(MapRunData.currentNode.type == NodeType.Boss)
         {
+            
             RunData.ResetRun();
             MapRunData.Reset();
             RunResources.Reset();

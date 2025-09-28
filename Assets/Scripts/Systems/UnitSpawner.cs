@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class UnitSpawner : MonoBehaviour
 {
+
+    [SerializeField] RunData runData;
     public Transform spawnPoint;
     
     public List<UnitTemplate> units = new List<UnitTemplate>();
@@ -11,6 +13,8 @@ public class UnitSpawner : MonoBehaviour
 
     private void Awake()
     {
+        runData = FindAnyObjectByType<RunData>();
+
         if (spawnPoint == null)
         {
             BaseController[] bases = FindObjectsOfType<BaseController>();
@@ -73,6 +77,7 @@ public class UnitSpawner : MonoBehaviour
 
     public void TrySpawnUnit(int index)
     {
+
         if (index < 0 || index >= units.Count)
         {
             return;
@@ -86,7 +91,7 @@ public class UnitSpawner : MonoBehaviour
             return;
         }
 
-
+        var (finalCost, finalCd) = GetAdjustedForIndex(index);
 
         float currentTime = Time.time;
         if (currentTime < nextAvailableTimes[index])
@@ -95,19 +100,20 @@ public class UnitSpawner : MonoBehaviour
             return;
         }
 
-        if (CurrencyManager.instance.CanAfford(template.cost) && GameManager.instance.CanSpawnUnit())
+        if (CurrencyManager.instance.CanAfford(finalCost) && GameManager.instance.CanSpawnUnit())
         {
-            CurrencyManager.instance.SpendGold(template.cost);
+            CurrencyManager.instance.SpendGold(finalCost);
             GameObject unit = Instantiate(template.prefab, spawnPoint.position, Quaternion.identity);
 
 
-            nextAvailableTimes[index] = currentTime + template.cooldown;
+            nextAvailableTimes[index] = currentTime + finalCd;
         }
         else
         {
             Debug.Log("Nie staæ lub limit jednostek");
         }
 
+        //Debug.Log($"IDX {index} base {units[index].cost}/{units[index].cooldown} -> final {finalCost}/{finalCd}");
 
     }
 
@@ -118,16 +124,30 @@ public class UnitSpawner : MonoBehaviour
 
     public float GetUnitCooldown(int index)
     {
-        return units[index].cooldown;
+        return GetAdjustedForIndex(index).cd;
     }
 
     public int GetUnitCost(int index)
     {
-        return units[index].cost;
+        return GetAdjustedForIndex(index).cost;
     }
 
     public string GetUnitName(int index)
     {
         return units[index].unitName;
+    }
+
+    private (int cost, float cd) GetAdjustedForIndex(int index)
+    {
+        var t = units[index];
+        float baseCost = t.cost;
+        float baseCd = t.cooldown;
+
+        var mods = (runData != null) ? runData.activeModifiers : RunData.I?.activeModifiers;
+        var adj = RunModifiers.GetAdjustedRecruitment(baseCost, baseCd, mods);
+
+        int finalCost = Mathf.CeilToInt(adj.cost);
+        float finalCd = adj.cooldown;
+        return (finalCost, finalCd);
     }
 }

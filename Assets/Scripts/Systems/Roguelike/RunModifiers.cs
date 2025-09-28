@@ -12,9 +12,9 @@ public static class RunModifiers
         {
             switch (s.id)
             {
-                case RunModifierId.RecruitmentDrive:
-                    effects.Add(new RecruitmentDriveModifier());
-                    break;
+                case RunModifierId.RecruitmentDrive: effects.Add(new RecruitmentDriveModifier()); break;
+                case RunModifierId.RushOrders:  effects.Add(new RushOrdersModifier()); break;
+                case RunModifierId.BulkDiscount: effects.Add(new BulkDiscountModifier()); break;
             }
         }
         return effects;

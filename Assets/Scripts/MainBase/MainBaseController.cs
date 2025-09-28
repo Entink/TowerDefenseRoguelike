@@ -8,6 +8,8 @@ public class MainBaseController : MonoBehaviour
 
     private int lastKnownMaterials = -1;
 
+    
+
     private void Update()
     {
         int current = RunResources.GetMaterials();

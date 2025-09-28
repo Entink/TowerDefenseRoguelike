@@ -7,7 +7,7 @@ public class MapGenerator : MonoBehaviour
     [Header("Map Settings")]
     public int seed;
     public int columns = 6;
-    public int minNodesPerColumn = 1;
+    public int minNodesPerColumn = 2;
     public int maxNodesPerColumn = 3;
 
     [Header("Fight Settings")]
@@ -166,13 +166,13 @@ public class MapGenerator : MonoBehaviour
         }
 
         float roll = Random.value;
-        if (roll < 0.4f)
+        if (roll < 0.75f)
         {
             return NodeType.Fight;
             
         }
 
-        if (roll < 0.7f)
+        if (roll < 0.85f)
         {
             return NodeType.Shop;
         }

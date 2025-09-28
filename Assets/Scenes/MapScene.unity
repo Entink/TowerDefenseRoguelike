@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 1
   columns: 20
-  minNodesPerColumn: 1
+  minNodesPerColumn: 2
   maxNodesPerColumn: 3
   totalFights: 3
 --- !u!4 &256546431

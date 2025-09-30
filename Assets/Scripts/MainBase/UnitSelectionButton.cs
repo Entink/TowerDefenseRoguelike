@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class UnitSelectionButton : MonoBehaviour
+public class UnitSelectionButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image background;
     [SerializeField] private TextMeshProUGUI label;
 
     private GameObject unitPrefab;
     private UnitSelectionManager selectionManager;
+
+    [Header("Skill Tree (MainBase)")]
+    [SerializeField] public UnitSkillTreePanel skillTreePanel;
 
     private bool isSelected = false;
 
@@ -18,14 +22,32 @@ public class UnitSelectionButton : MonoBehaviour
         selectionManager = manager;
 
         label.text = prefab.name;
-        GetComponent<Button>().onClick.AddListener(OnClick);
+        GetComponent<Button>().onClick.AddListener(OnLeftClick);
         UpdateVisual();
     }
 
-    private void OnClick()
+    private void OnLeftClick()
     {
         isSelected = selectionManager.ToggleSelection(unitPrefab);
         UpdateVisual();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right) return;
+
+        if (skillTreePanel == null)
+        {
+            Debug.LogWarning("UnitSkillTreePanel reference not set on UnitSelectionButton.");
+            return;
+        }
+
+        var stats = unitPrefab.GetComponent<UnitStats>();
+        if (stats == null) { Debug.LogWarning("UnitStats missing on prefab."); return; }
+
+        
+        skillTreePanel.gameObject.SetActive(true);
+        skillTreePanel.Open(stats.unitId);
     }
 
     private void UpdateVisual()

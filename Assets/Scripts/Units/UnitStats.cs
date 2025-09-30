@@ -6,6 +6,7 @@ public class UnitStats : MonoBehaviour
     [Header("Unit Info")]
     public string unitName;
     public bool ally;
+    public UnitId unitId;
 
     [Header("Type")]
     public UnitType unitype;
@@ -42,5 +43,7 @@ public class UnitStats : MonoBehaviour
         damage *= UnitStatsModifiers.damageMultiplier;
         cooldown *= UnitStatsModifiers.cooldownMultiplier;
     }
+
+    
 
 }

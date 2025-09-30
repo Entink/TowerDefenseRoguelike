@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b452e2c750b5cba478209abc0b19aa75, type: 3}
+  m_Name: UnitSkiilTree_Warrior
+  m_EditorClassIdentifier: 
+  unitId: 0
+  nodes:
+  - nodeId: atk_1
+    displayName: Attack Up
+    description: + 10% DMG
+    icon: {fileID: 0}
+    costMaterials: 3
+    prerequisites: []
+    maxLevel: 3
+    addPercentHP: 0
+    addPercentDMG: 10
+    reduceCooldown: 0
+  - nodeId: hp_1
+    displayName: HP Up
+    description: + 15% HP
+    icon: {fileID: 0}
+    costMaterials: 3
+    prerequisites: []
+    maxLevel: 3
+    addPercentHP: 15
+    addPercentDMG: 0
+    reduceCooldown: 0
+  - nodeId: hp_2
+    displayName: HP Up
+    description: + 5% HP
+    icon: {fileID: 0}
+    costMaterials: 5
+    prerequisites:
+    - hp_1
+    maxLevel: 5
+    addPercentHP: 5
+    addPercentDMG: 0
+    reduceCooldown: 0

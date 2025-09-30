@@ -37,6 +37,7 @@ public class UnitSelectionManager : MonoBehaviour
             GameObject buttonObj = Instantiate(unitButtonPrefab, unitButtonContainer);
             UnitSelectionButton usb = buttonObj.GetComponent<UnitSelectionButton>();
             usb.Setup(unit, this);
+            usb.skillTreePanel = FindObjectOfType<UnitSkillTreePanel>(true);
         }
     }
 

@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 6
   displayName: Better Platings
   shortDescription: +20% Max HP
-  icon: {fileID: 0}
+  icon: {fileID: -4651873353110961722, guid: 8875eea7ceaa60443b43b1ee4a300753, type: 3}
   rarity: 0
   stackable: 1
   maxStacks: 99

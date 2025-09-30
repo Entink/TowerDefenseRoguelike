@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 5
   displayName: Gold Mine
   shortDescription: +50% Gold per Second
-  icon: {fileID: 0}
+  icon: {fileID: -5325312635722052284, guid: 6eabbdadd7b84b246b639ac38d2c18b6, type: 3}
   rarity: 2
   stackable: 1
   maxStacks: 5

@@ -261,6 +261,8 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
+  isStunned: 0
+  stunEndTime: 0
 --- !u!114 &4600127789261272449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Test Ally Fast
   ally: 1
+  unitId: 3
   unitype: 0
   maxHP: 5
   speed: 2

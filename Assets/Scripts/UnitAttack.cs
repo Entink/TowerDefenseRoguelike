@@ -11,6 +11,8 @@ public class UnitAttack : MonoBehaviour
     [SerializeField, ReadOnly] private LayerMask enemyLayer;
 
     private Vector3? lastAOECenter = null;
+
+    public System.Action OnAttackFired;
     
 
     private void Start()
@@ -20,10 +22,13 @@ public class UnitAttack : MonoBehaviour
 
         enemyLayer = controller.GetEnemyLayer();
 
+        
         if (stats.attackSpeed > 0)
         {
             attackCoroutine = StartCoroutine(AttackCoroutine());
         }
+
+
     }
 
     private IEnumerator AttackCoroutine()
@@ -32,6 +37,13 @@ public class UnitAttack : MonoBehaviour
         
         while(true)
         {
+            if(controller != null && controller.IsStunned)
+            {
+                yield return null;
+                continue;
+            }
+
+
             List<Collider2D> targets = new List<Collider2D>();
 
             if (stats.isAOE)
@@ -94,6 +106,10 @@ public class UnitAttack : MonoBehaviour
                     yield return new WaitForSeconds(stats.multiStrikeDelay);
                 }
             }
+
+            if (targets.Count > 0)
+                OnAttackFired?.Invoke();
+
             yield return new WaitForSeconds(1f / stats.attackSpeed);
         }
     }

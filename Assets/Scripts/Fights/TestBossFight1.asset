@@ -16,10 +16,16 @@ MonoBehaviour:
   isBoss: 1
   levelLenght: 50
   enemies:
-  - enemyPrefab: {fileID: 5667778855852757539, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
-    delay: 0
+  - enemyPrefab: {fileID: 5667778855852757539, guid: f4278cfad6faeed4baa3adcadc9ea799, type: 3}
+    delay: 10
     quantity: 1
     quantityInterval: 0
     isInfinite: 0
     repeatInterval: 0
+  - enemyPrefab: {fileID: 5667778855852757539, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
+    delay: 5
+    quantity: 2
+    quantityInterval: 1
+    isInfinite: 1
+    repeatInterval: 5
   difficulty: 1

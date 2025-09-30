@@ -17,6 +17,11 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [SerializeField, ReadOnly] private LayerMask enemyLayer;
 
+    [SerializeField] private bool isStunned = false;
+    [SerializeField] private float stunEndTime = 0f;
+
+    [SerializeField] public bool IsStunned => isStunned;
+
 
 
     public float CurrentHP
@@ -80,6 +85,11 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void FixedUpdate()
     {
+        if(isStunned && Time.time >= stunEndTime)
+            isStunned = false;
+
+        if (IsStunned) return;
+
         if(!IsEnemyInFront())
         {
             Move();
@@ -212,5 +222,12 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         hpBar.Hide();
         HPBarManager.instance.SetHoveredState(hpBar, false);
 
+    }
+
+    public void ApplyStun(float duration)
+    {
+        if (duration <= 0f) return;
+        isStunned = true;
+        stunEndTime = Time.time + duration;
     }
 }

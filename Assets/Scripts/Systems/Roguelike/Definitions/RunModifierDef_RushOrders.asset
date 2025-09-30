@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 2
   displayName: Rush Orders
   shortDescription: 'Cost +10% | Cooldown -20% '
-  icon: {fileID: 0}
+  icon: {fileID: 6685263065563250904, guid: 2477c015dbf891b478bffeae5660172a, type: 3}
   rarity: 1
   stackable: 1
   maxStacks: 9

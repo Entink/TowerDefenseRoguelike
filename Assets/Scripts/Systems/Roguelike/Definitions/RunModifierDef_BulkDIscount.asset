@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 3
   displayName: Bulk Discount
   shortDescription: Cost -10%
-  icon: {fileID: 0}
+  icon: {fileID: -4727107568045193058, guid: 922779184051afd4198b8cf475a0aed7, type: 3}
   rarity: 0
   stackable: 1
   maxStacks: 9

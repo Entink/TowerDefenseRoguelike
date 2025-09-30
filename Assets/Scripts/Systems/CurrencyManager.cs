@@ -9,7 +9,11 @@ public class CurrencyManager : MonoBehaviour
     [SerializeField, ReadOnly] private int currentGold;
 
     [SerializeField] private float goldGainInterval;
-    [SerializeField] private int goldPerInterval;
+    [SerializeField] private int baseGoldPerInterval;
+    float currentGoldPerInterval;
+
+    [SerializeField] RunData runData;
+
 
     public UnityEvent<int> OnGoldChanged;
 
@@ -21,6 +25,18 @@ public class CurrencyManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (runData == null) runData = RunData.I;
+        if (runData != null) runData.OnModifiersChanged += RecalculatePassiveIncome;
+        RecalculatePassiveIncome();
+    }
+
+    private void OnDisable()
+    {
+        if (runData != null) runData.OnModifiersChanged -= RecalculatePassiveIncome;
+    }
+
     private void Start()
     {
         currentGold = startingGold;
@@ -30,7 +46,7 @@ public class CurrencyManager : MonoBehaviour
 
     private void PassiveIncome()
     {
-        AddGold(goldPerInterval);
+        AddGold(Mathf.RoundToInt(currentGoldPerInterval));
     }
 
     public void AddGold(int amount)
@@ -56,6 +72,14 @@ public class CurrencyManager : MonoBehaviour
     public int GetGold()
     {
         return currentGold;
+    }
+
+    void RecalculatePassiveIncome()
+    {
+        currentGoldPerInterval = baseGoldPerInterval;
+
+        var mods = (runData != null) ? runData.activeModifiers : RunData.I.activeModifiers;
+        RunModifiers.ApplyEconomy(mods, ref currentGoldPerInterval);
     }
 
 }

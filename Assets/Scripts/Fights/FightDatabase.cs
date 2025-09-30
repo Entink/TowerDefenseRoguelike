@@ -8,6 +8,7 @@ public class FightDatabase : MonoBehaviour
 
     [Header("List of available fights")]
     public List<FightData> allFights;
+    
 
 
     private void Awake()
@@ -45,5 +46,17 @@ public class FightDatabase : MonoBehaviour
         }
 
         return bosses[Random.Range(0, bosses.Count)];
+    }
+
+    public FightData GetByTypeAndIndex(NodeType type, int index)
+    {
+        var list = (type == NodeType.Boss)
+            ? allFights.Where(f => f != null && f.isBoss).ToList()
+            : allFights.Where(f => f != null && !f.isBoss).ToList();
+
+        if (list.Count == 0) return null;
+
+        int i = Mathf.Abs(index) % list.Count;
+        return list[i];
     }
 }

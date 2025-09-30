@@ -19,28 +19,37 @@ public class VictoryScreenManager : MonoBehaviour
 
     private void Start()
     {
+        bool isBossFight = false;
+        if (BattleDataCarrier.selectedFight != null)
+            isBossFight = BattleDataCarrier.selectedFight.isBoss;
+
         runData = FindAnyObjectByType<RunData>();
         continueButton.onClick.AddListener(OnContinue);
 
         int cash = RunResources.GetCash();
         int materials = RunResources.GetMaterials();
 
-        int seed = MapRunData.currentSeed;
-        int fightIndex = MapRunData.currentNode.id;
-
-        var choices = ModifierChooser.ChooseOptions(modifierDb, 3, seed, fightIndex);
-
-        Debug.Log("Wylosowane opcje:");
-        foreach (var c in choices)
-            Debug.Log($" - {c.displayName} ({c.rarity})");
-
-        modifierChoicePanel.ShowOptions(choices, (chosen) =>
+        if(!isBossFight)
         {
-            runData.AddModifier(chosen.id, chosen.defaultStacksOnPick);
-            Debug.Log($"Wybrano: {chosen.displayName}");
-            OnContinue();
+            int seed = MapRunData.currentSeed;
+            int fightIndex = MapRunData.currentNode.id;
 
-        });
+            var choices = ModifierChooser.ChooseOptions(modifierDb, 3, seed, fightIndex);
+
+            modifierChoicePanel.ShowOptions(choices, (chosen) =>
+            {
+                runData.AddModifier(chosen.id, chosen.defaultStacksOnPick);
+                Debug.Log($"Wybrano: {chosen.displayName}");
+                OnContinue();
+
+            });
+        }
+        else
+        {
+            if (modifierChoicePanel != null) modifierChoicePanel.gameObject.SetActive(false);
+            continueButton.gameObject.SetActive(true);
+        }
+        
 
         RunResources.AddCash(cashReward);
         RunResources.AddMaterials(materialsReward);

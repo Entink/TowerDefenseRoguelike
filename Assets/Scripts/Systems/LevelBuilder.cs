@@ -7,13 +7,14 @@ public class LevelBuilder : MonoBehaviour
     public Transform enemyBase;
 
     public FightData testFight;
+    [SerializeField] private FightData fight;
 
 
     public float baseOffsetFromEdge = 1f;
 
     private void Awake()
     {
-        FightData fight = BattleDataCarrier.selectedFight != null ? BattleDataCarrier.selectedFight : testFight;
+        fight = BattleDataCarrier.selectedFight != null ? BattleDataCarrier.selectedFight : testFight;
         if(fight == null)
         {
             Debug.LogError("Brak danych o walce!");

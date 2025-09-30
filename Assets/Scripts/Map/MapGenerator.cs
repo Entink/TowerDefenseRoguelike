@@ -21,21 +21,17 @@ public class MapGenerator : MonoBehaviour
         map.seed = seed;
 
         int nodeId = 0;
+        int fightCounter = 0;
+        int bossCounter = 0;
 
         for (int col = 0; col < columns; col++)
         {
             var nodeList = new List<MapNodeData>();
 
-            int nodeCount;
-
-            if (col == 0 || col == columns - 1)
-            {
-                nodeCount = 1;
-            }
-            else
-            {
-                nodeCount = Random.Range(minNodesPerColumn, maxNodesPerColumn + 1);
-            }
+            int nodeCount = (col == 0 || col == columns - 1)
+                ? 1
+                : Random.Range(minNodesPerColumn, maxNodesPerColumn + 1);
+            
 
             for (int i = 0; i < nodeCount; i++)
             {
@@ -49,19 +45,20 @@ public class MapGenerator : MonoBehaviour
                 else if (col == columns - 1)
                 {
                     node.type = NodeType.Boss;
+                    node.fightIndex = bossCounter++;
                 }
                 else
                 {
                     node.type = GetNodeType(col);
-                }
 
-                if(node.type == NodeType.Fight || node.type == NodeType.Boss)
-                {
-                    node.fightIndex = (col * 997 + i * 571 + seed) % totalFights;
+                    if (node.type == NodeType.Fight)
+                        node.fightIndex = fightCounter++;
                 }
 
                 nodeList.Add(node);
+
             }
+
 
             map.columns.Add(nodeList);
             
@@ -72,55 +69,48 @@ public class MapGenerator : MonoBehaviour
             foreach (var node in map.columns[1])
             {
                 node.type = NodeType.Fight;
+                node.fightIndex = fightCounter++;
             }
         }
 
-        
 
-        //Zliczanie wszystkich nodeów poza Start i Boss
         List<MapNodeData> allMiddleNodes = new List<MapNodeData>();
         for (int i = 1; i < columns - 1; i++)
-        {
             allMiddleNodes.AddRange(map.columns[i]);
-        }
 
-        //Wymuszenie obecnoœci sklepu
+
         if(!allMiddleNodes.Exists(n => n.type == NodeType.Shop))
         {
             var randomNode = allMiddleNodes[Random.Range(0, allMiddleNodes.Count)];
             randomNode.type = NodeType.Shop;
         }
 
-        //Wymuszenie obecnoœci Eventu
-        if(!allMiddleNodes.Exists(n => n.type == NodeType.Event))
+        if (!allMiddleNodes.Exists(n => n.type == NodeType.Event))
         {
             var randomNode = allMiddleNodes[Random.Range(0, allMiddleNodes.Count)];
             randomNode.type = NodeType.Event;
         }
 
-        //Wymuszenie obecnosci min. columns-2 walk
         int requiredFights = columns - 2;
         int currentFights = allMiddleNodes.Count(n => n.type == NodeType.Fight);
 
-        while(currentFights < requiredFights)
+        while (currentFights < requiredFights)
         {
-            var candidate = allMiddleNodes.Find(n => n.type != NodeType.Fight && n.type != NodeType.Shop && n.type != NodeType.Event);
-            if (candidate == null)
-            {
-                break;
-            }
-            candidate.type = NodeType.Fight;
+            var canditate = allMiddleNodes.Find(n => n.type != NodeType.Fight && n.type != NodeType.Shop && n.type != NodeType.Event);
+            if (canditate == null) break;
+
+            canditate.type = NodeType.Fight;
+            canditate.fightIndex = fightCounter++;
             currentFights++;
         }
 
 
-
-        for (int col = 0; col < map.columns.Count - 1; col++)
+        for(int col = 0; col < map.columns.Count - 1; col++)
         {
             var currentColumn = map.columns[col];
             var nextColumn = map.columns[col + 1];
 
-            foreach(var current in currentColumn)
+            foreach (var current in currentColumn)
             {
                 int connections = Random.Range(1, Mathf.Min(3, nextColumn.Count + 1));
                 var used = new HashSet<int>();
@@ -128,16 +118,15 @@ public class MapGenerator : MonoBehaviour
                 for (int i = 0; i < connections; i++)
                 {
                     int index;
-                    do
-                    {
-                        index = Random.Range(0, nextColumn.Count);
-                    } while (!used.Add(index));
+                    do { index = Random.Range(0, nextColumn.Count); }
+                    while (!used.Add(index));
 
                     current.connectedTo.Add(nextColumn[index].id);
                 }
             }
 
-            foreach(var target in nextColumn)
+
+            foreach (var target in nextColumn)
             {
                 bool isConnected = currentColumn.Any(node => node.connectedTo.Contains(target.id));
                 if(!isConnected)
@@ -149,35 +138,20 @@ public class MapGenerator : MonoBehaviour
         }
 
         return map;
-    }
 
+        
+    }
 
     private NodeType GetNodeType(int col)
     {
-        if (col == 0)
-        {
-            return NodeType.Start;
-            
-        }
-
-        if(col == columns - 1)
-        {
-            return NodeType.Boss;
-        }
+        if (col == 0) return NodeType.Start;
+        if (col == columns - 1) return NodeType.Boss;
 
         float roll = Random.value;
-        if (roll < 0.75f)
-        {
-            return NodeType.Fight;
-            
-        }
-
-        if (roll < 0.85f)
-        {
-            return NodeType.Shop;
-        }
-
+        if (roll < 0.75f) return NodeType.Fight;
+        if (roll < 0.85f) return NodeType.Shop;
         return NodeType.Event;
     }
+    
 
 }

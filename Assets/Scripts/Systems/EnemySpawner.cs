@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private Transform spawnPoint;
 
-    private FightData fight;
+    [SerializeField] private FightData fight;
     public FightData testFight;
 
 

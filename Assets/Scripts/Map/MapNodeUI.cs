@@ -31,7 +31,14 @@ public class MapNodeUI : MonoBehaviour
 
         if (data.type == NodeType.Fight || data.type == NodeType.Boss)
         {
-            BattleDataCarrier.selectedFight = FightDatabase.instance.allFights[data.fightIndex];
+            var fight = FightDatabase.instance.GetByTypeAndIndex(data.type, data.fightIndex);
+            if(fight == null)
+            {
+                Debug.LogError($"Fight not found for {data.type} index={data.fightIndex}");
+                return;
+            }
+
+            BattleDataCarrier.selectedFight = fight;
             SceneLoader.LoadScene("LoadingScene");
         }
         else if (data.type == NodeType.Shop)

@@ -57,16 +57,19 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             gameObject.name = stats.unitName;
         }
-
-        if (GameManager.instance.CanSpawnUnit())
+        if (isAlly)
         {
-            GameManager.instance.RegisterUnit();
+            if (GameManager.instance.CanSpawnUnit())
+            {
+                GameManager.instance.RegisterUnit();
+            }
+            else
+            {
+                Debug.LogWarning($"Nie mo¿na pojawiæ wiêcej jednostek. Osi¹gniêto limit {GameManager.instance.currentUnits}/{GameManager.instance.GetMaxUnits()}");
+                Destroy(gameObject);
+            }
         }
-        else
-        {
-            Debug.LogWarning($"Nie mo¿na pojawiæ wiêcej jednostek. Osi¹gniêto limit {GameManager.instance.currentUnits}/{GameManager.instance.maxUnits}");
-            Destroy(gameObject);
-        }
+        
 
         CurrentHP = stats.maxHP;
         hpBar.Hide();
@@ -140,12 +143,16 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Die()
     {
-        if(hpBar != null)
+        if(isAlly)
         {
-            HPBarManager.instance.UnregisterHPBar(hpBar);
-        }
+            if (hpBar != null)
+            {
+                HPBarManager.instance.UnregisterHPBar(hpBar);
+            }
 
-        GameManager.instance.UnregisterUnit();
+            GameManager.instance.UnregisterUnit();
+        }
+        
 
         if(deathEffect != null)
         {

@@ -104,6 +104,11 @@ public class UnitSpawner : MonoBehaviour
         {
             CurrencyManager.instance.SpendGold(finalCost);
             GameObject unit = Instantiate(template.prefab, spawnPoint.position, Quaternion.identity);
+            var sts = unit.GetComponent<UnitStats>();
+            var controller = unit.GetComponent<UnitController>();
+            var mods = (runData != null) ? runData.activeModifiers : RunData.I?.activeModifiers;
+            RunModifiers.ApplyOnSpawn(mods, sts, controller);
+            
 
 
             nextAvailableTimes[index] = currentTime + finalCd;

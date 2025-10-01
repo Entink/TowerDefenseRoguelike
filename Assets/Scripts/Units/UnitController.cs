@@ -22,6 +22,9 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [SerializeField] public bool IsStunned => isStunned;
 
+    [Header("Tree runtime bonuses")]
+    public float regenPerSecond = 0f;
+    public float lifeSteal = 0f;
 
 
     public float CurrentHP
@@ -89,6 +92,11 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             isStunned = false;
 
         if (IsStunned) return;
+
+        if(regenPerSecond > 0f && currentHP > 0 && currentHP < stats.maxHP)
+        {
+            Heal(regenPerSecond * Time.deltaTime);
+        }
 
         if(!IsEnemyInFront())
         {
@@ -229,5 +237,11 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (duration <= 0f) return;
         isStunned = true;
         stunEndTime = Time.time + duration;
+    }
+
+    public void Heal(float amount)
+    {
+        if (amount <= 0f || currentHP <= 0f) return;
+        currentHP = Mathf.Min(stats.maxHP, currentHP + amount);
     }
 }

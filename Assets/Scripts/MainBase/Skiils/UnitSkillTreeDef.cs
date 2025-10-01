@@ -21,11 +21,31 @@ public class SkillNode
 
     [Header("Recruitment (per level)")]
     public float reduceRecruitCostPercent;
+    public int addRecruitCostFlat;
     public float reduceRecruitCooldownPercent;
+    public float addRecruitCooldownFlat;
 
     [Header("Combat (per level)")]
     public float addPercentHP;
     public float addFlatHP;
     public float addPercentDMG;
+    public float addFlatDMG;
+
+    [Header("Range & AOE (per level)")]
+    public float addPercentRange;
+    public float addFlatRange;
+    public float addPercentAoe;
+    public float addFlatAoe;
+    public bool enableAOE;
+
+    [Header("Multistrike (per level)")]
+    public int addMultiStrike;
+
+    [Header("Survivability (per level)")]
+    [Range(0f, 1f)] public float knockbackResist;
+    public float regenPerSec;
+
+    [Header("Sustain (per level)")]
+    public float lifeSteal;
     
 }

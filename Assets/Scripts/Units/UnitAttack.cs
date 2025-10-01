@@ -91,6 +91,10 @@ public class UnitAttack : MonoBehaviour
 
                         float finalDamage = attackerStats.damage * multiplier;
                         uc.TakeDamage(finalDamage, stats.kbForce);
+                        if(controller != null && controller.lifeSteal > 0f)
+                        {
+                            controller.Heal(finalDamage * controller.lifeSteal);
+                        }
                         continue;
                     }
 

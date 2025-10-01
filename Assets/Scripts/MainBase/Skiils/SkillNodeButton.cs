@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -78,97 +79,173 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     string BuildTooltipText()
     {
+        
+        string Hit(int v) => v == 0 ? "" : (v > 0 ? $"+{v}" : $"{v}");
+
         int cur = level;
         int next = Mathf.Min(cur + 1, node.maxLevel);
+        bool maxed = (cur >= node.maxLevel);
 
-        bool prereqOk = true;
-        System.Text.StringBuilder reqSb = new System.Text.StringBuilder();
-        if(node.prerequisites != null && node.prerequisites.Length > 0)
+        // SUMY (Total) i Delty (Next) – per stat
+        // Recruitment
+        float totCostPct = (node.reduceRecruitCostPercent) * cur * 100f;
+        int totCostFlat = node.addRecruitCostFlat * cur;
+        float nxtCostPct = !maxed ? (node.reduceRecruitCostPercent) * 100f : 0f;
+        int nxtCostFlat = !maxed ? node.addRecruitCostFlat : 0;
+
+        float totCdPct = (node.reduceRecruitCooldownPercent) * cur * 100f;
+        float totCdFlat = node.addRecruitCooldownFlat * cur;
+        float nxtCdPct = !maxed ? (node.reduceRecruitCooldownPercent) * 100f : 0f;
+        float nxtCdFlat = !maxed ? node.addRecruitCooldownFlat : 0f;
+
+        // Combat
+        float totHpPct = (node.addPercentHP) * cur * 100f;
+        float totHpFlat = node.addFlatHP * cur;
+        float nxtHpPct = !maxed ? (node.addPercentHP) * 100f : 0f;
+        float nxtHpFlat = !maxed ? node.addFlatHP : 0;
+
+        float totDmgPct = (node.addPercentDMG) * cur * 100f;
+        float totDmgFlat = node.addFlatDMG * cur;
+        float nxtDmgPct = !maxed ? (node.addPercentDMG) * 100f : 0f;
+        float nxtDmgFlat = !maxed ? node.addFlatDMG : 0;
+
+        float totRangePct = (node.addPercentRange) * cur * 100f;
+        float totRangeFlat = node.addFlatRange * cur;
+        float nxtRangePct = !maxed ? (node.addPercentRange) * 100f : 0f;
+        float nxtRangeFlat = !maxed ? node.addFlatRange : 0f;
+
+        float totAoePct = (node.addPercentAoe) * cur * 100f;
+        float totAoeFlat = node.addFlatAoe * cur;
+        float nxtAoePct = !maxed ? (node.addPercentAoe) * 100f : 0f;
+        float nxtAoeFlat = !maxed ? node.addFlatAoe : 0f;
+
+        int totMulti = node.addMultiStrike * cur;
+        int nxtMulti = !maxed ? node.addMultiStrike : 0;
+
+        float totKb = (node.knockbackResist) * cur * 100f;
+        float nxtKb = !maxed ? (node.knockbackResist) * 100f : 0f;
+
+        float totRegen = node.regenPerSec * cur;
+        float nxtRegen = !maxed ? node.regenPerSec : 0f;
+
+        float totLs = (node.lifeSteal) * cur * 100f;
+        float nxtLs = !maxed ? (node.lifeSteal) * 100f : 0f;
+
+        // Budowa treœci
+        var sb = new System.Text.StringBuilder();
+
+        // Nag³ówek + opis
+        sb.AppendLine(node.displayName);
+        if (!string.IsNullOrEmpty(node.description))
         {
-            reqSb.Append("Requires: ");
-            for(int i = 0; i < node.prerequisites.Length; i++)
+            sb.AppendLine();
+            sb.AppendLine(node.description);
+        }
+
+        // Helper do sk³adania linii Total/Next
+        void AppendPair(string label, float pctTot, float pctNxt, float flatTot, float flatNxt, string unit = "", bool invertSignForPct = false)
+        {
+            // pct – zawsze jako znak ujemny gdy „reduce” (koszt/cd), st¹d invertSignForPct
+            float pctTotSign = invertSignForPct ? -pctTot : pctTot;
+            float pctNxtSign = invertSignForPct ? -pctNxt : pctNxt;
+
+            bool anyTot = Mathf.Abs(pctTot) > 0.0001f || Mathf.Abs(flatTot) > 0.0001f;
+            bool anyNxt = Mathf.Abs(pctNxt) > 0.0001f || Mathf.Abs(flatNxt) > 0.0001f;
+
+            if (anyTot || anyNxt)
             {
-                var pre = node.prerequisites[i];
-                int preLvl = UnitSkillProgress.GetLevel(unit, pre);
-                if (preLvl < 1) prereqOk = false;
-                reqSb.Append(pre);
-                if (i < node.prerequisites.Length - 1) reqSb.Append(", ");
+                sb.AppendLine();
+                sb.Append(label).Append(": ");
+                if (anyTot)
+                {
+                    var parts = new List<string>();
+                    if (Mathf.Abs(pctTotSign) > 0.0001f) parts.Add($"{pctTotSign:+0;-0;0}%");
+                    if (Mathf.Abs(flatTot) > 0.0001f) parts.Add($"{flatTot:+0.##;-0.##;0}{unit}");
+                    sb.Append("Total ").Append(string.Join(" & ", parts));
+                }
+                if (anyNxt && !maxed)
+                {
+                    var partsN = new List<string>();
+                    if (Mathf.Abs(pctNxtSign) > 0.0001f) partsN.Add($"{pctNxtSign:+0;-0;0}%");
+                    if (Mathf.Abs(flatNxt) > 0.0001f) partsN.Add($"{flatNxt:+0.##;-0.##;0}{unit}");
+                    if (anyTot) sb.Append(", ");
+                    sb.Append("Next ").Append(string.Join(" & ", partsN));
+                }
             }
         }
 
-        bool maxed = (cur >= node.maxLevel);
-        int cost = node.costMaterials;
+        // Recruitment: cost / cooldown (proc traktujemy jako „reduce” – znak ujemny)
+        AppendPair("Cost", totCostPct, nxtCostPct, totCostFlat, nxtCostFlat, "", invertSignForPct: true);
+        AppendPair("Cooldown", totCdPct, nxtCdPct, totCdFlat, nxtCdFlat, "s", invertSignForPct: true);
 
-        float totHp = node.addPercentHP * cur * 100f;
-        float totDmg = node.addPercentDMG * cur * 100f;
-        float totCd = node.reduceRecruitCooldownPercent * cur * 100f;
-        float totCost = node.reduceRecruitCostPercent * cur * 100f;
-        float totHpFlat = node.addFlatHP * cur;
-        
+        // Combat: HP / DMG / Range / AOE
+        AppendPair("HP", totHpPct, nxtHpPct, totHpFlat, nxtHpFlat);
+        AppendPair("DMG", totDmgPct, nxtDmgPct, totDmgFlat, nxtDmgFlat);
+        AppendPair("Range", totRangePct, nxtRangePct, totRangeFlat, nxtRangeFlat);
+        AppendPair("AOE rad.", totAoePct, nxtAoePct, totAoeFlat, nxtAoeFlat);
 
-        float nextHp = (next > cur) ? node.addPercentHP * 100f : 0f;
-        float nextDmg = (next > cur) ? node.addPercentDMG * 100f : 0f;
-        float nextCd = (next > cur) ? node.reduceRecruitCooldownPercent * 100f : 0f;
-        float nextCost = (next > cur) ? node.reduceRecruitCostPercent * 100f : 0f;
-        float nextHpFlat = (next > cur) ? node.addFlatHP : 0f;
+        // Multi-Strike / KB / Regen / Lifesteal
+        if (totMulti != 0 || nxtMulti != 0)
+        {
+            sb.AppendLine();
+            sb.Append("Multi-Strike: ");
+            if (totMulti != 0) sb.Append($"Total {Hit(totMulti)}");
+            if (nxtMulti != 0 && !maxed)
+            {
+                if (totMulti != 0) sb.Append(", ");
+                sb.Append($"Next {Hit(nxtMulti)}");
+            }
+        }
+        if (Mathf.Abs(totKb) > 0.0001f || Mathf.Abs(nxtKb) > 0.0001f)
+        {
+            sb.AppendLine();
+            sb.Append("KB Resist: ");
+            if (Mathf.Abs(totKb) > 0.0001f) sb.Append($"Total {totKb:+0;-0;0}%");
+            if (Mathf.Abs(nxtKb) > 0.0001f && !maxed)
+            {
+                if (Mathf.Abs(totKb) > 0.0001f) sb.Append(", ");
+                sb.Append($"Next {nxtKb:+0;-0;0}%");
+            }
+        }
+        if (Mathf.Abs(totRegen) > 0.0001f || Mathf.Abs(nxtRegen) > 0.0001f)
+        {
+            sb.AppendLine();
+            sb.Append("Regen: ");
+            if (Mathf.Abs(totRegen) > 0.0001f) sb.Append($"Total {totRegen:+0.##;-0.##;0} HP/s");
+            if (Mathf.Abs(nxtRegen) > 0.0001f && !maxed)
+            {
+                if (Mathf.Abs(totRegen) > 0.0001f) sb.Append(", ");
+                sb.Append($"Next {nxtRegen:+0.##;-0.##;0} HP/s");
+            }
+        }
+        if (Mathf.Abs(totLs) > 0.0001f || Mathf.Abs(nxtLs) > 0.0001f)
+        {
+            sb.AppendLine();
+            sb.Append("Lifesteal: ");
+            if (Mathf.Abs(totLs) > 0.0001f) sb.Append($"Total {totLs:+0;-0;0}%");
+            if (Mathf.Abs(nxtLs) > 0.0001f && !maxed)
+            {
+                if (Mathf.Abs(totLs) > 0.0001f) sb.Append(", ");
+                sb.Append($"Next {nxtLs:+0;-0;0}%");
+            }
+        }
 
-        var sb = new System.Text.StringBuilder();
+        // Enable AOE (informacja)
+        if (node.enableAOE)
+        {
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.Append(cur > 0 ? "AOE: enabled" : "AOE: will be enabled");
+        }
 
-        sb.AppendLine(node.displayName);
+        // Koszt i poziom na dole
         sb.AppendLine();
-
-        if(!string.IsNullOrEmpty(node.description))
-        {
-            sb.AppendLine(node.description);
-            sb.AppendLine();
-        }
-
-        if(cur > 0)
-        {
-            sb.Append("Total: ");
-            bool any = false;
-            if(node.addPercentHP != 0f) { sb.Append($"+{totHp:0}% HP"); any = true; }
-            if (node.addFlatHP != 0f) { if (any) sb.Append(", "); sb.Append($"+{totHpFlat:0} HP"); any = true; }
-            if (node.addPercentDMG != 0f) { if (any) sb.Append(", "); sb.Append($"+{totDmg:0}% DMG"); any = true; }
-            if(node.reduceRecruitCooldownPercent != 0f) { if (any) sb.Append(", "); sb.Append($"-{totCd:0}% CD"); any = true; }
-            if(node.reduceRecruitCostPercent != 0f) { if (any) sb.Append(", "); sb.Append($"-{totCost:0}% cost"); any = true; }
-            if (any) sb.AppendLine();
-            
-        }
-
-        if (!maxed)
-        {
-            sb.Append("Next: ");
-            bool anyN = false;
-            if (nextHp != 0f) { sb.Append($"+{nextHp:0}% HP"); anyN = true; }
-            if (nextHpFlat != 0f) { if (anyN) sb.Append(", "); sb.Append($"+{nextHpFlat:0} HP"); anyN = true; }
-            if (nextDmg != 0f) { if (anyN) sb.Append(", "); sb.Append($"+{nextDmg:0}% DMG"); anyN = true; }
-            if (nextCd != 0f) { if (anyN) sb.Append(", "); sb.Append($"-{nextCd:0}% CD"); anyN = true; }
-            if (nextCost != 0f) { if (anyN) sb.Append(", "); sb.Append($"-{nextCost:0}% Cost"); anyN = true; }
-            if (!anyN) sb.Append("no effect");
-            sb.AppendLine();
-        }
-        else
-        {
-            sb.AppendLine("Max level reached");
-        }
-
-        if (!maxed)
-        {
-            sb.AppendLine();
-            sb.AppendLine($"Cost: {cost} materials");
-        }
-
-        if(reqSb.Length > 0)
-        {
-            sb.AppendLine(reqSb.ToString());
-            if (!prereqOk) sb.AppendLine("Prerequisites not met");
-        }
-
         sb.AppendLine();
-        sb.AppendLine($"Level: {cur}/{node.maxLevel}");
+        sb.AppendLine($"Cost: {node.costMaterials} materials");
+        sb.Append($"Level: {cur}/{node.maxLevel}");
 
         return sb.ToString();
     }
+
 
 }

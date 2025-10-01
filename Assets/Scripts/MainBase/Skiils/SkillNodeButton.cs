@@ -99,13 +99,18 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         bool maxed = (cur >= node.maxLevel);
         int cost = node.costMaterials;
 
-        float totHp = node.addPercentDMG * cur * 100f;
+        float totHp = node.addPercentHP * cur * 100f;
         float totDmg = node.addPercentDMG * cur * 100f;
-        float totCd = node.reduceCooldown * cur * 100f;
+        float totCd = node.reduceRecruitCooldownPercent * cur * 100f;
+        float totCost = node.reduceRecruitCostPercent * cur * 100f;
+        float totHpFlat = node.addFlatHP * cur;
+        
 
         float nextHp = (next > cur) ? node.addPercentHP * 100f : 0f;
         float nextDmg = (next > cur) ? node.addPercentDMG * 100f : 0f;
-        float nextCd = (next > cur) ? node.reduceCooldown * 100f : 0f;
+        float nextCd = (next > cur) ? node.reduceRecruitCooldownPercent * 100f : 0f;
+        float nextCost = (next > cur) ? node.reduceRecruitCostPercent * 100f : 0f;
+        float nextHpFlat = (next > cur) ? node.addFlatHP : 0f;
 
         var sb = new System.Text.StringBuilder();
 
@@ -123,13 +128,32 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
             sb.Append("Total: ");
             bool any = false;
             if(node.addPercentHP != 0f) { sb.Append($"+{totHp:0}% HP"); any = true; }
-            if(node.addPercentDMG != 0f) { if (any) sb.Append(", "); sb.Append($"+{totDmg:0}% DMG"); any = true; }
-            if(node.reduceCooldown != 0f) { if (any) sb.Append(", "); sb.Append($"-{totCd:0}% CD"); any = true; }
+            if (node.addFlatHP != 0f) { if (any) sb.Append(", "); sb.Append($"+{totHpFlat:0} HP"); any = true; }
+            if (node.addPercentDMG != 0f) { if (any) sb.Append(", "); sb.Append($"+{totDmg:0}% DMG"); any = true; }
+            if(node.reduceRecruitCooldownPercent != 0f) { if (any) sb.Append(", "); sb.Append($"-{totCd:0}% CD"); any = true; }
+            if(node.reduceRecruitCostPercent != 0f) { if (any) sb.Append(", "); sb.Append($"-{totCost:0}% cost"); any = true; }
             if (any) sb.AppendLine();
             
         }
 
-        if(!maxed)
+        if (!maxed)
+        {
+            sb.Append("Next: ");
+            bool anyN = false;
+            if (nextHp != 0f) { sb.Append($"+{nextHp:0}% HP"); anyN = true; }
+            if (nextHpFlat != 0f) { if (anyN) sb.Append(", "); sb.Append($"+{nextHpFlat:0} HP"); anyN = true; }
+            if (nextDmg != 0f) { if (anyN) sb.Append(", "); sb.Append($"+{nextDmg:0}% DMG"); anyN = true; }
+            if (nextCd != 0f) { if (anyN) sb.Append(", "); sb.Append($"-{nextCd:0}% CD"); anyN = true; }
+            if (nextCost != 0f) { if (anyN) sb.Append(", "); sb.Append($"-{nextCost:0}% Cost"); anyN = true; }
+            if (!anyN) sb.Append("no effect");
+            sb.AppendLine();
+        }
+        else
+        {
+            sb.AppendLine("Max level reached");
+        }
+
+        if (!maxed)
         {
             sb.AppendLine();
             sb.AppendLine($"Cost: {cost} materials");

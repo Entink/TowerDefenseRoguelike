@@ -19,8 +19,13 @@ public class SkillNode
     public string[] prerequisites;
     public int maxLevel = 1;
 
-    [Header("Effects (to UnitTemplate)")]
+    [Header("Recruitment (per level)")]
+    public float reduceRecruitCostPercent;
+    public float reduceRecruitCooldownPercent;
+
+    [Header("Combat (per level)")]
     public float addPercentHP;
+    public float addFlatHP;
     public float addPercentDMG;
-    public float reduceCooldown;
+    
 }

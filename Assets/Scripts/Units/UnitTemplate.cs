@@ -17,8 +17,16 @@ public class UnitTemplate
 
         UnitStats stats = prefab.GetComponent<UnitStats>();
         unitName = stats.unitName;
-        cost = Mathf.RoundToInt(stats.cost * UnitStatsModifiers.discountMultiplier);
-        cooldown = stats.cooldown * UnitStatsModifiers.cooldownMultiplier;
+
+        int baseCost = stats.cost;
+        float baseCd = stats.cooldown;
+
+        int costTmp = baseCost;
+        float cdTmp = baseCd;
+        UnitSkillTreeRuntime.ApplyToRecruitment(stats, ref costTmp, ref cdTmp);
+
+        cost = Mathf.RoundToInt(costTmp * UnitStatsModifiers.discountMultiplier);
+        cooldown = cdTmp * UnitStatsModifiers.cooldownMultiplier;
     }
 
 

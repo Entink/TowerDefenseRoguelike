@@ -21,9 +21,11 @@ MonoBehaviour:
     costMaterials: 3
     prerequisites: []
     maxLevel: 3
+    reduceRecruitCostPercent: 0
+    reduceRecruitCooldownPercent: 0
     addPercentHP: 0
-    addPercentDMG: 10
-    reduceCooldown: 0
+    addFlatHP: 0
+    addPercentDMG: 0.1
   - nodeId: hp_1
     displayName: HP Up
     description: + 15% HP
@@ -31,17 +33,22 @@ MonoBehaviour:
     costMaterials: 3
     prerequisites: []
     maxLevel: 3
-    addPercentHP: 15
+    reduceRecruitCostPercent: 0
+    reduceRecruitCooldownPercent: 0
+    addPercentHP: 0.15
+    addFlatHP: 0
     addPercentDMG: 0
-    reduceCooldown: 0
   - nodeId: hp_2
     displayName: HP Up
-    description: + 5% HP
+    description: + 5 HP
     icon: {fileID: 0}
     costMaterials: 5
     prerequisites:
     - hp_1
+    - atk_1
     maxLevel: 5
-    addPercentHP: 5
+    reduceRecruitCostPercent: 0
+    reduceRecruitCooldownPercent: 0
+    addPercentHP: 0
+    addFlatHP: 5
     addPercentDMG: 0
-    reduceCooldown: 0

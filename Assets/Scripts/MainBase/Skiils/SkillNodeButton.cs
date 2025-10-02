@@ -1,8 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System.Linq;
 
 public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -12,17 +13,21 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     UnitId unit;
     SkillNode node;
+    UnitSkillTreeDef def;
+    Image iconImage;
     int level;
     System.Action<UnitId, SkillNode> onBuy;
 
-    public void Setup(UnitId unit, SkillNode node, int level, System.Action<UnitId, SkillNode> onBuy)
+    public void Setup(UnitId unit, UnitSkillTreeDef def, SkillNode node, int level, System.Action<UnitId, SkillNode> onBuy)
     {
         this.unit = unit;
+        this.def = def;
         this.node = node;
         this.level = level;
         this.onBuy = onBuy;
 
         if (!icon && node.icon) icon.sprite = node.icon;
+        iconImage = icon;
         UpdateLevelBadge();
 
         if(buyButton)
@@ -31,20 +36,20 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
             buyButton.onClick.AddListener(() => onBuy?.Invoke(this.unit, this.node));
         }
 
-        bool prereqOk = true;
-        if(node.prerequisites != null)
-            foreach(var pre in node.prerequisites)
-                if(UnitSkillProgress.GetLevel(unit, pre) < 1) { prereqOk = false; break; }
+        
+    }
 
-        if (icon) icon.color = prereqOk ? Color.white : new Color(1f, 1f, 1f, 0.4f);
-        if (buyButton) buyButton.interactable = prereqOk && level < node.maxLevel;
+    string ResolveNodeName(string nodeId)
+    {
+        var pre = def?.nodes?.FirstOrDefault(n => n.nodeId == nodeId);
+        return pre != null ? pre.displayName : nodeId;
     }
 
     void UpdateLevelBadge()
     {
         if (!levelText) return;
         if (node.maxLevel > 1) levelText.text = $"Lv {level}/{node.maxLevel}";
-        else levelText.text = level >= 1 ? "Y" : "";
+        else levelText.text = level >= 1 ? "OWNED" : "";
 
     }
 
@@ -76,6 +81,17 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
     }
 
+    public void SetInteractable(bool canBuy)
+    {
+        if (buyButton) buyButton.interactable = canBuy;
+    }
+
+    public void SetDim(bool dim)
+    {
+        if (!iconImage) return;
+        iconImage.color = dim ? new Color(1, 1, 1, 0.35f) : Color.white;
+    }
+
 
     string BuildTooltipText()
     {
@@ -86,7 +102,7 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         int next = Mathf.Min(cur + 1, node.maxLevel);
         bool maxed = (cur >= node.maxLevel);
 
-        // SUMY (Total) i Delty (Next) – per stat
+        // SUMY (Total) i Delty (Next) â€“ per stat
         // Recruitment
         float totCostPct = (node.reduceRecruitCostPercent) * cur * 100f;
         int totCostFlat = node.addRecruitCostFlat * cur;
@@ -131,10 +147,10 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         float totLs = (node.lifeSteal) * cur * 100f;
         float nxtLs = !maxed ? (node.lifeSteal) * 100f : 0f;
 
-        // Budowa treœci
+        // Budowa treÅ›ci
         var sb = new System.Text.StringBuilder();
 
-        // Nag³ówek + opis
+        // NagÅ‚Ã³wek + opis
         sb.AppendLine(node.displayName);
         if (!string.IsNullOrEmpty(node.description))
         {
@@ -142,10 +158,25 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
             sb.AppendLine(node.description);
         }
 
-        // Helper do sk³adania linii Total/Next
+
+        if(node.prerequisites != null && node.prerequisites.Length > 0)
+        {
+            sb.AppendLine();
+            sb.Append("Requires: ");
+            for (int i = 0; i < node.prerequisites.Length; i++)
+            {
+                var preName = ResolveNodeName(node.prerequisites[i]);
+                sb.Append(preName);
+                if (i < node.prerequisites.Length - 1) sb.Append(", ");
+            }
+
+            sb.AppendLine();
+        }
+
+        // Helper do skÅ‚adania linii Total/Next
         void AppendPair(string label, float pctTot, float pctNxt, float flatTot, float flatNxt, string unit = "", bool invertSignForPct = false)
         {
-            // pct – zawsze jako znak ujemny gdy „reduce” (koszt/cd), st¹d invertSignForPct
+            
             float pctTotSign = invertSignForPct ? -pctTot : pctTot;
             float pctNxtSign = invertSignForPct ? -pctNxt : pctNxt;
 
@@ -174,7 +205,7 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
             }
         }
 
-        // Recruitment: cost / cooldown (proc traktujemy jako „reduce” – znak ujemny)
+        // Recruitment: cost / cooldown (proc traktujemy jako â€žreduceâ€ â€“ znak ujemny)
         AppendPair("Cost", totCostPct, nxtCostPct, totCostFlat, nxtCostFlat, "", invertSignForPct: true);
         AppendPair("Cooldown", totCdPct, nxtCdPct, totCdFlat, nxtCdFlat, "s", invertSignForPct: true);
 

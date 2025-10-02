@@ -18,6 +18,8 @@ MonoBehaviour:
     displayName: Attack Up
     description: + 10% DMG
     icon: {fileID: 0}
+    col: 0
+    row: 0
     costMaterials: 3
     prerequisites: []
     maxLevel: 3
@@ -42,6 +44,8 @@ MonoBehaviour:
     displayName: HP Up
     description: + 15% HP
     icon: {fileID: 0}
+    col: 1
+    row: 0
     costMaterials: 3
     prerequisites: []
     maxLevel: 3
@@ -66,6 +70,8 @@ MonoBehaviour:
     displayName: HP Up
     description: + 5 HP
     icon: {fileID: 0}
+    col: 0
+    row: 1
     costMaterials: 5
     prerequisites:
     - hp_1
@@ -94,6 +100,8 @@ MonoBehaviour:
 
       + 1 Area Attack Range '
     icon: {fileID: 0}
+    col: 1
+    row: 1
     costMaterials: 15
     prerequisites:
     - hp_2
@@ -117,9 +125,11 @@ MonoBehaviour:
     regenPerSec: 0
     lifeSteal: 0
   - nodeId: atk_2
-    displayName: HP Up
+    displayName: ATK Up
     description: + 3 DMG
     icon: {fileID: 0}
+    col: 1
+    row: 2
     costMaterials: 5
     prerequisites:
     - atk_1

@@ -23,6 +23,14 @@ public class UnitSelectionManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        maxSelectableUnits = UpgradeManager.GetCurrentUnitLimit();
+
+    }
+
+
+
     private void Start()
     {
         GenerateUnitButtons();

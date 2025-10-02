@@ -15,6 +15,10 @@ public class SkillNode
     [TextArea] public string description;
     public Sprite icon;
 
+    [Header("Layout")]
+    public int col;
+    public int row;
+
     public int costMaterials = 0;
     public string[] prerequisites;
     public int maxLevel = 1;

@@ -13,6 +13,9 @@ public class MapNodeUI : MonoBehaviour
 
     private List<MapNodeUI> connectedNodes = new List<MapNodeUI>();
 
+    [SerializeField] private MapEventDatabase eventDb;
+    [SerializeField] private MapEventPanel eventPanel;
+
 
     public void Setup(MapNodeData nodeData, MapManager manager)
     {

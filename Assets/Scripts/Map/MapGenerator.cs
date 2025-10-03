@@ -37,6 +37,7 @@ public class MapGenerator : MonoBehaviour
             {
                 var node = new MapNodeData();
                 node.id = nodeId++;
+                node.columnIndex = col;
 
                 if(col == 0)
                 {

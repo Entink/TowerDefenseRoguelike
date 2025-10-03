@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635b017c179ba014cb83c59fc86e8d2c, type: 3}
+  m_Name: Event_OldMine
+  m_EditorClassIdentifier: 
+  title: Old Mine
+  body: You approached the Old Mine.
+  illustration: {fileID: 0}
+  commonness: 1
+  minColumn: 0
+  maxColumn: 999
+  options:
+  - label: Collect Materials
+    description: 
+    icon: {fileID: 0}
+    minMaterials: 0
+    minCash: 0
+    deltaMaterials: 15
+    deltaCash: 0
+    addModifier: 0
+    modifier: 0
+    modifierStacks: 0
+    resultText: 
+    resultIllustration: {fileID: 0}
+  - label: Buy Mine
+    description: 
+    icon: {fileID: 0}
+    minMaterials: 0
+    minCash: 15
+    deltaMaterials: 0
+    deltaCash: -15
+    addModifier: 1
+    modifier: 5
+    modifierStacks: 1
+    resultText: 
+    resultIllustration: {fileID: 0}

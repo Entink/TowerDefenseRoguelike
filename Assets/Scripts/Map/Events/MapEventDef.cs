@@ -30,4 +30,7 @@ public class EventOption
     public bool addModifier;
     public RunModifierId modifier;
     public int modifierStacks = 1;
+
+    [TextArea] public string resultText;
+    public Sprite resultIllustration;
 }

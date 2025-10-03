@@ -17,10 +17,15 @@ public class MapNodeUI : MonoBehaviour
     [SerializeField] private MapEventPanel eventPanel;
 
 
-    public void Setup(MapNodeData nodeData, MapManager manager)
+
+
+    public void Setup(MapNodeData nodeData, MapManager manager, MapEventDatabase eventDb, MapEventPanel eventPanel)
     {
         data = nodeData;
         mapManager = manager;
+        this.eventDb = eventDb;
+        this.eventPanel = eventPanel;
+
         label.text = data.type.ToString();
 
         UpdateVisual();
@@ -30,12 +35,14 @@ public class MapNodeUI : MonoBehaviour
 
     private void OnClicked()
     {
-        mapManager.SelectNode(this);
 
         if (data.type == NodeType.Fight || data.type == NodeType.Boss)
         {
+            mapManager.SelectNode(this);
+
+
             var fight = FightDatabase.instance.GetByTypeAndIndex(data.type, data.fightIndex);
-            if(fight == null)
+            if (fight == null)
             {
                 Debug.LogError($"Fight not found for {data.type} index={data.fightIndex}");
                 return;
@@ -46,7 +53,39 @@ public class MapNodeUI : MonoBehaviour
         }
         else if (data.type == NodeType.Shop)
         {
+            mapManager.SelectNode(this);
+
             SceneLoader.LoadScene("ShopScene");
+        }
+        else if (data.type == NodeType.Event)
+        {
+
+            if (eventDb == null || eventPanel == null)
+            {
+                Debug.LogWarning("Event click: no eventDb or eventPanel in MapNodeUI.");
+                return;
+            }
+
+            var rng = new System.Random(unchecked(MapRunData.currentSeed ^ (data.id * 73856093)));
+
+            MapEventDef def = eventDb.PickForColumn(rng, data.columnIndex);
+            
+
+            if(def == null)
+            {
+                RunResources.AddMaterials(10);
+                mapManager.SelectNode(this);
+                return;
+            }
+
+            eventPanel.gameObject.SetActive(true);
+            eventPanel.Show(def, onResolved: () => { mapManager.SelectNode(this); });
+
+        }
+        else
+        {
+            mapManager.SelectNode(this);
+
         }
     }
 
@@ -72,7 +111,7 @@ public class MapNodeUI : MonoBehaviour
 
     public void UpdateVisual()
     {
-        if(data.wasVisisted)
+        if (data.wasVisisted)
         {
             GetComponent<Image>().color = Color.gray;
         }
@@ -86,7 +125,7 @@ public class MapNodeUI : MonoBehaviour
     public void DrawConnectionTo(MapNodeUI target)
     {
         GameObject lineGO = new GameObject("Line", typeof(LineRenderer));
-        lineGO.transform.SetParent(MapManager.instance.lineContainer,false);
+        lineGO.transform.SetParent(MapManager.instance.lineContainer, false);
 
         LineRenderer lr = lineGO.GetComponent<LineRenderer>();
         lr.positionCount = 2;

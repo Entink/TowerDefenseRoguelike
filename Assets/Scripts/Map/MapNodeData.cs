@@ -10,4 +10,6 @@ public class MapNodeData
     public int fightIndex;
 
     public bool wasVisisted = false;
+
+    public int columnIndex;
 }

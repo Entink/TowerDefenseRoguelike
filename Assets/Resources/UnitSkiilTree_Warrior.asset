@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitId: 0
   nodes:
-  - nodeId: atk_1
-    displayName: Attack Up
-    description: + 10% DMG
+  - nodeId: basicTraining
+    displayName: Basic Training
+    description: 
     icon: {fileID: 0}
     col: 0
     row: 0
@@ -28,9 +28,9 @@ MonoBehaviour:
     reduceRecruitCooldownPercent: 0
     addRecruitCooldownFlat: 0
     addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0.1
-    addFlatDMG: 0
+    addFlatHP: 3
+    addPercentDMG: 0
+    addFlatDMG: 1
     addPercentRange: 0
     addFlatRange: 0
     addPercentAoe: 0
@@ -40,21 +40,103 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-  - nodeId: hp_1
-    displayName: HP Up
-    description: + 15% HP
+  - nodeId: improvedTraining
+    displayName: Improved Training
+    description: 
     icon: {fileID: 0}
     col: 1
     row: 0
-    costMaterials: 3
-    prerequisites: []
+    costMaterials: 5
+    prerequisites:
+    - basicTraining
+    maxLevel: 3
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0.3
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 5
+    addPercentDMG: 0
+    addFlatDMG: 3
+    addPercentRange: 0.1
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: combatTraining
+    displayName: Combat Training
+    description: 
+    icon: {fileID: 0}
+    col: 2
+    row: 0
+    costMaterials: 7
+    prerequisites:
+    - improvedTraining
     maxLevel: 3
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
     addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 10
+    addPercentDMG: 0
+    addFlatDMG: 3
+    addPercentRange: 0.1
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 1
+    lifeSteal: 0
+  - nodeId: specialTraining
+    displayName: Special Training
+    description: 
+    icon: {fileID: 0}
+    col: 3
+    row: 0
+    costMaterials: 10
+    prerequisites:
+    - combatTraining
+    maxLevel: 1
+    reduceRecruitCostPercent: 0.1
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0.1
+    addRecruitCooldownFlat: 0
     addPercentHP: 0.15
     addFlatHP: 0
+    addPercentDMG: 0.1
+    addFlatDMG: 1
+    addPercentRange: 0.2
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 1
+    knockbackResist: 0.1
+    regenPerSec: 1
+    lifeSteal: 0
+  - nodeId: supplies
+    displayName: Supplies
+    description: 
+    icon: {fileID: 0}
+    col: 0
+    row: 1
+    costMaterials: 3
+    prerequisites:
+    - basicTraining
+    maxLevel: 5
+    reduceRecruitCostPercent: 0.05
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0.02
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 1
     addPercentDMG: 0
     addFlatDMG: 0
     addPercentRange: 0
@@ -64,24 +146,51 @@ MonoBehaviour:
     enableAOE: 0
     addMultiStrike: 0
     knockbackResist: 0
-    regenPerSec: 0
+    regenPerSec: 0.2
     lifeSteal: 0
-  - nodeId: hp_2
-    displayName: HP Up
-    description: + 5 HP
+  - nodeId: betterSupplies
+    displayName: 
+    description: 
     icon: {fileID: 0}
-    col: 0
+    col: 1
     row: 1
     costMaterials: 5
     prerequisites:
-    - hp_1
-    - atk_1
-    maxLevel: 5
+    - supplies
+    - improvedTraining
+    maxLevel: 3
+    reduceRecruitCostPercent: 0.05
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0.02
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 2
+    addPercentDMG: 0
+    addFlatDMG: 1
+    addPercentRange: 0.03
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0.2
+    lifeSteal: 0
+  - nodeId: survivalTactics
+    displayName: Survival Tactics
+    description: 
+    icon: {fileID: 0}
+    col: 2
+    row: 1
+    costMaterials: 5
+    prerequisites:
+    - combatTraining
+    maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
     addRecruitCooldownFlat: 0
-    addPercentHP: 0
+    addPercentHP: 0.05
     addFlatHP: 5
     addPercentDMG: 0
     addFlatDMG: 0
@@ -92,21 +201,45 @@ MonoBehaviour:
     enableAOE: 0
     addMultiStrike: 0
     knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: aoeAtk_1
-    displayName: Area Attack
-    description: '+ Area Attack
-
-      + 1 Area Attack Range '
+    regenPerSec: 0.5
+    lifeSteal: 0.01
+  - nodeId: comboSpecialist
+    displayName: Combo Specialist
+    description: 
     icon: {fileID: 0}
-    col: 1
+    col: 3
     row: 1
     costMaterials: 15
     prerequisites:
-    - hp_2
-    - atk_2
+    - specialTraining
     maxLevel: 1
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 3
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 1
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: duelTraining
+    displayName: Duel Training
+    description: 
+    icon: {fileID: 0}
+    col: 4
+    row: 1
+    costMaterials: 0
+    prerequisites:
+    - comboSpecialist
+    maxLevel: 0
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -118,22 +251,22 @@ MonoBehaviour:
     addPercentRange: 0
     addFlatRange: 0
     addPercentAoe: 0
-    addFlatAoe: 1
-    enableAOE: 1
+    addFlatAoe: 0
+    enableAOE: 0
     addMultiStrike: 0
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-  - nodeId: atk_2
-    displayName: ATK Up
-    description: + 3 DMG
+  - nodeId: sharpenedBlade
+    displayName: Sharpened Blade
+    description: 
     icon: {fileID: 0}
-    col: 1
+    col: -1
     row: 2
-    costMaterials: 5
+    costMaterials: 0
     prerequisites:
-    - atk_1
-    maxLevel: 2
+    - strongerPlatings
+    maxLevel: 0
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -141,7 +274,415 @@ MonoBehaviour:
     addPercentHP: 0
     addFlatHP: 0
     addPercentDMG: 0
-    addFlatDMG: 3
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: strongerPlatings
+    displayName: Stronger Platings
+    description: 
+    icon: {fileID: 0}
+    col: 0
+    row: 2
+    costMaterials: 0
+    prerequisites:
+    - improvedArmor
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: improvedArmor
+    displayName: 
+    description: 
+    icon: {fileID: 0}
+    col: 1
+    row: 2
+    costMaterials: 0
+    prerequisites:
+    - betterSupplies
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: longerBlows
+    displayName: Longer Blows
+    description: 
+    icon: {fileID: 0}
+    col: 2
+    row: 2
+    costMaterials: 0
+    prerequisites:
+    - improvedArmor
+    - survivalTactics
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: X1
+    displayName: X1
+    description: 
+    icon: {fileID: 0}
+    col: 3
+    row: 2
+    costMaterials: 0
+    prerequisites:
+    - comboSpecialist
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: meditation
+    displayName: Meditation
+    description: 
+    icon: {fileID: 0}
+    col: 4
+    row: 2
+    costMaterials: 0
+    prerequisites:
+    - duelTraining
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: pathOfWind
+    displayName: Path of Wind
+    description: 
+    icon: {fileID: 0}
+    col: 5
+    row: 2
+    costMaterials: 0
+    prerequisites:
+    - meditation
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: energizedBlade
+    displayName: Energized Blade
+    description: 
+    icon: {fileID: 0}
+    col: -1
+    row: 3
+    costMaterials: 0
+    prerequisites:
+    - sharpenedBlade
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: combatMastery
+    displayName: Combat Mastery
+    description: 
+    icon: {fileID: 0}
+    col: 0
+    row: 3
+    costMaterials: 0
+    prerequisites:
+    - energizedBlade
+    - energizedArmor
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: energizedArmor
+    displayName: Energized Armor
+    description: 
+    icon: {fileID: 0}
+    col: 1
+    row: 3
+    costMaterials: 0
+    prerequisites:
+    - fasterTraining
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: fasterTraining
+    displayName: Faster Training
+    description: 
+    icon: {fileID: 0}
+    col: 2
+    row: 3
+    costMaterials: 0
+    prerequisites:
+    - longerBlows
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: X2
+    displayName: X2
+    description: 
+    icon: {fileID: 0}
+    col: 3
+    row: 3
+    costMaterials: 0
+    prerequisites:
+    - X1
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: X3
+    displayName: X3
+    description: 
+    icon: {fileID: 0}
+    col: 5
+    row: 3
+    costMaterials: 0
+    prerequisites:
+    - pathOfWind
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: heavyBlows
+    displayName: Heavy Blows
+    description: 
+    icon: {fileID: 0}
+    col: 0
+    row: 4
+    costMaterials: 0
+    prerequisites:
+    - combatMastery
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: X4
+    displayName: X4
+    description: 
+    icon: {fileID: 0}
+    col: 2
+    row: 4
+    costMaterials: 0
+    prerequisites:
+    - fasterTraining
+    - X2
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+  - nodeId: X5
+    displayName: X5
+    description: 
+    icon: {fileID: 0}
+    col: 5
+    row: 4
+    costMaterials: 0
+    prerequisites:
+    - X3
+    maxLevel: 0
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
     addPercentAoe: 0

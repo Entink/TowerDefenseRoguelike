@@ -16,6 +16,10 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] private MapGenerator generator;
 
+    [Header("Events")]
+    [SerializeField] private MapEventDatabase eventDb;
+    [SerializeField] private MapEventPanel eventPanel;
+
     Dictionary<int, MapNodeUI> nodeUIById = new();
     private MapNodeUI currentNode;
 
@@ -63,7 +67,7 @@ public class MapManager : MonoBehaviour
             {
                 GameObject nodeGO = Instantiate(nodePrefab, columnGroup.transform);
                 MapNodeUI nodeUI = nodeGO.GetComponent<MapNodeUI>();
-                nodeUI.Setup(node, this);
+                nodeUI.Setup(node, this, eventDb, eventPanel);
                 nodeUIById[node.id] = nodeUI;
             }
         }

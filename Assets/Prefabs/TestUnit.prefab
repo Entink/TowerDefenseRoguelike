@@ -261,6 +261,10 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
+  isStunned: 0
+  stunEndTime: 0
+  regenPerSecond: 0
+  lifeSteal: 0
 --- !u!114 &4600127789261272449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,8 +279,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Test Unit
   ally: 1
+  unitId: 0
+  unitype: 0
   maxHP: 9999
-  speed: 5
+  speed: 10
   attackSpeed: 9999
   damage: 9999
   attackRange: 1

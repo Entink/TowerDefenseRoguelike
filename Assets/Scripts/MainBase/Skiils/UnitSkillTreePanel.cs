@@ -10,8 +10,8 @@ public class UnitSkillTreePanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI header;
 
     [Header("Graph")]
-    [SerializeField] private Transform nodeContainer;
-    [SerializeField] private Transform edgeContainer;
+    [SerializeField] private RectTransform nodeContainer;
+    [SerializeField] private RectTransform edgeContainer;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private RectTransform viewport;
     [SerializeField] private RectTransform graphArea;
@@ -68,9 +68,9 @@ public class UnitSkillTreePanel : MonoBehaviour
         int minRow = int.MaxValue;
         int maxRow = int.MinValue;
 
-        foreach(var n in def.nodes)
+        foreach (var n in def.nodes)
         {
-            if (n == null) return;
+            if (n == null) continue;
             minCol = Mathf.Min(minCol, n.col);
             maxCol = Mathf.Max(maxCol, n.col);
             minRow = Mathf.Min(minRow, n.row);
@@ -80,12 +80,14 @@ public class UnitSkillTreePanel : MonoBehaviour
         int cols = (maxCol - minCol + 1);
         int rows = (maxRow - minRow + 1);
 
+        
+
         float contentW = cols * cellSize.x + padding.x;
         float contentH = rows * cellSize.y + padding.y;
 
         graphArea.anchorMin = graphArea.anchorMax = new Vector2(0, 1);
         graphArea.pivot = new Vector2(0, 1);
-        graphArea.sizeDelta = new Vector2(contentW, contentH);
+        graphArea.sizeDelta = new Vector2(Mathf.Max(contentW,1f), Mathf.Max(contentH,1f));
 
         var map = new Dictionary<string, SkillNodeButton>();
         foreach(var node in def.nodes)
@@ -101,8 +103,8 @@ public class UnitSkillTreePanel : MonoBehaviour
             rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
             rt.pivot = new Vector2(0.5f, 0.5f);
 
-            float x = padding.x * 0.5f + (node.col - minCol) * cellSize.x;
-            float y = -(padding.y * 0.5f + (node.row - minRow) * cellSize.y);
+            float x = padding.x + (node.col - minCol) * cellSize.x;
+            float y = -(padding.y + (node.row - minRow) * cellSize.y);
 
             rt.anchoredPosition = new Vector2(x, y);
 
@@ -133,8 +135,28 @@ public class UnitSkillTreePanel : MonoBehaviour
                 edge.Bind(fromRT, toRT, col);
             }
         }
+        Canvas.ForceUpdateCanvases();
+
+        Bounds bNodes = RectTransformUtility.CalculateRelativeRectTransformBounds(graphArea, nodeContainer);
+        Bounds bEdges = RectTransformUtility.CalculateRelativeRectTransformBounds(graphArea, edgeContainer);
+
+        Bounds b = bNodes;
+        b.Encapsulate(bEdges);
+
+        Vector2 contentInnerSize = new Vector2(b.size.x, b.size.y);
+
+        Vector2 contentSize = contentInnerSize + 2f * padding;
+        graphArea.sizeDelta = new Vector2(Mathf.Max(1f, contentSize.x), Mathf.Max(1f, contentSize.y));
+
+        Vector2 topLeftOfBounds = new Vector2(b.min.x, b.max.y);
+
+        Vector2 shift = new Vector2(padding.x - topLeftOfBounds.x, -padding.y - topLeftOfBounds.y);
+
+        nodeContainer.anchoredPosition += shift;
+        edgeContainer.anchoredPosition += shift;
 
         CenterAndClampContent();
+
     }
 
     void OnBuy(UnitId unit, SkillNode node)
@@ -174,5 +196,24 @@ public class UnitSkillTreePanel : MonoBehaviour
         graphArea.anchoredPosition = pos;
     }
 
+
+
+    void LateUpdate()
+    {
+        if (!viewport || !graphArea) return;
+
+        Vector2 view = viewport.rect.size;
+        Vector2 cont = graphArea.rect.size;
+
+        float minX = Mathf.Min(0f, view.x - cont.x);
+        float maxX = 0f;
+        float minY = Mathf.Min(0f, view.y - cont.y);
+        float maxY = 0f;
+
+        var p = graphArea.anchoredPosition;
+        p.x = Mathf.Clamp(p.x, minX, maxX);
+        p.y = Mathf.Clamp(p.y, minY, maxY);
+        graphArea.anchoredPosition = p;
+    }
 
 }

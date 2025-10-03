@@ -125,7 +125,7 @@ public static class UnitSkillTreeRuntime
         if (addMulti != 0)
         {
             stats.multiStrikeCount = Mathf.Max(1, stats.multiStrikeCount + addMulti);
-            stats.multiStrikeDelay = stats.multiStrikeDelay + (stats.attackSpeed / stats.multiStrikeCount);
+            stats.multiStrikeDelay = stats.multiStrikeDelay + (1 / (2 * stats.attackSpeed));
         }
 
         if (kbResist != 0f)

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 635b017c179ba014cb83c59fc86e8d2c, type: 3}
+  m_Name: Event_Ruins
+  m_EditorClassIdentifier: 
+  title: Ruins
+  body: You approached old ruins.
+  illustration: {fileID: 0}
+  commonness: 1
+  minColumn: 0
+  maxColumn: 999
+  options:
+  - label: Scavange the Ruins
+    description: 
+    icon: {fileID: 0}
+    minMaterials: 0
+    minCash: 0
+    deltaMaterials: 10
+    deltaCash: 0
+    addModifier: 0
+    modifier: 6
+    modifierStacks: 0
+    resultText: 
+    resultIllustration: {fileID: 0}
+  - label: Look for artifacts
+    description: 
+    icon: {fileID: 0}
+    minMaterials: 999
+    minCash: 999
+    deltaMaterials: 0
+    deltaCash: 0
+    addModifier: 1
+    modifier: 6
+    modifierStacks: 1
+    resultText: 
+    resultIllustration: {fileID: 0}

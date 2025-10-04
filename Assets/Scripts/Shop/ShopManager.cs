@@ -5,43 +5,18 @@ using System.Collections.Generic;
 
 public class ShopManager : MonoBehaviour
 {
-    [SerializeField] private List<ShopItemData> itemPool;
-    [SerializeField] private GameObject itemUIPrefab;
-    [SerializeField] private Transform container;
-    [SerializeField] private int itemsToShow = 3;
-
-    [SerializeField] private TextMeshProUGUI cashText;
-    [SerializeField] private Button returnButton;
+    [SerializeField] ShopPanel shopPanel;
 
     private void Start()
     {
-        returnButton.onClick.AddListener(ReturnToMap);
-        List<ShopItemData> chosen = new();
+        int col = MapRunData.currentNode != null ? MapRunData.currentNode.columnIndex : 0;
+        //FindObjectOfType<ShopPanel>().Open(col, onExit: () => SceneLoader.LoadScene("MapScene"));
 
-        while (chosen.Count < itemsToShow)
-        {
-            var item = itemPool[Random.Range(0, itemPool.Count)];
+        shopPanel.gameObject.SetActive(true);
+        shopPanel.Open(col, onExit: () => SceneLoader.LoadScene("MapScene"));
 
-            if(!chosen.Contains(item))
-            {
-                chosen.Add(item);
-            }
-        }
-
-        foreach (var item in chosen)
-        {
-            GameObject go = Instantiate(itemUIPrefab, container);
-            go.GetComponent<ShopItemUI>().Setup(item);
-        }
+        
     }
 
-    private void FixedUpdate()
-    {
-        cashText.text = $"Cash: {RunResources.GetCash()}$";
-    }
-
-    private void ReturnToMap()
-    {
-        SceneLoader.LoadScene("MapScene");
-    }
+    
 }

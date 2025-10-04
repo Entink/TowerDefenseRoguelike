@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class ShopPanel : MonoBehaviour
 {
     [Header("Database & UI")]
-    [SerializeField] ShopDatabase databse;
+    [SerializeField] ShopDatabase database;
     [SerializeField] Transform offersContainer;
     [SerializeField] ShopOfferButton offerPrefab;
     [SerializeField] Button rerollButon;
@@ -28,6 +28,7 @@ public class ShopPanel : MonoBehaviour
 
     private void Awake()
     {
+        
         if (rerollButon) rerollButon.onClick.AddListener(Reroll);
         if (closeButton) closeButton.onClick.AddListener(() => onExit?.Invoke());
         gameObject.SetActive(false);
@@ -49,7 +50,7 @@ public class ShopPanel : MonoBehaviour
         currentOffers.Clear();
 
         var rng = new System.Random(unchecked(MapRunData.currentSeed ^ (columnIndexForThisShop * 37615412) ^ rerollUsed));
-        var picks = databse.Pick(rng, columnIndexForThisShop, offersCount, boughtUniques);
+        var picks = database.Pick(rng, columnIndexForThisShop, offersCount, boughtUniques);
 
         foreach(var def in picks)
         {

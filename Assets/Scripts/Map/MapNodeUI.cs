@@ -136,13 +136,17 @@ public class MapNodeUI : MonoBehaviour
         lr.startColor = new Color(1f, 1f, 1f, 0.5f);
         lr.endColor = new Color(1f, 1f, 1f, 0.5f);
         lr.sortingOrder = -1;
-        lr.useWorldSpace = true;
+        lr.useWorldSpace = false;
 
-        Vector3 start = GetWorldCenter(GetComponent<RectTransform>());
-        Vector3 end = GetWorldCenter(target.GetComponent<RectTransform>());
+        RectTransform fromRT = GetComponent<RectTransform>();
+        RectTransform toRT = target.GetComponent<RectTransform>();
 
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
+        var lc = MapManager.instance.lineContainer;
+        Vector3 fromLocal = lc.InverseTransformPoint(fromRT.TransformPoint(fromRT.rect.center));
+        Vector3 toLocal = lc.InverseTransformPoint(toRT.TransformPoint(toRT.rect.center));
+
+        lr.SetPosition(0, fromLocal);
+        lr.SetPosition(1, toLocal);
     }
 
     public Vector3 GetWorldCenter(RectTransform rt)

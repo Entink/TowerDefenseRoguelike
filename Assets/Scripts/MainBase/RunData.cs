@@ -60,10 +60,12 @@ public partial class RunData : MonoBehaviour
 
     public static void ResetRun()
     {
+        I.RemoveAllModifiers();
         RunDataPersistence.Clear();
         selectedUnits.Clear();
         purchasedItems.Clear();
         UnitStatsModifiers.Reset();
+        
     }
 
     public void LoadState()

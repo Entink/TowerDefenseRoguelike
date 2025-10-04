@@ -7,12 +7,14 @@ using System.Linq;
 public class MapManager : MonoBehaviour
 {
     public static MapManager instance;
-    
+
 
     [Header("UI")]
-    [SerializeField] private Transform nodeContainer;
+    [SerializeField] private ScrollRect mapScroll;
+    [SerializeField] private RectTransform content;
+    [SerializeField] private RectTransform nodeContainer;
+    [SerializeField] public RectTransform lineContainer;
     [SerializeField] private GameObject nodePrefab;
-    public Transform lineContainer;
 
     [SerializeField] private MapGenerator generator;
 
@@ -27,6 +29,27 @@ public class MapManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        var hlg = nodeContainer.GetComponent<HorizontalLayoutGroup>();
+
+        if(!hlg)
+        {
+            hlg = nodeContainer.gameObject.AddComponent<HorizontalLayoutGroup>();
+            hlg.spacing = 60f;
+            hlg.childAlignment = TextAnchor.MiddleCenter;
+            hlg.childControlWidth = true;
+            hlg.childControlHeight = true;
+            hlg.childForceExpandWidth = true;
+            hlg.childForceExpandHeight = false;
+        }
+
+        var csf = nodeContainer.GetComponent<ContentSizeFitter>();
+        if(!csf)
+        {
+            csf = nodeContainer.GetComponent<ContentSizeFitter>();
+            csf.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+            csf.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+        }
     }
     private void Start()
     {
@@ -62,6 +85,14 @@ public class MapManager : MonoBehaviour
             VerticalLayoutGroup layout = columnGroup.AddComponent<VerticalLayoutGroup>();
             layout.childAlignment = TextAnchor.MiddleCenter;
             layout.spacing = 30;
+            layout.childControlWidth = false;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = false;
+            layout.childForceExpandHeight = false;
+
+            var le = columnGroup.AddComponent<LayoutElement>();
+            le.preferredWidth = 160f;
+            le.preferredHeight = 1000f;
 
             foreach (var node in map.columns[col])
             {
@@ -72,11 +103,21 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        
+        SetupContainer();
+
         yield return null;
         Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(nodeContainer);
+        Canvas.ForceUpdateCanvases();
 
-        
+        float padding = 200f;
+        float mapWidth = nodeContainer.rect.width + padding;
+        content.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, mapWidth);
+
+        lineContainer.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, mapWidth);
+
+        foreach (Transform ch in lineContainer) Destroy(ch.gameObject);
+
         foreach (var col in map.columns)
         {
             foreach (var nodeData in col)
@@ -99,6 +140,7 @@ public class MapManager : MonoBehaviour
         if (MapRunData.currentNode != null && nodeUIById.TryGetValue(MapRunData.currentNode.id, out var selectedNode))
         {
             SelectNode(selectedNode);
+            FocusOnNode(selectedNode, instant: true);
         }
         else
         {
@@ -109,7 +151,14 @@ public class MapManager : MonoBehaviour
             }
 
             MapRunData.currentNode = null;
+
+            var start = nodeUIById.Values.FirstOrDefault(n => n.GetNodeData().type == NodeType.Start);
+            if (start != null) FocusOnNode(start, instant: true);
         }
+
+        
+
+        
     }
 
     private void PrintMapDebug(MapData map)
@@ -152,5 +201,65 @@ public class MapManager : MonoBehaviour
         node.UpdateVisual();
     }
 
+
+    private void SetupContainer()
+    {
+        content.anchorMin = new Vector2(0, 0);
+        content.anchorMax = new Vector2(0, 1);
+        content.pivot = new Vector2(0, 0.5f);
+        content.anchoredPosition = Vector2.zero;
+
+        nodeContainer.anchorMin = new Vector2(0, 0);
+        nodeContainer.anchorMax = new Vector2(0, 1);
+        nodeContainer.pivot = new Vector2(0, 0.5f);
+        nodeContainer.anchoredPosition = Vector2.zero;
+
+        lineContainer.anchorMin = new Vector2(0, 0);
+        lineContainer.anchorMax = new Vector2(0, 1);
+        lineContainer.pivot = new Vector2(0, 0.5f);
+        lineContainer.anchoredPosition = Vector2.zero;
+    }
+
+    public void FocusOnNode(MapNodeUI node, bool instant = true, float lerpTime = 0.25f)
+    {
+        if (node == null || mapScroll == null || content == null) return;
+
+        float contentW = content.rect.width;
+        float viewportW = mapScroll.viewport.rect.width;
+
+        if (contentW <= viewportW) return;
+
+        RectTransform rt = node.GetComponent<RectTransform>();
+        Vector3 nodeLocal = content.InverseTransformPoint(rt.TransformPoint(rt.rect.center));
+
+        float nodeX = nodeLocal.x;
+
+        float targetLeft = nodeX - viewportW * 0.5f;
+        float maxLeft = contentW - viewportW;
+        float normalllized = Mathf.Clamp01(targetLeft / Mathf.Max(1f, maxLeft));
+
+        if(instant)
+        {
+            mapScroll.horizontalNormalizedPosition = normalllized;
+        }
+        else
+        {
+            StopAllCoroutines();
+            StartCoroutine(LerpHorizontal(normalllized, lerpTime));
+        }
+    }
+
+    private System.Collections.IEnumerator LerpHorizontal(float target, float time)
+    {
+        float start = mapScroll.horizontalNormalizedPosition;
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime / Mathf.Max(0.0001f, time);
+            mapScroll.horizontalNormalizedPosition = Mathf.Lerp(start, target, Mathf.SmoothStep(0f, 1f, t));
+            yield return null;
+        }
+        mapScroll.horizontalNormalizedPosition = target;
+    }
     
 }

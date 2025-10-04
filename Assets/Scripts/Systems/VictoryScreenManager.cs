@@ -16,6 +16,11 @@ public class VictoryScreenManager : MonoBehaviour
     public int cashReward;
     public int materialsReward;
 
+    private void Awake()
+    {
+        if (modifierDb) RunModifierLookup.SetDB(modifierDb);
+    }
+
 
     private void Start()
     {
@@ -65,8 +70,10 @@ public class VictoryScreenManager : MonoBehaviour
         {
             
             RunData.ResetRun();
+            
             MapRunData.Reset();
             RunResources.Reset();
+
 
             SceneLoader.LoadScene("MainBaseScene");
         }

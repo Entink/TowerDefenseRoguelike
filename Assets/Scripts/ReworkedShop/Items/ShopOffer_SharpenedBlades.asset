@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014b36569a794774fae016c54eecd101, type: 3}
+  m_Name: ShopOffer_SharpenedBlades
+  m_EditorClassIdentifier: 
+  title: Sharpened Blades
+  description: Services of local weaponsmith that will sharpen weapons of our army.
+  icon: {fileID: 6934622204952185369, guid: 3aa9268166231a449959191e0b76ab62, type: 3}
+  weight: 1
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  currency: 0
+  priceCash: 35
+  priceMaterials: 0
+  minColumn: 0
+  maxColumn: 999
+  deltaCash: -35
+  deltaMaterials: 0
+  addModifier: 1
+  modifier: 7
+  modifierStacks: 1
+  uniquePerRun: 0

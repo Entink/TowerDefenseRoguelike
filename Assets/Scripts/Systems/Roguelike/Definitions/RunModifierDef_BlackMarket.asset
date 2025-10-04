@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 648b4771ef938a241903148bcd8ec44f, type: 3}
-  m_Name: RunModifierDef_GoldMine
+  m_Name: RunModifierDef_BlackMarket
   m_EditorClassIdentifier: 
-  id: 5
-  displayName: Gold Mine
-  shortDescription: +50% Gold per Second
-  icon: {fileID: -5325312635722052284, guid: 6eabbdadd7b84b246b639ac38d2c18b6, type: 3}
-  pools: 8
-  rarity: 4
+  id: 8
+  displayName: Black Market
+  shortDescription: Cost -50% | HP -10% | DMG -10%
+  icon: {fileID: -5776546536076325428, guid: fbe12b5925eb39d4ea9892bb53e3bfac, type: 3}
+  pools: 4
+  rarity: 2
   rarityWeightMultiplier: 1
   defaultStacksOnPick: 1

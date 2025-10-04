@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Recruitment Drive
   shortDescription: Cost -15% | Cooldown +20%
   icon: {fileID: -5283118486804635757, guid: 1ef8f97e00e192843a38f779e45f7593, type: 3}
-  rarity: 0
-  stackable: 1
-  maxStacks: 9
+  pools: 2
+  rarity: 2
+  rarityWeightMultiplier: 1
   defaultStacksOnPick: 1

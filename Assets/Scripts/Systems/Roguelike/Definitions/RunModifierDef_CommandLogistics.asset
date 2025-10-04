@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Command Logistics
   shortDescription: +1 unit limit per stack
   icon: {fileID: 808265569081170583, guid: bcdce05f1baabb44486e72a9a334a0e0, type: 3}
-  rarity: 0
-  stackable: 1
-  maxStacks: 10
+  pools: 1
+  rarity: 1
+  rarityWeightMultiplier: 1
   defaultStacksOnPick: 1

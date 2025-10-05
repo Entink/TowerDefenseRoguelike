@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef2e2b341e15374a8e590e5194d2f9f, type: 3}
+  m_Name: Unit_Tank
+  m_EditorClassIdentifier: 
+  id: 3
+  displayName: Tank
+  unitPrefab: {fileID: 2005501345440514604, guid: e2a26dc0f38529d478f2df424e5734f0, type: 3}
+  unlockedByDefault: 0
+  costMaterials: 25
+  requiresUnlocked: 

@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Map/Event", fileName = "Event_")]
 public class MapEventDef : ScriptableObject
 {
+    public string eventId;
+    public bool hideAfterResolve = true;
+
     [TextArea] public string title;
     [TextArea] public string body;
     public Sprite illustration;
@@ -12,6 +15,7 @@ public class MapEventDef : ScriptableObject
     public int maxColumn = 999;
 
     public EventOption[] options;
+
 }
 
 [System.Serializable]
@@ -30,6 +34,12 @@ public class EventOption
     public bool addModifier;
     public RunModifierId modifier;
     public int modifierStacks = 1;
+
+    public bool unlocksUnit = false;
+    public UnitId unitToUnlock;
+
+    public bool resolveEventOnPick = false;
+    public string resolveFlagOverride;
 
     [TextArea] public string resultText;
     public Sprite resultIllustration;

@@ -11,7 +11,7 @@ public class MapNodeUI : MonoBehaviour
     public MapNodeData data;
     private MapManager mapManager;
 
-    private List<MapNodeUI> connectedNodes = new List<MapNodeUI>();
+    private readonly List<MapNodeUI> connectedNodes = new List<MapNodeUI>();
 
     [SerializeField] private MapEventDatabase eventDb;
     [SerializeField] private MapEventPanel eventPanel;
@@ -35,56 +35,89 @@ public class MapNodeUI : MonoBehaviour
 
     private void OnClicked()
     {
-
-        if (data.type == NodeType.Fight || data.type == NodeType.Boss)
+        switch (data.type)
         {
-            mapManager.SelectNode(this);
-
-
-            var fight = FightDatabase.instance.GetByTypeAndIndex(data.type, data.fightIndex);
-            if (fight == null)
+            case NodeType.Fight:
+            case NodeType.Boss:
             {
-                Debug.LogError($"Fight not found for {data.type} index={data.fightIndex}");
-                return;
+                    mapManager.SelectNode(this);
+
+
+                    var fight = FightDatabase.instance.GetByTypeAndIndex(data.type, data.fightIndex);
+                    if (fight == null)
+                    {
+                        Debug.LogError($"Fight not found for {data.type} index={data.fightIndex}");
+                        return;
+                    }
+
+                    BattleDataCarrier.selectedFight = fight;
+                    SceneLoader.LoadScene("LoadingScene");
+                    break;
             }
 
-            BattleDataCarrier.selectedFight = fight;
-            SceneLoader.LoadScene("LoadingScene");
-        }
-        else if (data.type == NodeType.Shop)
-        {
-            mapManager.SelectNode(this);
-
-            SceneLoader.LoadScene("ShopScene");
-        }
-        else if (data.type == NodeType.Event)
-        {
-
-            if (eventDb == null || eventPanel == null)
+            case NodeType.Shop:
             {
-                Debug.LogWarning("Event click: no eventDb or eventPanel in MapNodeUI.");
-                return;
+                    mapManager.SelectNode(this);
+                    SceneLoader.LoadScene("ShopScene");
+                    break;
             }
 
-            var rng = new System.Random(unchecked(MapRunData.currentSeed ^ (data.id * 73856093)));
 
-            MapEventDef def = eventDb.PickForColumn(rng, data.columnIndex);
-            
-
-            if(def == null)
+            case NodeType.Event:
             {
-                RunResources.AddMaterials(10);
+                    EventFlags.Load();
+
+                    var candidates = eventDb.events.Where(def =>
+                    {
+                        if (def == null) return false;
+
+                        if (def.hideAfterResolve && !string.IsNullOrEmpty(def.eventId) && EventFlags.IsResolved(def.eventId))
+                            return false;
+
+                        bool hasUnlockOption = def.options != null && def.options.Any(o => o.unlocksUnit);
+                        if (hasUnlockOption)
+                        {
+                            bool allUnlockAlreadyOwned = def.options
+                                .Where(o => o.unlocksUnit)
+                                .All(o => UnitUnlocks.IsUnlocked(o.unitToUnlock));
+
+                            if (allUnlockAlreadyOwned)
+                                return false;
+
+
+                        }
+
+                        if (data.columnIndex >= 0)
+                        {
+                            if (data.columnIndex < def.minColumn || data.columnIndex > def.maxColumn)
+                                return false;
+                        }
+
+                        return true;
+                    }).ToList();
+
+                    if (candidates.Count == 0)
+                    {
+                        Debug.Log("[MapNodeUI] No available events for this node.");
+
+                        mapManager.SelectNode(this);
+
+                        return;
+                    }
+
+                    var rng = new System.Random(unchecked(MapRunData.currentSeed ^ (data.id * 5341265)));
+                    var def = candidates[rng.Next(candidates.Count)];
+
+                    eventPanel.gameObject.SetActive(true);
+                    eventPanel.Show(def, onResolved: () => mapManager.SelectNode(this));
+                    break;
+            }
+
+            default:
+            {
                 mapManager.SelectNode(this);
-                return;
+                break;
             }
-
-            eventPanel.gameObject.SetActive(true);
-            eventPanel.Show(def, onResolved: () => { mapManager.SelectNode(this); });
-
-        }
-        else
-        {
-            mapManager.SelectNode(this);
 
         }
     }

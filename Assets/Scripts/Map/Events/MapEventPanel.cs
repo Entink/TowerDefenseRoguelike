@@ -52,8 +52,28 @@ public class MapEventPanel : MonoBehaviour
         if (opt.deltaMaterials != 0) RunResources.AddMaterials(opt.deltaMaterials);
         if (opt.addModifier) RunData.I.AddModifier(opt.modifier, opt.modifierStacks);
 
+        if(opt.unlocksUnit)
+        {
+            if(UnitUnlocks.UnlockByEvent(opt.unitToUnlock))
+            {
+                Debug.Log($"Unlocked unit by event: {opt.unitToUnlock}");
+            }
+        }    
+
+
+        if(current.hideAfterResolve)
+        {
+            if(opt.resolveEventOnPick || opt.unlocksUnit)
+            {
+                string flag = string.IsNullOrEmpty(opt.resolveFlagOverride) ? current.eventId : opt.resolveFlagOverride;
+                if (!string.IsNullOrEmpty(flag))
+                    EventFlags.MarkResolved(flag);
+            }
+        }
+
         if (art && opt.resultIllustration) art.sprite = opt.resultIllustration;
         if (titleText) titleText.text = current.title;
+
         if (bodyText) bodyText.text = string.IsNullOrWhiteSpace(opt.resultText)
                 ? BuildAutoResultText(opt)
                 : opt.resultText;
@@ -75,6 +95,7 @@ public class MapEventPanel : MonoBehaviour
         if (opt.deltaCash != 0) sb.AppendLine(opt.deltaCash > 0 ? $"+{opt.deltaCash} cash" : $"{opt.deltaCash} cash");
         if (opt.deltaMaterials != 0) sb.AppendLine(opt.deltaMaterials > 0 ? $"+{opt.deltaMaterials} materials" : $"{opt.deltaMaterials} materials");
         if (opt.addModifier) sb.AppendLine($"Gained modifier: {opt.modifier} x{opt.modifierStacks}");
+        if (opt.unlocksUnit) sb.AppendLine($"Unlocked unit: {opt.unitToUnlock}");
         return sb.ToString();
     }
 

@@ -12,7 +12,12 @@ public class MapEventDatabase : ScriptableObject
         foreach(var e in events)
         {
             if (e == null) continue;
+
+            if (e.hideAfterResolve && !string.IsNullOrEmpty(e.eventId) && EventFlags.IsResolved(e.eventId))
+                continue;
+
             if (columnIndex < e.minColumn || columnIndex > e.maxColumn) continue;
+
             int weight = Mathf.Max(1, Mathf.RoundToInt(e.commonness * 10f));
             for (int i = 0; i < weight; i++) pool.Add(e);
         }

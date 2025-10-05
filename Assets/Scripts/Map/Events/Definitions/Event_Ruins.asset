@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 635b017c179ba014cb83c59fc86e8d2c, type: 3}
   m_Name: Event_Ruins
   m_EditorClassIdentifier: 
+  eventId: 
+  hideAfterResolve: 1
   title: Ruins
   body: You approached old ruins.
   illustration: {fileID: 0}
@@ -26,20 +28,28 @@ MonoBehaviour:
     minCash: 0
     deltaMaterials: 10
     deltaCash: 0
-    addModifier: 0
-    modifier: 6
-    modifierStacks: 0
-    resultText: 
-    resultIllustration: {fileID: 0}
-  - label: Look for artifacts
-    description: 
-    icon: {fileID: 0}
-    minMaterials: 999
-    minCash: 999
-    deltaMaterials: 0
-    deltaCash: 0
     addModifier: 1
     modifier: 6
     modifierStacks: 1
+    unlocksUnit: 0
+    unitToUnlock: 0
+    resolveEventOnPick: 0
+    resolveFlagOverride: 
+    resultText: 
+    resultIllustration: {fileID: 0}
+  - label: Rebuild the ruins
+    description: 
+    icon: {fileID: 0}
+    minMaterials: 20
+    minCash: 0
+    deltaMaterials: -20
+    deltaCash: 0
+    addModifier: 0
+    modifier: 6
+    modifierStacks: 1
+    unlocksUnit: 1
+    unitToUnlock: 5
+    resolveEventOnPick: 1
+    resolveFlagOverride: 
     resultText: 
     resultIllustration: {fileID: 0}

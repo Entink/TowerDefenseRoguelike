@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b452e2c750b5cba478209abc0b19aa75, type: 3}
   m_Name: UnitSkiilTree_Warrior
   m_EditorClassIdentifier: 
-  unitId: 0
+  unitId: 1
   nodes:
   - nodeId: basicTraining
     displayName: Basic Training

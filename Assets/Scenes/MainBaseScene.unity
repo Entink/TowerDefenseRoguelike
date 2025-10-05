@@ -1312,13 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50cf81510ddc09f489e1c8d3150e66ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allUnits:
-  - {fileID: 2005501345440514604, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
-  - {fileID: 4583388451463704840, guid: 1f836d74f97b9974db9c13a90edc41c7, type: 3}
-  - {fileID: 3272007393060756805, guid: 8e0a90a6c40983345b3d5c4b8d77bf48, type: 3}
-  - {fileID: 2005501345440514604, guid: e2a26dc0f38529d478f2df424e5734f0, type: 3}
-  - {fileID: 2005501345440514604, guid: 7953b720d1d1cf44ebbbdf9b8449ca82, type: 3}
-  - {fileID: 2005501345440514604, guid: cce93366fd86b114da06b58307eea53d, type: 3}
+  unitDb: {fileID: 11400000, guid: ab6eb3e5d016048439375e2b9026ec25, type: 2}
   unitButtonContainer: {fileID: 796584401}
   unitButtonPrefab: {fileID: 5898348514398231995, guid: 8c210523b0b25d74daa10c774cddd256, type: 3}
   confirmButton: {fileID: 1260653858}

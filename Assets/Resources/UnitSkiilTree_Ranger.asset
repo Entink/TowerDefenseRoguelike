@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b452e2c750b5cba478209abc0b19aa75, type: 3}
   m_Name: UnitSkiilTree_Ranger
   m_EditorClassIdentifier: 
-  unitId: 1
+  unitId: 2
   nodes:
   - nodeId: atk_1
     displayName: Attack UP
     description: '+ 1 DMG '
     icon: {fileID: 0}
+    col: 0
+    row: 0
     costMaterials: 2
     prerequisites: []
     maxLevel: 5
@@ -42,6 +44,8 @@ MonoBehaviour:
     displayName: Attack UP
     description: '+ 2 DMG '
     icon: {fileID: 0}
+    col: 0
+    row: 0
     costMaterials: 5
     prerequisites:
     - atk_1
@@ -67,6 +71,8 @@ MonoBehaviour:
     displayName: Attack UP
     description: + 10% DMG
     icon: {fileID: 0}
+    col: 0
+    row: 0
     costMaterials: 5
     prerequisites:
     - atk_2
@@ -92,6 +98,8 @@ MonoBehaviour:
     displayName: Health UP
     description: + 2 HP
     icon: {fileID: 0}
+    col: 0
+    row: 0
     costMaterials: 3
     prerequisites: []
     maxLevel: 3
@@ -116,6 +124,8 @@ MonoBehaviour:
     displayName: Health UP
     description: + 15% HP
     icon: {fileID: 0}
+    col: 0
+    row: 0
     costMaterials: 3
     prerequisites:
     - HP_1

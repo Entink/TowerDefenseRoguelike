@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class UnitSelectionManager : MonoBehaviour
 {
     [Header("Dostepne jednostki")]
-    public List<GameObject> allUnits;
+    [SerializeField] private UnitDatabase unitDb;
 
     [Header("UI")]
     public Transform unitButtonContainer;
@@ -33,6 +33,8 @@ public class UnitSelectionManager : MonoBehaviour
 
     private void Start()
     {
+        UnitUnlocks.Load(unitDb);
+
         GenerateUnitButtons();
         confirmButton.interactable = false;
         confirmButton.onClick.AddListener(OnConfirm);
@@ -40,13 +42,33 @@ public class UnitSelectionManager : MonoBehaviour
 
     private void GenerateUnitButtons()
     {
-        foreach(var unit in allUnits)
+        foreach (Transform ch in unitButtonContainer)
+            Destroy(ch.gameObject);
+
+        var skillTree = FindObjectOfType<UnitSkillTreePanel>(true);
+
+        foreach(var def in unitDb.All)
         {
+            if (def == null || def.unitPrefab == null) continue;
+
             GameObject buttonObj = Instantiate(unitButtonPrefab, unitButtonContainer);
-            UnitSelectionButton usb = buttonObj.GetComponent<UnitSelectionButton>();
-            usb.Setup(unit, this);
-            usb.skillTreePanel = FindObjectOfType<UnitSkillTreePanel>(true);
+            var usb = buttonObj.GetComponent<UnitSelectionButton>();
+
+            if(usb == null)
+            {
+                Debug.LogError("UnitSelectionButton prefab missing UnitSelectionButton component.");
+                continue;
+            }
+
+            usb.skillTreePanel = skillTree;
+
+            usb.Setup(def, this);
         }
+    }
+
+    public void RefreshConfirmButton()
+    {
+        confirmButton.interactable = selectedUnits.Count > 0;
     }
 
     public bool ToggleSelection(GameObject unit)
@@ -54,7 +76,7 @@ public class UnitSelectionManager : MonoBehaviour
         if(selectedUnits.Contains(unit))
         {
             selectedUnits.Remove(unit);
-            confirmButton.interactable = selectedUnits.Count > 0;
+            RefreshConfirmButton();
             return false;
         }
         else
@@ -64,7 +86,7 @@ public class UnitSelectionManager : MonoBehaviour
                 return false;
             }
             selectedUnits.Add(unit);
-            confirmButton.interactable = true;
+            RefreshConfirmButton();
             return true;
         }
 

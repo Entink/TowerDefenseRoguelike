@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef2e2b341e15374a8e590e5194d2f9f, type: 3}
+  m_Name: Unit_Fast
+  m_EditorClassIdentifier: 
+  id: 4
+  displayName: Runner
+  unitPrefab: {fileID: 2005501345440514604, guid: 7953b720d1d1cf44ebbbdf9b8449ca82, type: 3}
+  unlockedByDefault: 0
+  unlockMethod: 0
+  costMaterials: 25
+  requiresUnlocked: 03000000

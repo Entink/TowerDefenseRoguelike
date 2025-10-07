@@ -11,6 +11,7 @@ public class MainBaseController : MonoBehaviour
 
     private void Awake()
     {
+
         EventFlags.Load();
     }
     private void Update()

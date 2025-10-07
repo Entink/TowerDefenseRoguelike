@@ -37,12 +37,7 @@ public class UnitStats : MonoBehaviour
     public float cooldown;
 
 
-    private void Awake()
-    {
-        maxHP *= UnitStatsModifiers.hpMultiplier;
-        damage *= UnitStatsModifiers.damageMultiplier;
-        cooldown *= UnitStatsModifiers.cooldownMultiplier;
-    }
+    
 
     
 

@@ -21,8 +21,12 @@ public class UnitTemplate
         int baseCost = stats.cost;
         float baseCd = stats.cooldown;
 
+        
+
         int costTmp = baseCost;
         float cdTmp = baseCd;
+
+        
         UnitSkillTreeRuntime.ApplyToRecruitment(stats, ref costTmp, ref cdTmp);
 
         cost = Mathf.RoundToInt(costTmp * UnitStatsModifiers.discountMultiplier);

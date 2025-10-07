@@ -1316,7 +1316,7 @@ MonoBehaviour:
   startingGold: 10
   currentGold: 0
   goldGainInterval: 1
-  baseGoldPerInterval: 1
+  baseGoldPerInterval: 3
   runData: {fileID: 0}
   OnGoldChanged:
     m_PersistentCalls:

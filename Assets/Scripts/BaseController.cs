@@ -11,6 +11,7 @@ public class BaseController : MonoBehaviour
 
     private void Start()
     {
+        
         currentHP = maxHP;
         hPBarUI?.SetHP(currentHP, maxHP);
     }

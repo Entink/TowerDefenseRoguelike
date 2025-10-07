@@ -76,6 +76,8 @@ public class CurrencyManager : MonoBehaviour
 
     void RecalculatePassiveIncome()
     {
+        
+
         currentGoldPerInterval = baseGoldPerInterval;
 
         var mods = (runData != null) ? runData.activeModifiers : RunData.I.activeModifiers;

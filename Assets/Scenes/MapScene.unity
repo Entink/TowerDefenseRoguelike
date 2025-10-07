@@ -801,8 +801,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allFights:
-  - {fileID: 11400000, guid: f0cc9e5e5c04ac145bb2dbebe3d30090, type: 2}
-  - {fileID: 11400000, guid: 8e0bdb29ec64a4c459e43166176ad146, type: 2}
+  - {fileID: 11400000, guid: 863043974ae60d44e99ad16f52cddb66, type: 2}
+  - {fileID: 11400000, guid: c36aca9e31399be4e920bd49d4a53b40, type: 2}
+  - {fileID: 11400000, guid: 54cbeec920370b34c8929840a128cedf, type: 2}
+  - {fileID: 11400000, guid: 6f79f29bd3819eb42900073f24db01d1, type: 2}
+  - {fileID: 11400000, guid: cfb5cf7c27df1af45bc1a956b3560939, type: 2}
   - {fileID: 11400000, guid: 0d5762b98246d6b49973ac0c241d3ed6, type: 2}
 --- !u!4 &809297319
 Transform:

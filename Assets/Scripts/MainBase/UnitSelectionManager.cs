@@ -17,11 +17,6 @@ public class UnitSelectionManager : MonoBehaviour
 
     private List<GameObject> selectedUnits = new List<GameObject>();
 
-    private void Awake()
-    {
-        maxSelectableUnits = UpgradeManager.GetCurrentUnitLimit();
-
-    }
 
     private void Update()
     {
@@ -34,6 +29,7 @@ public class UnitSelectionManager : MonoBehaviour
     private void Start()
     {
         UnitUnlocks.Load(unitDb);
+        maxSelectableUnits = UpgradeManager.GetCurrentUnitLimit();
 
         GenerateUnitButtons();
         confirmButton.interactable = false;

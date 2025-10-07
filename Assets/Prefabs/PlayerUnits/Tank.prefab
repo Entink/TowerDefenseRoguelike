@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4600127789261272449}
   - component: {fileID: 5054475821399374824}
   m_Layer: 7
-  m_Name: TestAllyTank
+  m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,6 +263,8 @@ MonoBehaviour:
     m_Bits: 0
   isStunned: 0
   stunEndTime: 0
+  regenPerSecond: 0
+  lifeSteal: 0
 --- !u!114 &4600127789261272449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,23 +277,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9bf41e7a3b1984b8b2dba4d49fe3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Test Ally Tank
+  unitName: Tank
   ally: 1
-  unitId: 2
+  unitId: 3
   unitype: 0
-  maxHP: 30
-  speed: 0.9
-  attackSpeed: 0.8
-  damage: 4
+  maxHP: 300
+  speed: 0.8
+  attackSpeed: 0.7
+  damage: 10
   attackRange: 1
   multiStrikeCount: 1
   multiStrikeDelay: 0
   isAOE: 0
   aoeRadius: 0
-  kbForce: 0.6
-  kbRes: 0.8
-  cost: 7
-  cooldown: 10
+  kbForce: 0.8
+  kbRes: 0.6
+  cost: 85
+  cooldown: 8
 --- !u!114 &5054475821399374824
 MonoBehaviour:
   m_ObjectHideFlags: 0

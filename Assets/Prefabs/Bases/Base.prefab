@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6c80b08bc61ae4aafca594b81fa31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 10
+  maxHP: 1500
   currentHP: 0
   hPBarUI: {fileID: 7975154427154973145}
   isPlayerBase: 1

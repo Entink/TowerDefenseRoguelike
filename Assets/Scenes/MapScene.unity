@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  columns: 5
+  columns: 10
   minNodesPerColumn: 2
   maxNodesPerColumn: 3
   totalFights: 3
@@ -705,7 +705,7 @@ GameObject:
   - component: {fileID: 790505914}
   - component: {fileID: 790505916}
   - component: {fileID: 790505915}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,8 +753,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 2986095105091660353, guid: 080d6039643e44d479b161b4c34ddb2d, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -936,7 +936,7 @@ GameObject:
   - component: {fileID: 906328213}
   - component: {fileID: 906328215}
   - component: {fileID: 906328214}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: NodeContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1283,7 +1283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1192277803}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: LineContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

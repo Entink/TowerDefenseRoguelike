@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
@@ -17,10 +18,13 @@ public class UnitSelectionManager : MonoBehaviour
 
     private List<GameObject> selectedUnits = new List<GameObject>();
 
+    public event System.Action<int> OnSelectedUnitsChanged;
 
-    private void Update()
+
+    private void OnEnable()
     {
         maxSelectableUnits = UpgradeManager.GetCurrentUnitLimit();
+        GenerateUnitButtons();
 
     }
 
@@ -38,6 +42,12 @@ public class UnitSelectionManager : MonoBehaviour
 
     private void GenerateUnitButtons()
     {
+        if(!unitButtonContainer || !unitButtonPrefab || !unitDb)
+        {
+            Debug.LogError("[UnitSelection] No refference UnitButtonContainer/UnitButtonPrefab/UnitDatabase");
+            return;
+        }
+
         foreach (Transform ch in unitButtonContainer)
             Destroy(ch.gameObject);
 
@@ -46,9 +56,11 @@ public class UnitSelectionManager : MonoBehaviour
         foreach(var def in unitDb.All)
         {
             if (def == null || def.unitPrefab == null) continue;
+            if (!UnitUnlocks.IsUnlocked(def.id)) continue;
 
             GameObject buttonObj = Instantiate(unitButtonPrefab, unitButtonContainer);
             var usb = buttonObj.GetComponent<UnitSelectionButton>();
+            
 
             if(usb == null)
             {
@@ -65,6 +77,7 @@ public class UnitSelectionManager : MonoBehaviour
     public void RefreshConfirmButton()
     {
         confirmButton.interactable = selectedUnits.Count > 0;
+        OnSelectedUnitsChanged?.Invoke(selectedUnits.Count);
     }
 
     public bool ToggleSelection(GameObject unit)
@@ -93,7 +106,15 @@ public class UnitSelectionManager : MonoBehaviour
     private void OnConfirm()
     {
         RunData.selectedUnits = selectedUnits;
-        MapRunData.currentSeed = Random.Range(0, int.MaxValue);
+        if(TutorialState.I != null && TutorialState.I.Active)
+        {
+            MapRunData.currentSeed = TutorialState.I.Profile.tutorialSeed;
+        }
+        else
+        {
+            MapRunData.currentSeed = Random.Range(0, int.MaxValue);
+
+        }
         SceneLoader.LoadScene("MapScene");
     }
 }

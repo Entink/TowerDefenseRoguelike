@@ -86,7 +86,7 @@ public class MapManager : MonoBehaviour
             layout.childAlignment = TextAnchor.MiddleCenter;
             layout.spacing = 30;
             layout.childControlWidth = false;
-            layout.childControlHeight = true;
+            layout.childControlHeight = false;
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 

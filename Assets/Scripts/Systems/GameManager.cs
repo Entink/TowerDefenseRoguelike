@@ -1,8 +1,24 @@
 using UnityEngine;
 
+public enum RunState
+{
+    InFight,
+    Won,
+    Lost
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    [Header("UI")]
+    [SerializeField] private GameObject defeatScreen;
+
+    [Header("State")]
+    [SerializeField] private RunState runState = RunState.InFight;
+    private bool endTriggered = false;
+
+
 
     [Header("Units limit")]
     [SerializeField] int baseMaxUnits = 10;
@@ -18,8 +34,13 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        
+
+        runState = RunState.InFight;
+        endTriggered = false;
+        if (defeatScreen != null) defeatScreen.SetActive(false);
     }
+
+    public bool IsInputAllowed() => runState == RunState.InFight && !endTriggered;
 
     void OnEnable()
     {
@@ -63,16 +84,33 @@ public class GameManager : MonoBehaviour
     {
         if(playerBase)
         {
-            Debug.Log("Lose");
-            SceneLoader.LoadScene("MapScene");
+            OnPlayerDefeated();
 
         }
         else
         {
+            OnEnemyDefetead();
             
-            Debug.Log("Win");
-            SceneLoader.LoadScene("VictoryScene");
         }
     }
 
+    private void OnEnemyDefetead()
+    {
+        runState = RunState.Won;
+        Debug.Log("Win");
+        SceneLoader.LoadScene("VictoryScene");
+    }
+
+    private void OnPlayerDefeated()
+    {
+        runState = RunState.Lost;
+
+        Time.timeScale = 0f;
+
+        if (defeatScreen != null) defeatScreen.SetActive(true);
+
+        RunData.ResetRun();
+    }
+
+    
 }

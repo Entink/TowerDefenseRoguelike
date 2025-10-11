@@ -65,7 +65,10 @@ public partial class RunData : MonoBehaviour
         selectedUnits.Clear();
         purchasedItems.Clear();
         UnitStatsModifiers.Reset();
-        
+        RunResources.Reset();
+        MapRunData.Reset();
+
+
     }
 
     public void LoadState()

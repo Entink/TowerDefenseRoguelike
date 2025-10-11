@@ -19,14 +19,22 @@ public class BarracksPanel : MonoBehaviour
         foreach(var def in unitDb.All)
         {
             if (def == null) continue;
-            var go = Instantiate(unitTilePrefab, container);
-            var tile = go.GetComponent<BarracksUnitTile>();
-            tile.Setup(def, this);
+            if (def.unlockMethod != UnitUnlockMethod.Materials && !UnitUnlocks.IsUnlocked(def.id))
+                continue;
+
+            if(UnitUnlocks.HasRequirements(def))
+            {
+                var go = Instantiate(unitTilePrefab, container);
+                var tile = go.GetComponent<BarracksUnitTile>();
+                tile.Setup(def, this);
+            }
+            
         }
     }
 
     private void OnEnable()
     {
+        UnitUnlocks.Load(unitDb);
         Rebuild();
     }
     public void OnUnlocked()

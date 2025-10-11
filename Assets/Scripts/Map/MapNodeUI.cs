@@ -16,7 +16,8 @@ public class MapNodeUI : MonoBehaviour
     [SerializeField] private MapEventDatabase eventDb;
     [SerializeField] private MapEventPanel eventPanel;
 
-
+    [SerializeField] private Color connectionStartColor;
+    [SerializeField] private Color connectionEndColor;
 
 
     public void Setup(MapNodeData nodeData, MapManager manager, MapEventDatabase eventDb, MapEventPanel eventPanel)
@@ -166,8 +167,8 @@ public class MapNodeUI : MonoBehaviour
         lr.endWidth = 0.05f;
 
         lr.material = new Material(Shader.Find("Sprites/Default"));
-        lr.startColor = new Color(1f, 1f, 1f, 0.5f);
-        lr.endColor = new Color(1f, 1f, 1f, 0.5f);
+        lr.startColor = connectionStartColor;
+        lr.endColor = connectionEndColor;
         lr.sortingOrder = -1;
         lr.useWorldSpace = false;
 

@@ -3,7 +3,7 @@ using UnityEngine;
 public static class RunResources
 {
     public static int cash = 0;
-    public static int materials = 99;
+    public static int materials = 100;
 
     public static void Reset()
     {

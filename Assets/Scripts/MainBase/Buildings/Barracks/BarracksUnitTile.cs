@@ -29,31 +29,33 @@ public class BarracksUnitTile : MonoBehaviour
         }
         else
         {
-            if (statusText) statusText.text = "Locked";
+            bool canUnlockWithMaterials = def.unlockMethod == UnitUnlockMethod.Materials;
+            unlockButton.gameObject.SetActive(canUnlockWithMaterials);
 
-            int cost = def.costMaterials;
-            if (costText) costText.text = cost > 0 ? $"Cost: {cost} materials" : "Free";
-
-            if(unlockButton)
+            if(canUnlockWithMaterials)
             {
-                unlockButton.gameObject.SetActive(true);
+                bool hasReq = UnitUnlocks.HasRequirements(def);
+                int cost = Mathf.Max(0, def.costMaterials);
+
+                statusText.text = hasReq ? "Locked" : "";
+                costText.text = hasReq ? $"Cost: {cost} materials" : "Requirments not met";
+                unlockButton.interactable = hasReq;
+
                 unlockButton.onClick.RemoveAllListeners();
                 unlockButton.onClick.AddListener(() =>
                 {
-                    int price = cost;
-                    if (price > 0 && RunResources.GetMaterials() < price)
-                    {
-                        Debug.Log("Not enough materials");
-                        return;
-                    }
-
-                    if (price > 0) RunResources.AddMaterials(-price);
-
-                    UnitUnlocks.TryUnlockWithMaterials(def);
-
-                    panel.OnUnlocked();
+                    if (UnitUnlocks.TryUnlockWithMaterials(def))
+                        panel.OnUnlocked();
                 });
             }
+            else
+            {
+                statusText.text = "Unlock via Event";
+                costText.text = "";
+                unlockButton.gameObject.SetActive(false);
+            }
+
+            
         }
     }
 }

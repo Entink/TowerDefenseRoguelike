@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 4941602342316099247, guid: ebdff3d91cd4f684aaec208bddf17af3, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -145,6 +145,8 @@ MonoBehaviour:
     columnIndex: 0
   eventDb: {fileID: 0}
   eventPanel: {fileID: 0}
+  connectionStartColor: {r: 0, g: 0, b: 0, a: 1}
+  connectionEndColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &3598287843803939393
 MonoBehaviour:
   m_ObjectHideFlags: 0

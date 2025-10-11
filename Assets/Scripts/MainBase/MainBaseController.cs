@@ -11,7 +11,9 @@ public class MainBaseController : MonoBehaviour
 
     private void Awake()
     {
-
+        UnitUnlocks.Save();
+        var unitDB = Resources.Load<UnitDatabase>("UnitDatabase");
+        UnitUnlocks.Load(unitDB);
         EventFlags.Load();
     }
     private void Update()

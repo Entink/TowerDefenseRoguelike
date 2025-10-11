@@ -12,24 +12,21 @@ public static class UnitUnlocks
 {
     private const string KEY = "UNIT_UNLOCKS_V1";
     private static HashSet<UnitId> _unlocked = new();
-    private static bool _loaded = false;
+    
 
     public static void Load(UnitDatabase db)
     {
-        if (_loaded) return;
+        
         _unlocked.Clear();
 
-        if(PlayerPrefs.HasKey("KEY"))
+        if(PlayerPrefs.HasKey(KEY))
         {
             var json = PlayerPrefs.GetString(KEY);
-            try
-            {
-                var data = JsonUtility.FromJson<UnitUnlockSave>(json) ?? new UnitUnlockSave();
-                foreach (var id in data.unlocked) _unlocked.Add((UnitId)id);
-            }
-            catch { }
+            var data = JsonUtility.FromJson<UnitUnlockSave>(json) ?? new UnitUnlockSave();
+            foreach (var id in data.unlocked) _unlocked.Add((UnitId)id);
 
 
+            
         }
 
         if(db != null)
@@ -38,7 +35,7 @@ public static class UnitUnlocks
                 if (def.unlockedByDefault) _unlocked.Add(def.id);
         }
 
-        _loaded = true;
+        
     }
 
     public static void Save()
@@ -51,24 +48,38 @@ public static class UnitUnlocks
 
     public static bool IsUnlocked(UnitId id) => _unlocked.Contains(id);
 
-    public static bool CanUnlockWithMaterials(UnitDef def)
-    {
-        if (def == null) return false;
-        if (IsUnlocked(def.id)) return false;
-        if (def.unlockMethod != UnitUnlockMethod.Materials) return false;
-        if (def.requiresUnlocked != null)
-            foreach (var req in def.requiresUnlocked)
-                if (!IsUnlocked(req)) return false;
-
-        return RunResources.GetMaterials() >= def.costMaterials;
-    }
+   
 
     public static bool TryUnlockWithMaterials(UnitDef def)
     {
-        if (!CanUnlockWithMaterials(def)) return false;
-        if (def.costMaterials > 0) RunResources.AddMaterials(-def.costMaterials);
+        if (def == null) return false;
+        if (IsUnlocked(def.id)) return true;
+
+        if (def.unlockMethod != UnitUnlockMethod.Materials)
+            return false;
+
+        if (!HasRequirements(def))
+            return false;
+
+        int cost = Mathf.Max(0, def.costMaterials);
+        if (RunResources.GetMaterials() < cost)
+            return false;
+
+        if (cost > 0) RunResources.AddMaterials(-cost);
+
         _unlocked.Add(def.id);
         Save();
+        PlayerPrefs.Save();
+        return true;
+    }
+
+    public static bool HasRequirements(UnitDef def)
+    {
+        if (def.requiresUnlocked == null || def.requiresUnlocked.Length == 0) return true;
+        foreach(var req in def.requiresUnlocked)
+        {
+            if (!IsUnlocked(req)) return false;
+        }
         return true;
     }
 

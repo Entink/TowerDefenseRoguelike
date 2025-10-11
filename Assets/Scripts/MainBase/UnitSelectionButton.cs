@@ -5,6 +5,14 @@ using UnityEngine.EventSystems;
 
 public class UnitSelectionButton : MonoBehaviour, IPointerClickHandler
 {
+    public enum Mode
+    {
+        SelectionOnly,
+        Unlockable
+    }
+
+    private Mode mode = Mode.SelectionOnly;
+
     [Header("UI")]
     [SerializeField] private Image background;
     [SerializeField] private TextMeshProUGUI label;
@@ -24,30 +32,40 @@ public class UnitSelectionButton : MonoBehaviour, IPointerClickHandler
     private bool isSelected = false;
     private bool isUnlocked = false;
 
-    public void Setup(UnitDef def, UnitSelectionManager manager)
+
+    public void Setup(UnitDef def, UnitSelectionManager manager, Mode mode = Mode.SelectionOnly)
     {
         this.def = def;
         this.unitPrefab = def.unitPrefab;
         this.selectionManager = manager;
+        this.mode = mode;
+
+        
 
         label.text = def.displayName;
 
         isUnlocked = UnitUnlocks.IsUnlocked(def.id);
 
+        bool allowUnlockUI = (mode == Mode.Unlockable);
 
-        if (lockedOverlay) lockedOverlay.SetActive(!isUnlocked);
-        if (costText) costText.text = (def.unlockMethod == UnitUnlockMethod.Materials)
-                ? $"{def.costMaterials} materials"
-                : "Unlock during run";
+        if (lockedOverlay) lockedOverlay.SetActive(!isUnlocked && allowUnlockUI);
+        if (costText)
+        {
+            costText.gameObject.SetActive(allowUnlockUI && !isUnlocked);
+            if(allowUnlockUI && !isUnlocked)
+            {
+                costText.text = (def.unlockMethod == UnitUnlockMethod.Materials)
+                    ? $"{def.costMaterials} materials"
+                    : "Unlock during run";
+            }
+        }
         
         if(unlockButton)
         {
+            unlockButton.gameObject.SetActive(allowUnlockUI && !isUnlocked && def.unlockMethod == UnitUnlockMethod.Materials);
             unlockButton.onClick.RemoveAllListeners();
 
-            bool showUnlockBtn = (def.unlockMethod == UnitUnlockMethod.Materials);
-            unlockButton.gameObject.SetActive(showUnlockBtn);
-
-            if(showUnlockBtn)
+            if(allowUnlockUI && !isUnlocked && def.unlockMethod == UnitUnlockMethod.Materials)
             {
                 unlockButton.onClick.AddListener(() =>
                 {
@@ -55,6 +73,8 @@ public class UnitSelectionButton : MonoBehaviour, IPointerClickHandler
                     {
                         isUnlocked = true;
                         if (lockedOverlay) lockedOverlay.SetActive(false);
+                        if (costText) costText.gameObject.SetActive(false);
+                        if (unlockButton) unlockButton.gameObject.SetActive(false);
                         UpdateVisual();
                         selectionManager.RefreshConfirmButton();
 
@@ -89,6 +109,8 @@ public class UnitSelectionButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        return; //Turning off showing skill tree in command center after right clicking selection button => option moved to Laboratory building
+
         if (eventData.button != PointerEventData.InputButton.Right) return;
 
         if (skillTreePanel == null)

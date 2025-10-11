@@ -13,6 +13,11 @@ public class MainBaseHub : MonoBehaviour
     [SerializeField] private GameObject commandCenterPanel;
     [SerializeField] private GameObject laboratoryPanel;
 
+    [Header("Buttons")]
+    [SerializeField] private GameObject barracksButton;
+    [SerializeField] private GameObject commandCenterButton;
+    [SerializeField] private GameObject laboratoryButton;
+
     public void CloseAll()
     {
         if (barracksPanel) barracksPanel.SetActive(false);
@@ -33,6 +38,19 @@ public class MainBaseHub : MonoBehaviour
 
     private void Start()
     {
-        Open(BuildingType.CommandCenter);
+        CloseAll();
+        if(TutorialState.I != null && TutorialState.I.Active)
+        {
+            if (barracksButton) barracksButton.SetActive(false);
+            if (commandCenterButton) commandCenterButton.SetActive(true);
+            if (laboratoryButton) laboratoryButton.SetActive(false);
+            
+        }
+        else
+        {
+            if (barracksButton) barracksButton.SetActive(true);
+            if (commandCenterButton) commandCenterButton.SetActive(true);
+            if (laboratoryButton) laboratoryButton.SetActive(true);
+        }
     }
 }

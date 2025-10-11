@@ -66,6 +66,8 @@ public class UnitSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.instance.IsInputAllowed()) return;
+
         for (int i = 0; i < units.Count; i++)
         {
             if (Input.GetKeyDown(units[i].hotkey))
@@ -77,6 +79,8 @@ public class UnitSpawner : MonoBehaviour
 
     public void TrySpawnUnit(int index)
     {
+        if (!GameManager.instance.IsInputAllowed()) return;
+
 
         if (index < 0 || index >= units.Count)
         {

@@ -9,6 +9,8 @@ public class BaseController : MonoBehaviour
 
     [SerializeField] public bool isPlayerBase = false;
 
+    private bool died = false;
+
     private void Start()
     {
         
@@ -30,6 +32,8 @@ public class BaseController : MonoBehaviour
 
     private void Die()
     {
+        if (died) return;
+        died = true;
         Debug.Log($"{gameObject.name} was destroyed!");
         GameManager.instance.OnBaseDestroyed(isPlayerBase);
 

@@ -11,6 +11,8 @@ public class UnitSpawner : MonoBehaviour
     public List<UnitTemplate> units = new List<UnitTemplate>();
     private float[] nextAvailableTimes;
 
+    public event System.Action<int> OnUnitSpawned;
+
     private void Awake()
     {
         runData = FindAnyObjectByType<RunData>();
@@ -66,6 +68,7 @@ public class UnitSpawner : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (PauseManager.IsPaused) return;
         if (!GameManager.instance.IsInputAllowed()) return;
 
         for (int i = 0; i < units.Count; i++)
@@ -79,7 +82,14 @@ public class UnitSpawner : MonoBehaviour
 
     public void TrySpawnUnit(int index)
     {
+        if (PauseManager.IsPaused) return;
+
         if (!GameManager.instance.IsInputAllowed()) return;
+
+        if(TutorialState.I != null && TutorialState.I.Active)
+        {
+            if (index != 0) return;
+        }
 
 
         if (index < 0 || index >= units.Count)
@@ -119,6 +129,9 @@ public class UnitSpawner : MonoBehaviour
 
 
             nextAvailableTimes[index] = currentTime + finalCd;
+
+            OnUnitSpawned?.Invoke(index);
+            CombatStatsTracker.I?.OnUnitSpawned();
         }
         else
         {

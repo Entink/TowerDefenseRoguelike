@@ -15,6 +15,7 @@ MonoBehaviour:
   id: 9999
   displayName: TEST UNIT
   unitPrefab: {fileID: 2005501345440514604, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
-  unlockedByDefault: 1
+  unlockedByDefault: 0
+  unlockMethod: 2
   costMaterials: 0
   requiresUnlocked: 

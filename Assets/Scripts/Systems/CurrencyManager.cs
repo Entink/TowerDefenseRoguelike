@@ -66,6 +66,7 @@ public class CurrencyManager : MonoBehaviour
         {
             currentGold -= amount;
             OnGoldChanged?.Invoke(currentGold);
+            CombatStatsTracker.I?.OnGoldSpent(amount);
         }
     }
 

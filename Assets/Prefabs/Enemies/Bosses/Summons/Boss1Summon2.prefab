@@ -4852,6 +4852,8 @@ ParticleSystemRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4873,6 +4875,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5164,6 +5167,7 @@ GameObject:
   - component: {fileID: 8088439437476172694}
   - component: {fileID: 3417997121379744153}
   - component: {fileID: 5211703556411920890}
+  - component: {fileID: 3099391342830098427}
   m_Layer: 8
   m_Name: Boss1Summon2
   m_TagString: Untagged
@@ -5208,6 +5212,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5229,6 +5235,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -5383,6 +5390,8 @@ MonoBehaviour:
     m_Bits: 0
   isStunned: 0
   stunEndTime: 0
+  regenPerSecond: 0
+  lifeSteal: 0
 --- !u!114 &3417997121379744153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5397,6 +5406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Boss1Summon2
   ally: 0
+  unitId: 0
   unitype: 0
   maxHP: 3
   speed: 1
@@ -5426,6 +5436,19 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &3099391342830098427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5667778855852757539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7b74d3fe0c8d64a86590308f86b609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXUnit
+  sfxAnchor: {fileID: 0}
 --- !u!1 &7881763793435385390
 GameObject:
   m_ObjectHideFlags: 0

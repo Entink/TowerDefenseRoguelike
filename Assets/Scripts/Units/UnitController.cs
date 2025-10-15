@@ -4,6 +4,7 @@ using System.Collections;
 
 public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private SFXUnit sfx;
     private UnitStats stats;
 
     [SerializeField, ReadOnly] private float currentHP;
@@ -50,6 +51,7 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         hpBar = GetComponentInChildren<HPBar>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         deathEffect = GetComponentInChildren<ParticleSystem>();
+        sfx = GetComponent<SFXUnit>();
 
         IsAlly = stats.ally;
 
@@ -109,6 +111,7 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void TakeDamage(float dmg, float kbPower)
     {
         CurrentHP -= dmg;
+        sfx?.PlayHit();
         StartCoroutine(HitEffect());
 
         float finalKB = kbPower * (1f - stats.kbRes);
@@ -161,6 +164,14 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Die()
     {
+        if(CombatStatsTracker.I != null)
+        {
+            if (isAlly)
+                CombatStatsTracker.I.OnPlayerUnitKilled();
+            else
+                CombatStatsTracker.I.OnEnemyKilled();
+        }
+        sfx?.PlayDeath();
         if(isAlly)
         {
             if (hpBar != null)

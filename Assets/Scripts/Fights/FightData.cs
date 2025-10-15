@@ -23,6 +23,9 @@ public class FightData : ScriptableObject
     public string fightName;
     public bool isBoss;
 
+    [Header("Tutorial")]
+    public bool isTutorialOnly = false;
+
     [Header("Level settings")]
     [Min(5)]
     public float levelLenght = 20f;

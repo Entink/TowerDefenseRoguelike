@@ -53,7 +53,13 @@ public class MapGenerator : MonoBehaviour
                     node.type = GetNodeType(col);
 
                     if (node.type == NodeType.Fight)
-                        node.fightIndex = fightCounter++;
+                    {
+                        bool tut = (TutorialState.I != null && TutorialState.I.Active);
+                        int idx = NextAllowedFightIndex(fightCounter, tut);
+                        node.fightIndex = idx;
+
+                        fightCounter = idx + 1;
+                    }
                 }
 
                 nodeList.Add(node);
@@ -69,8 +75,24 @@ public class MapGenerator : MonoBehaviour
         {
             foreach (var node in map.columns[1])
             {
+                
                 node.type = NodeType.Fight;
-                node.fightIndex = fightCounter++;
+
+                bool tut = (TutorialState.I != null && TutorialState.I.Active);
+                int idx = NextAllowedFightIndex(fightCounter, tut);
+                node.fightIndex = idx;
+
+                fightCounter = idx + 1;
+            }
+        }
+
+        if(TutorialState.I != null && TutorialState.I.Active && map.columns.Count > 1)
+        {
+            int idx = TutorialState.I.Profile.tutorialFightIndex;
+            foreach(var node in map.columns[1])
+            {
+                node.type = NodeType.Fight;
+                node.fightIndex = idx;
             }
         }
 
@@ -100,8 +122,11 @@ public class MapGenerator : MonoBehaviour
             var canditate = allMiddleNodes.Find(n => n.type != NodeType.Fight && n.type != NodeType.Shop && n.type != NodeType.Event);
             if (canditate == null) break;
 
-            canditate.type = NodeType.Fight;
-            canditate.fightIndex = fightCounter++;
+            bool tut = (TutorialState.I != null && TutorialState.I.Active);
+            int idx = NextAllowedFightIndex(fightCounter, tut);
+            canditate.fightIndex = idx;
+
+            fightCounter = idx + 1;
             currentFights++;
         }
 
@@ -153,6 +178,27 @@ public class MapGenerator : MonoBehaviour
         if (roll < 0.85f) return NodeType.Shop;
         return NodeType.Event;
     }
+
+    private int NextAllowedFightIndex(int startIdx, bool tutorialActive)
+    {
+        int i = startIdx;
+        int safety = 10000;
+
+        while(safety-- > 0)
+        {
+            var fd = FightDatabase.instance.GetByTypeAndIndex(NodeType.Fight, i);
+            if(fd == null) { i++; continue; }
+
+            bool allowed = !fd.isBoss && (!fd.isTutorialOnly || tutorialActive);
+
+            if (allowed) return i;
+            i++;
+        }
+
+        return startIdx;
+    }
+
+    
     
 
 }

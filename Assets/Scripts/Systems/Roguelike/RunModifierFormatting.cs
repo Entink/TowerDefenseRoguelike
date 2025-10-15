@@ -37,38 +37,45 @@ public static class RunModifierFormatting
                 {
                     int cost = -15 * stacks;
                     int cd = +20 * stacks;
-                    return $"Total: {Fmt(cost)} cost, {Fmt(cd)} cooldown";
+                    return $"Total:\n {Fmt(cost)} cost\n {Fmt(cd)} cooldown";
                 }
             case RunModifierId.RushOrders:
                 {
                     int cost = +10 * stacks;
                     int cd = -20 * stacks;
-                    return $"Total: {Fmt(cost)} cost, {Fmt(cd)} cooldown";
+                    return $"Total:\n {Fmt(cost)} cost\n {Fmt(cd)} cooldown";
                 }
             case RunModifierId.BulkDiscount:
                 {
                     int cost = -10 * stacks;
-                    return $"Total: {Fmt(cost)} cost";
+                    return $"Total:\n {Fmt(cost)} cost";
                 }
             case RunModifierId.CommandLogistics:
                 {
                     int total = 1 * stacks;
-                    return $"Total: +{total} Max Units | Current limit: {GameManager.instance.GetMaxUnits()}";
+                    return $"Total:\n +{total} Max Units\nCurrent limit: {GameManager.instance.GetMaxUnits()}";
                 }
             case RunModifierId.GoldMine:
                 {
                     int pct = 50 * stacks;
-                    return $"Total: +{pct}% gold per second";
+                    return $"Total:\n +{pct}% gold per second";
                 }
             case RunModifierId.BetterPlatings:
                 {
                     int pct = 20 * stacks;
-                    return $"Total: +{pct}% Max HP";
+                    return $"Total:\n +{pct}% Max HP";
                 }
             case RunModifierId.SharpenedBlades:
                 {
                     int pct = 10 * stacks;
-                    return $"Total: +{pct}% Attack Damage";
+                    return $"Total:\n +{pct}% Attack Damage";
+                }
+            case RunModifierId.BlackMarket:
+                {
+                    int cost = -50 * stacks;
+                    int hp = -10 * stacks;
+                    int dmg = -10 * stacks;
+                    return $"Total:\n {Fmt(cost)} cost\n {Fmt(hp)} Max HP\n {Fmt(dmg)} Attack Damage";
                 }
         }
         return "";

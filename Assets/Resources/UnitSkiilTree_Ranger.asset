@@ -147,3 +147,29 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
+  - nodeId: 
+    displayName: 
+    description: 
+    icon: {fileID: 0}
+    col: 0
+    row: 0
+    costMaterials: 3
+    prerequisites: []
+    maxLevel: 1
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0

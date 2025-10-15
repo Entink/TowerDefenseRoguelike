@@ -25,6 +25,7 @@ public class MapManager : MonoBehaviour
     Dictionary<int, MapNodeUI> nodeUIById = new();
     private MapNodeUI currentNode;
 
+    public event System.Action<MapNodeUI> OnNodeSelected;
 
     private void Awake()
     {
@@ -181,6 +182,8 @@ public class MapManager : MonoBehaviour
 
     public void SelectNode(MapNodeUI node)
     {
+        OnNodeSelected?.Invoke(node);
+
         MapRunData.currentNode = node.data;
         currentNode = node;
 
@@ -261,5 +264,11 @@ public class MapManager : MonoBehaviour
         }
         mapScroll.horizontalNormalizedPosition = target;
     }
+
+    public IEnumerable<MapNodeUI> GetAllNodeUI() => nodeUIById.Values;
+
+    public MapNodeUI GetCurrentNodeUI() => currentNode;
+
+    public MapNodeUI GetStartNodeUI() => nodeUIById.Values.FirstOrDefault(n => n.GetNodeData().type == NodeType.Start);
     
 }

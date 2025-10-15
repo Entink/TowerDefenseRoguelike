@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightName: Test Boss Fight 1
   isBoss: 1
+  isTutorialOnly: 0
   levelLenght: 50
   enemies:
   - enemyPrefab: {fileID: 5667778855852757539, guid: f4278cfad6faeed4baa3adcadc9ea799, type: 3}

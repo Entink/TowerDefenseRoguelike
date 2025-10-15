@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - EnemyBase
+  - PauseMenu
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Highligts
   m_SortingLayers:
   - name: Background
     uniqueID: 4231509223

@@ -5,6 +5,7 @@ using UnityEngine;
 public class TutorialProfile : ScriptableObject
 {
     public int tutorialSeed = 123456;
+    public int tutorialFightIndex = 0;
 
     public List<UnitId> unitWhiteList = new List<UnitId>() { UnitId.Warrior };
 }

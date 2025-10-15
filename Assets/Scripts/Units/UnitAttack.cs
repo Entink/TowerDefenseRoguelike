@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class UnitAttack : MonoBehaviour
 {
+    private SFXUnit sfx;
+
     private UnitStats stats;
     private UnitController controller;
     private Coroutine attackCoroutine;
@@ -21,7 +23,8 @@ public class UnitAttack : MonoBehaviour
         controller = GetComponent<UnitController>();
 
         enemyLayer = controller.GetEnemyLayer();
-
+        sfx = GetComponent<SFXUnit>();
+        OnAttackFired += () => sfx?.PlayAttack();
         
         if (stats.attackSpeed > 0)
         {
@@ -91,6 +94,13 @@ public class UnitAttack : MonoBehaviour
 
                         float finalDamage = attackerStats.damage * multiplier;
                         uc.TakeDamage(finalDamage, stats.kbForce);
+                        if(CombatStatsTracker.I != null)
+                        {
+                            if (controller != null && controller.IsAlly)
+                                CombatStatsTracker.I.OnDamageDealt(finalDamage);
+                            else
+                                CombatStatsTracker.I.OnDamageTaken(finalDamage);
+                        }
                         if(controller != null && controller.lifeSteal > 0f)
                         {
                             controller.Heal(finalDamage * controller.lifeSteal);
@@ -102,6 +112,13 @@ public class UnitAttack : MonoBehaviour
                     if (bc != null)
                     {
                         bc.TakeDamage(stats.damage);
+                        if (CombatStatsTracker.I != null)
+                        {
+                            if (controller != null && controller.IsAlly && !bc.isPlayerBase)
+                                CombatStatsTracker.I.OnDamageDealt(stats.damage);
+                            else if (controller != null && !controller.IsAlly && bc.isPlayerBase)
+                                CombatStatsTracker.I.OnDamageTaken(stats.damage);
+                        }
                     }
                 }
 

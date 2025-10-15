@@ -25,6 +25,7 @@ public static class RunModifiers
                 case RunModifierId.GoldMine: eff = new GoldMineModifier(); break;
                 case RunModifierId.BetterPlatings: eff = new BetterPlatingsModifier(); break;
                 case RunModifierId.SharpenedBlades: eff = new SharpenedBladesModifier(); break;
+                case RunModifierId.BlackMarket: eff = new BlackMarketModifier(); break;
                 default: eff = new NoOpModifier(); break;
                 
             }

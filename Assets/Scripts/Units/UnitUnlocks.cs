@@ -17,7 +17,7 @@ public static class UnitUnlocks
     public static void Load(UnitDatabase db)
     {
         
-        _unlocked.Clear();
+        //_unlocked.Clear();
 
         if(PlayerPrefs.HasKey(KEY))
         {

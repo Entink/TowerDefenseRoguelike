@@ -16,13 +16,11 @@ public static class UnitUnlocks
 
     public static void Load(UnitDatabase db)
     {
-        
-        //_unlocked.Clear();
 
         if(PlayerPrefs.HasKey(KEY))
         {
             var json = PlayerPrefs.GetString(KEY);
-            var data = JsonUtility.FromJson<UnitUnlockSave>(json) ?? new UnitUnlockSave();
+            var data = JsonUtility.FromJson<UnitUnlockSave>(json);
             foreach (var id in data.unlocked) _unlocked.Add((UnitId)id);
 
 

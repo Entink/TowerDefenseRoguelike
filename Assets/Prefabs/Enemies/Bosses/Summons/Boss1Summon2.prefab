@@ -5408,13 +5408,13 @@ MonoBehaviour:
   ally: 0
   unitId: 0
   unitype: 0
-  maxHP: 3
-  speed: 1
-  attackSpeed: 2
-  damage: 3
-  attackRange: 4
-  multiStrikeCount: 2
-  multiStrikeDelay: 1
+  maxHP: 20
+  speed: 1.1
+  attackSpeed: 1.4
+  damage: 6
+  attackRange: 4.2
+  multiStrikeCount: 1
+  multiStrikeDelay: 0
   isAOE: 0
   aoeRadius: 0
   kbForce: 0.1

@@ -5410,17 +5410,17 @@ MonoBehaviour:
   ally: 0
   unitId: 0
   unitype: 0
-  maxHP: 100
-  speed: 0.7
-  attackSpeed: 0.6
-  damage: 3
-  attackRange: 2.5
-  multiStrikeCount: 1
-  multiStrikeDelay: 0
+  maxHP: 800
+  speed: 0.75
+  attackSpeed: 0.75
+  damage: 24
+  attackRange: 2.6
+  multiStrikeCount: 2
+  multiStrikeDelay: 0.15
   isAOE: 1
-  aoeRadius: 2
-  kbForce: 1
-  kbRes: 0.9
+  aoeRadius: 1.2
+  kbForce: 0.35
+  kbRes: 0.92
   cost: 0
   cooldown: 0
 --- !u!114 &5211703556411920890

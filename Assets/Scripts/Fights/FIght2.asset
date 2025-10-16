@@ -14,24 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightName: Barrage
   isBoss: 0
+  isTutorialOnly: 0
   levelLenght: 25
   enemies:
   - enemyPrefab: {fileID: 5667778855852757539, guid: bc9c532a3c5373a4eb83d1a8bcbc800e, type: 3}
-    delay: 2
-    quantity: 6
-    quantityInterval: 2
+    delay: 4
+    quantity: 5
+    quantityInterval: 2.5
     isInfinite: 0
     repeatInterval: 0
   - enemyPrefab: {fileID: 5667778855852757539, guid: 6afbac57380371443a44e8937265ebf5, type: 3}
-    delay: 8
+    delay: 11
     quantity: 2
-    quantityInterval: 4
+    quantityInterval: 4.5
     isInfinite: 0
     repeatInterval: 0
   - enemyPrefab: {fileID: 5667778855852757539, guid: c4631768ae09aa343af3cf53b9ad7a32, type: 3}
-    delay: 15
-    quantity: 3
-    quantityInterval: 2.5
+    delay: 16
+    quantity: 2
+    quantityInterval: 3
     isInfinite: 0
     repeatInterval: 0
   difficulty: 1

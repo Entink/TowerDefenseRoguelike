@@ -22,6 +22,13 @@ public class PauseMenuAudioUI : MonoBehaviour
     const string K_Sfx = "vol_sfx";
     const string K_UI = "vol_ui";
 
+    private void Awake()
+    {
+        ApplyAll();
+        UpdateLabels();
+    }
+
+
     private void OnEnable()
     {
         master.value = PlayerPrefs.GetFloat(K_Master, 0.8f);
@@ -57,7 +64,7 @@ public class PauseMenuAudioUI : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void ApplyAll()
+    public void ApplyAll()
     {
         if (MusicManager.I == null) return;
         MusicManager.I.SetVolume01("MasterVolume", master.value);

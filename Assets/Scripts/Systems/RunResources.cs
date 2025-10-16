@@ -3,7 +3,14 @@ using UnityEngine;
 public static class RunResources
 {
     public static int cash = 0;
-    public static int materials = 100;
+    public static int materials = 0;
+    private const string KEY = "materials_key";
+
+    public static void LoadMaterials()
+    {
+        materials = PlayerPrefs.GetInt(KEY, 0);
+    }
+
 
     public static void Reset()
     {
@@ -25,6 +32,8 @@ public static class RunResources
     public static void AddMaterials(int amount)
     {
         materials += amount;
+        PlayerPrefs.SetInt(KEY, materials);
+        PlayerPrefs.Save();
     }
 
     public static bool TrySpendCash(int amount)

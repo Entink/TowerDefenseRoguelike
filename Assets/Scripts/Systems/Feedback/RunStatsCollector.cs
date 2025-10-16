@@ -36,4 +36,16 @@ public static class RunStatsCollector
     {
         S.materialsEarned += Mathf.Max(0, amount);
     }
+
+    public static void AddFromFightSnapshot(CombatStatsSnapshot s)
+    {
+        if (s == null) return;
+
+        S.timeInFights += s.fightTime;
+        S.totalDamageDealt += s.damageDealt;
+        S.totalDamageTaken += s.damageTaken;
+        S.unitsSpawned += s.unitsSpawned;
+        S.enemiesKilled += s.enemiesKilled;
+        S.goldSpent += s.goldSpent;
+    }
 }

@@ -24,8 +24,8 @@ MonoBehaviour:
   - label: Scavange the Ruins
     description: 
     icon: {fileID: 0}
-    minMaterials: 0
-    minCash: 0
+    minMaterials: -999
+    minCash: -999
     deltaMaterials: 10
     deltaCash: 0
     addModifier: 1

@@ -17,16 +17,39 @@ public class OnboardingMainBase : MonoBehaviour
     [SerializeField] private Button startRunButton;
 
     private int step = 0;
+    private int finished = 0;
+    private const string finishedKEY = "finished_key";
 
     private void Start()
     {
-        if(TutorialState.I == null || !TutorialState.I.Active)
+        finished = PlayerPrefs.GetInt(finishedKEY, 0);
+        if(finished == 1)
         {
-            gameObject.SetActive(false);
-            return;
+            EndOfTutorial();
+
+        }
+        else
+        {
+            if (TutorialState.I == null || !TutorialState.I.Active)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            Begin();
+
         }
 
-        Begin();
+
+    }
+
+    private void EndOfTutorial()
+    {
+        overlayRoot.SetActive(true);
+        skipButton.onClick.AddListener(SkipAll);
+        instructionText.text = "This is the end of the tutorial. Good luck with your journey. [Click skip to end]";
+        finished = 2;
+        PlayerPrefs.SetInt(finishedKEY, 2);
     }
 
 

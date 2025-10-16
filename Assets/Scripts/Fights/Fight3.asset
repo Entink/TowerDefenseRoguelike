@@ -14,24 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightName: Ram and Artillery
   isBoss: 0
+  isTutorialOnly: 0
   levelLenght: 30
   enemies:
   - enemyPrefab: {fileID: 5667778855852757539, guid: bc9c532a3c5373a4eb83d1a8bcbc800e, type: 3}
-    delay: 2
-    quantity: 6
-    quantityInterval: 2
+    delay: 4
+    quantity: 5
+    quantityInterval: 2.7
     isInfinite: 0
     repeatInterval: 0
   - enemyPrefab: {fileID: 5667778855852757539, guid: ad4662f9814a7fc409c7e1c7f3bc7c66, type: 3}
-    delay: 8
+    delay: 14
     quantity: 1
     quantityInterval: 0
     isInfinite: 0
     repeatInterval: 0
   - enemyPrefab: {fileID: 5667778855852757539, guid: c1c8457b7fe2c2e47b76dadd32a74d79, type: 3}
-    delay: 12
-    quantity: 2
-    quantityInterval: 6
+    delay: 18
+    quantity: 1
+    quantityInterval: 0
     isInfinite: 0
     repeatInterval: 0
   difficulty: 1

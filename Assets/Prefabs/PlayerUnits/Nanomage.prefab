@@ -287,17 +287,17 @@ MonoBehaviour:
   unitype: 0
   maxHP: 110
   speed: 0.9
-  attackSpeed: 0.8
-  damage: 15
+  attackSpeed: 0.85
+  damage: 14
   attackRange: 2.8
   multiStrikeCount: 1
   multiStrikeDelay: 0
   isAOE: 1
-  aoeRadius: 1.3
+  aoeRadius: 1.2
   kbForce: 0.25
   kbRes: 0.1
-  cost: 75
-  cooldown: 7.2
+  cost: 70
+  cooldown: 6.8
 --- !u!114 &5054475821399374824
 MonoBehaviour:
   m_ObjectHideFlags: 0

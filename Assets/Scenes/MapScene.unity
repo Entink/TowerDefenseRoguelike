@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  columns: 4
+  columns: 8
   minNodesPerColumn: 2
   maxNodesPerColumn: 3
   totalFights: 3

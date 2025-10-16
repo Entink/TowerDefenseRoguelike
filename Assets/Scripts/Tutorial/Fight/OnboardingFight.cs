@@ -106,6 +106,8 @@ public class OnboardingFight : MonoBehaviour
     private System.Collections.IEnumerator GoStep3_Delayed()
     {
         yield return new WaitForSecondsRealtime(7.0f);
+        stepText.text = "You can move through map and fight by holding your left mouse button and dragging.";
+        yield return new WaitForSecondsRealtime(5.0f);
         StartCoroutine(GoStep3_SpawnFirstUnit());
     }
 

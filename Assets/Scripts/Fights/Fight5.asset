@@ -14,36 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightName: Mini-siege
   isBoss: 0
+  isTutorialOnly: 0
   levelLenght: 40
   enemies:
   - enemyPrefab: {fileID: 5667778855852757539, guid: bc9c532a3c5373a4eb83d1a8bcbc800e, type: 3}
-    delay: 2
-    quantity: 7
-    quantityInterval: 2
+    delay: 4
+    quantity: 4
+    quantityInterval: 2.3
     isInfinite: 0
     repeatInterval: 0
   - enemyPrefab: {fileID: 5667778855852757539, guid: 6afbac57380371443a44e8937265ebf5, type: 3}
-    delay: 8
-    quantity: 3
+    delay: 10
+    quantity: 2
     quantityInterval: 3.5
     isInfinite: 0
     repeatInterval: 0
   - enemyPrefab: {fileID: 5667778855852757539, guid: c1c8457b7fe2c2e47b76dadd32a74d79, type: 3}
-    delay: 12
-    quantity: 2
-    quantityInterval: 5
+    delay: 16
+    quantity: 1
+    quantityInterval: 0
     isInfinite: 0
     repeatInterval: 0
   - enemyPrefab: {fileID: 5667778855852757539, guid: ad4662f9814a7fc409c7e1c7f3bc7c66, type: 3}
-    delay: 18
+    delay: 22
     quantity: 1
     quantityInterval: 0
     isInfinite: 0
     repeatInterval: 0
   - enemyPrefab: {fileID: 5667778855852757539, guid: c4631768ae09aa343af3cf53b9ad7a32, type: 3}
-    delay: 5
-    quantity: 6
-    quantityInterval: 2
+    delay: 26
+    quantity: 3
+    quantityInterval: 3
     isInfinite: 0
     repeatInterval: 0
   difficulty: 1

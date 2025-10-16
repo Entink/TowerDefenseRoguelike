@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, ReadOnly] public int currentUnits = 0;
 
+    [SerializeField] RunSummaryPanel runSummaryPanel;
+
     private void Awake()
     {
         if (instance == null)
@@ -97,6 +99,16 @@ public class GameManager : MonoBehaviour
     private void OnEnemyDefetead()
     {
         runState = RunState.Won;
+
+        var snap = CombatStatsTracker.I?.ToSnapshot();
+        FightStatsCarrier.Set(snap);
+
+        if(snap != null)
+        {
+            RunStatsCollector.AddFromFightSnapshot(snap);
+            RunStatsCollector.OnFightResult(true);
+        }
+
         Debug.Log("Win");
         SceneLoader.LoadScene("VictoryScene");
     }
@@ -104,12 +116,20 @@ public class GameManager : MonoBehaviour
     private void OnPlayerDefeated()
     {
         runState = RunState.Lost;
+        RunStatsCollector.AddFromFight(CombatStatsTracker.I);
+        RunStatsCollector.OnFightResult(false);
+
+        int bank = RunStatsCollector.S.materialsEarned;
+        int payout = Mathf.RoundToInt(bank * 0.7f);
+        runSummaryPanel.Show("RUN SUMMARY (DEFEAT)", payout);
+        PlayerPrefs.SetInt("defeat_payout_materials", payout);
+        PlayerPrefs.Save();
 
         Time.timeScale = 0f;
 
         if (defeatScreen != null) defeatScreen.SetActive(true);
 
-        RunData.ResetRun();
+        
     }
 
     

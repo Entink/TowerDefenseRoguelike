@@ -285,9 +285,9 @@ MonoBehaviour:
   ally: 1
   unitId: 3
   unitype: 0
-  maxHP: 300
+  maxHP: 350
   speed: 0.8
-  attackSpeed: 0.7
+  attackSpeed: 0.6
   damage: 10
   attackRange: 1
   multiStrikeCount: 1
@@ -295,8 +295,8 @@ MonoBehaviour:
   isAOE: 0
   aoeRadius: 0
   kbForce: 0.8
-  kbRes: 0.6
-  cost: 85
+  kbRes: 0.7
+  cost: 80
   cooldown: 8
 --- !u!114 &5054475821399374824
 MonoBehaviour:

@@ -79,7 +79,11 @@ public class OnboardingMap : MonoBehaviour
 
         step = 2;
         overlayRoot.SetActive(true);
+        stepText.text = "Later on you can move map by holding left mouse button and dragging.";
+
+        StartCoroutine(new WaitForSecondsRealtime(5.0f));
         stepText.text = "Click this node to go ahead.";
+
         FrameUI(targetNode.GetComponent<RectTransform>());
 
         SetOnlyTheseNodesInteractable(new[] { targetNode });

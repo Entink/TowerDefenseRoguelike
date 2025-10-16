@@ -7,13 +7,15 @@ public class VictoryScreenManager : MonoBehaviour
 {
     [SerializeField] private Button continueButton;
     [SerializeField] private TextMeshProUGUI cashText;
-    [SerializeField] private TextMeshProUGUI materialsText;
     
     [SerializeField] private RunData runData;
     [SerializeField] private RunModifierDatabase modifierDb;
     [SerializeField] private ModifierChoicePanel modifierChoicePanel;
 
     [SerializeField] private OnboardingVictory onboarding;
+
+    [SerializeField] private RunSummaryPanel runSummaryPanel;
+    [SerializeField] private FightSummaryPanel fightSummaryPanel;
 
     public int cashReward;
     public int materialsReward;
@@ -26,8 +28,7 @@ public class VictoryScreenManager : MonoBehaviour
 
     private void Start()
     {
-        RunStatsCollector.AddFromFight(CombatStatsTracker.I);
-        RunStatsCollector.OnFightResult(true);
+        
         bool isBossFight = false;
         if (BattleDataCarrier.selectedFight != null)
             isBossFight = BattleDataCarrier.selectedFight.isBoss;
@@ -35,11 +36,21 @@ public class VictoryScreenManager : MonoBehaviour
         runData = FindAnyObjectByType<RunData>();
         continueButton.onClick.AddListener(OnContinue);
 
-        int cash = RunResources.GetCash();
-        int materials = RunResources.GetMaterials();
+        RunResources.AddCash(cashReward);
+        RunStatsCollector.AddMaterials(materialsReward);
 
-        if(!isBossFight)
+        //Debug.Log($"Cash: {RunResources.GetCash()} | Materials: {RunResources.GetMaterials()}");
+        cashText.text = $"Cash earned: {cashReward}\nTotal cash: {RunResources.GetCash()}";
+
+        var fightSnap = FightStatsCarrier.Last;
+
+        if (!isBossFight)
         {
+            if (fightSummaryPanel && !TutorialState.I.Active)
+                fightSummaryPanel.Show(fightSnap, materialsReward, RunStatsCollector.S.materialsEarned);
+
+            FightStatsCarrier.Clear();
+
             int seed = MapRunData.currentSeed;
             int fightIndex = MapRunData.currentNode.id;
 
@@ -57,19 +68,16 @@ public class VictoryScreenManager : MonoBehaviour
         else
         {
             if (modifierChoicePanel != null) modifierChoicePanel.gameObject.SetActive(false);
+
+            if (runSummaryPanel) runSummaryPanel.Show("RUN SUMMARY (VICTORY)", -1);
+
             continueButton.gameObject.SetActive(true);
         }
 
         
         
 
-        RunResources.AddCash(cashReward);
-        //RunResources.AddMaterials(materialsReward);
-        RunStatsCollector.AddMaterials(materialsReward);
         
-        Debug.Log($"Cash: {RunResources.GetCash()} | Materials: {RunResources.GetMaterials()}");
-        cashText.text = $"Cash earned: {cashReward}\nTotal cash: {RunResources.GetCash()}";
-        materialsText.text = $"Materials earned: {materialsReward}";
             
     }
 
@@ -78,6 +86,7 @@ public class VictoryScreenManager : MonoBehaviour
         if(TutorialState.I != null && TutorialState.I.Active)
         {
             TutorialState.I.Complete();
+            PlayerPrefs.SetInt("finished_key", 1);
             RunData.ResetRun();
             MapRunData.Reset();
 
@@ -87,7 +96,9 @@ public class VictoryScreenManager : MonoBehaviour
 
         if(MapRunData.currentNode.type == NodeType.Boss)
         {
-            
+            int payout = RunStatsCollector.S.materialsEarned;
+            RunResources.AddMaterials(payout);
+
             RunData.ResetRun();
             
             MapRunData.Reset();

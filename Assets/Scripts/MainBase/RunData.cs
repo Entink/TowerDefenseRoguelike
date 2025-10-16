@@ -29,6 +29,8 @@ public partial class RunData : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
 
+        RunResources.LoadMaterials();
+
         selectedUnits = _selectedUnits;
         LoadState();
     }

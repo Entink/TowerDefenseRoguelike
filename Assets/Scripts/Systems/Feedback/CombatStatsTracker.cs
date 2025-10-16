@@ -28,4 +28,18 @@ public class CombatStatsTracker : MonoBehaviour
     public void OnGoldSpent(int amount) { goldSpent += amount; }
     public void OnDamageDealt(float amount) { damageDealt += amount; }
     public void OnDamageTaken(float amount) { damageTaken += amount; }
+
+    public CombatStatsSnapshot ToSnapshot()
+    {
+        return new CombatStatsSnapshot
+        {
+            fightTime = fightTime,
+            unitsSpawned = unitsSpawned,
+            enemiesKilled = enemiesKilled,
+            playerUnitsKilled = playerUnitsKilled,
+            goldSpent = goldSpent,
+            damageDealt = damageDealt,
+            damageTaken = damageTaken,
+        };
+    }
 }

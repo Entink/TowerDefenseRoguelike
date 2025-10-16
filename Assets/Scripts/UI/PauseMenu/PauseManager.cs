@@ -17,22 +17,26 @@ public class PauseManager : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
         Debug.Log($"[PauseManager] {TutorialState.I != null && TutorialState.I.Active}");
+        
+        
+
     }
 
-    
+
 
     private void Update()
     {
-        if(pauseMenuOverlay == null && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "LoadingScene")
+        if(pauseMenuOverlay == null && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "LoadingScene" && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "VictoryScene")
         {
             
             FindObjectOfType<PauseOverlayConnector>(true).gameObject.SetActive(true);
+            
 
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (TutorialState.I != null && TutorialState.I.Active) return;
+            //if (TutorialState.I != null && TutorialState.I.Active) return;
             Toggle();
             Debug.Log("[PauseManager] Zmieniono pauzê");
         }
@@ -45,9 +49,13 @@ public class PauseManager : MonoBehaviour
         pauseMenuOverlay = overlayGO;
         restartButton = restartButtonGO;
         quitButton = quitButtonGO;
+        
 
         if (pauseMenuOverlay != null) pauseMenuOverlay.SetActive(false);
         SetupButtonsVisibility();
+
+        Toggle();
+        Toggle();
     }
 
     public void DetachOverlay(GameObject overlayGO)
@@ -76,7 +84,7 @@ public class PauseManager : MonoBehaviour
 
     public void Pause()
     {
-        if (TutorialState.I != null && TutorialState.I.Active) return;
+        //if (TutorialState.I != null && TutorialState.I.Active) return;
 
         if (isPaused) return;
         isPaused = true;

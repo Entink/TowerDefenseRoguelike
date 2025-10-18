@@ -99,8 +99,9 @@ public class VictoryScreenManager : MonoBehaviour
             return;
         }
 
-        if(MapRunData.currentNode.type == NodeType.Boss)
+        if(BattleDataCarrier.selectedFight.isBoss)
         {
+            Debug.Log("[VictoryScreenManager] Powrót do bazy");
             int payout = RunStatsCollector.S.materialsEarned;
             RunResources.AddMaterials(payout);
 

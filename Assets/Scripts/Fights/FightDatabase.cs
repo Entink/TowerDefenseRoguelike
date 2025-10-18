@@ -48,11 +48,29 @@ public class FightDatabase : MonoBehaviour
         return bosses[Random.Range(0, bosses.Count)];
     }
 
-    public FightData GetByTypeAndIndex(NodeType type, int index)
+    public List<FightData> GetNonBossForAct(int act, bool includeTutorial = false)
     {
-        var list = (type == NodeType.Boss)
-            ? allFights.Where(f => f != null && f.isBoss).ToList()
-            : allFights.Where(f => f != null && !f.isBoss).ToList();
+        return allFights
+            .Where(f => f != null && !f.isBoss && f.act == act && (includeTutorial || !f.isTutorialOnly))
+            .ToList();
+    }
+
+    public List<FightData> GetBossesForAct(int act)
+    {
+        return allFights
+            .Where(f => f != null && f.isBoss && f.act == act)
+            .ToList();
+    }
+
+    public FightData GetByTypeAndIndex(NodeType type, int index, int? actOverride = null)
+    {
+        int act = actOverride ?? MapRunData.currentAct;
+        List<FightData> list;
+
+        if (type == NodeType.Boss)
+            list = GetBossesForAct(act);
+        else
+            list = GetNonBossForAct(act, includeTutorial: false);
 
         if (list.Count == 0) return null;
 

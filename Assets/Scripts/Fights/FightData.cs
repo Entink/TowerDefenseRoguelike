@@ -35,4 +35,8 @@ public class FightData : ScriptableObject
 
     [Header("Difficulty")]
     public int difficulty = 1;
+
+    [Header("Meta")]
+    [Min(1)] public int act = 1;
+
 }

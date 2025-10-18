@@ -34,6 +34,49 @@ public class UnitAttack : MonoBehaviour
 
     }
 
+    private Collider2D FindClosestEnemy(Vector3 from, float range, LayerMask mask)
+    {
+        var hits = Physics2D.OverlapCircleAll(from, range, mask);
+
+        Collider2D best = null;
+        float bestSqr = float.MaxValue;
+
+        foreach(var h in hits)
+        {
+            
+
+            if (h == null) continue;
+
+            var uc = h.GetComponent<UnitController>();
+            var bc = h.GetComponent<BaseController>();
+
+            
+
+            if (uc == null && bc == null) continue;
+
+            float dx = h.transform.position.x - from.x;
+            
+
+            if (controller != null)
+            {
+                if (controller.IsAlly && dx > 0f) continue;
+                if (!controller.IsAlly && dx < 0f) continue;
+            }
+
+            float sqr = (h.transform.position - from).sqrMagnitude;
+            
+
+            if (sqr < bestSqr)
+            {
+                bestSqr = sqr;
+                best = h;
+                
+            }
+        }
+
+        return best;
+    }
+
     private IEnumerator AttackCoroutine()
     {
         yield return new WaitForSeconds((1f / stats.attackSpeed) / 2f);
@@ -49,24 +92,32 @@ public class UnitAttack : MonoBehaviour
 
             List<Collider2D> targets = new List<Collider2D>();
 
+            var closest = FindClosestEnemy(transform.position, stats.attackRange, enemyLayer);
+
             if (stats.isAOE)
             {
-                Collider2D closest = Physics2D.OverlapCircle(transform.position, stats.attackRange, enemyLayer);
                 if (closest != null)
                 {
                     Vector3 aoeCenter = closest.transform.position;
                     lastAOECenter = aoeCenter;
-                    targets.AddRange(Physics2D.OverlapCircleAll(aoeCenter, stats.aoeRadius, enemyLayer));
+
+                    var aoeHits = Physics2D.OverlapCircleAll(aoeCenter, stats.aoeRadius, enemyLayer);
+
+                    foreach(var h in aoeHits)
+                    {
+                        if (h == null) continue;
+                        var uc = h.GetComponent<UnitController>();
+                        var bc = h.GetComponent<BaseController>();
+                        if (uc == null && bc == null) continue;
+                        targets.Add(h);
+                    }
 
                 }
             }
             else
             {
-                Collider2D single = Physics2D.OverlapCircle(transform.position, stats.attackRange, enemyLayer);
-                if(single != null)
-                {
-                    targets.Add(single);
-                }
+                if (closest != null)
+                    targets.Add(closest);
             }
 
 

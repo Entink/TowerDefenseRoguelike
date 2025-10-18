@@ -4,16 +4,14 @@ using UnityEngine;
 
 public partial class RunData : MonoBehaviour
 {
-    //SINGLETON
+    
     public static RunData I { get; private set; }
 
     [Header("Runtime")]
     [SerializeField] private List<GameObject> _selectedUnits = new List<GameObject>();
     [SerializeField] public List<RunModifierState> activeModifiers = new List<RunModifierState>();
 
-    //TYMCZASOWY BACKWARD-COMPAT
-    [Obsolete("purchasedItems jest wygaszane. Uzywac systemu modyfikatorow (activeModifiers) i Shopv2.")]
-    public static List<ShopItemData> purchasedItems = new List<ShopItemData>();
+    
     public static List<GameObject> selectedUnits = new List<GameObject>();
 
     public Action OnModifiersChanged;
@@ -36,12 +34,7 @@ public partial class RunData : MonoBehaviour
     }
 
 
-    // Public API
-    [Obsolete("AddShopItem jest wygaszane. Nie uzywac w nowych miejscach.")]
-    public static void AddShopItem(ShopItemData item)
-    {
-        purchasedItems.Add(item);
-    }
+    
 
     public void AddModifier(RunModifierId id, int stacks = 1)
     {
@@ -51,6 +44,12 @@ public partial class RunData : MonoBehaviour
 
         SaveState();
         OnModifiersChanged?.Invoke();
+    }
+
+    public static void StaticAddModifier(RunModifierId id, int stacks = 1)
+    {
+        if(I == null) { Debug.LogWarning("[RunData] AddModifier called but RunData.I is null"); return; }
+        I.AddModifier(id, stacks);
     }
 
     public void RemoveAllModifiers()
@@ -65,7 +64,6 @@ public partial class RunData : MonoBehaviour
         I.RemoveAllModifiers();
         RunDataPersistence.Clear();
         selectedUnits.Clear();
-        purchasedItems.Clear();
         UnitStatsModifiers.Reset();
         RunResources.Reset();
         MapRunData.Reset();
@@ -83,5 +81,66 @@ public partial class RunData : MonoBehaviour
     {
         RunDataPersistence.SaveActiveModifiers(activeModifiers);
     }
+
+    public static List<string> GetSelectedUnitIds()
+    {
+        var result = new List<string>();
+
+        foreach(var go in selectedUnits)
+        {
+            if (!go) continue;
+
+            var stats = go.GetComponent<UnitStats>();
+            if (stats != null)
+            {
+                result.Add(stats.unitId.ToString());
+            }
+            else
+            {
+                result.Add(go.name);
+            }
+        }
+
+        return result;
+    }
+
+    public static void AddSelectedUnitById(UnitId id)
+    {
+        var db = Units.DB;
+        var def = db != null ? db.Get(id) : null;
+        if(def != null && def.unitPrefab != null)
+        {
+            selectedUnits.Add(def.unitPrefab);
+        }
+        else
+        {
+            Debug.LogWarning($"[RunData] Missing UnitDef/prefab of {id}");
+        }
+        
+    }
+
+    public static void AddSelectedUnitByName(string idString)
+    {
+        if(System.Enum.TryParse<UnitId>(idString, out var enumId))
+        {
+            AddSelectedUnitById(enumId);
+        }
+        else
+        {
+            Debug.LogWarning($"[RunData] Invalid UnitId in JSON: {idString}");
+        }
+    }
+
+    public static List<RunModifierState> GetActiveModifiers()
+    {
+        return I != null ? I.activeModifiers : new List<RunModifierState>();
+    }
+
+    public static void ClearModifiers()
+    {
+        if (I != null) I.activeModifiers.Clear();
+    }
+
+    public static void ClearSelectedUnits() => selectedUnits.Clear();
     
 }

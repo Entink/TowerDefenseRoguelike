@@ -22,10 +22,14 @@ public class MapManager : MonoBehaviour
     [SerializeField] private MapEventDatabase eventDb;
     [SerializeField] private MapEventPanel eventPanel;
 
+    [Header("Progression")]
+    [SerializeField] private ProgressConfig progression;
+
     Dictionary<int, MapNodeUI> nodeUIById = new();
     private MapNodeUI currentNode;
 
     public event System.Action<MapNodeUI> OnNodeSelected;
+    public static System.Action OnMapReady;
 
     private void Awake()
     {
@@ -58,6 +62,29 @@ public class MapManager : MonoBehaviour
         {
             generator.seed = MapRunData.currentSeed;
             MapRunData.currentMap = generator.GenerateMap();
+            
+        }
+
+        if (progression == null) progression = Resources.Load<ProgressConfig>("ProgressionConfig");
+        AssignFightsByDifficulty(MapRunData.currentMap);
+
+        if(TutorialState.I != null && TutorialState.I.Active && MapRunData.currentMap.columns.Count > 1)
+        {
+            bool includeTutorial = true;
+            var listInclTut = FightDatabase.instance.GetNonBossForAct(MapRunData.currentAct, includeTutorial);
+
+            var tut = FightDatabase.instance.allFights.FirstOrDefault(f => f != null && f.isTutorialOnly);
+            if(tut != null)
+            {
+                int tutIdx = listInclTut.FindIndex(f => f == tut);
+                if (tutIdx < 0) tutIdx = 0;
+
+                foreach (var node in MapRunData.currentMap.columns[1])
+                {
+                    node.type = NodeType.Fight;
+                    node.fightIndex = tutIdx;
+                }
+            }
         }
 
         PrintMapDebug(MapRunData.currentMap);
@@ -140,7 +167,8 @@ public class MapManager : MonoBehaviour
         
         if (MapRunData.currentNode != null && nodeUIById.TryGetValue(MapRunData.currentNode.id, out var selectedNode))
         {
-            SelectNode(selectedNode);
+            bool alreadyVisited = MapRunData.currentNode.wasVisisted;
+            SelectNode(selectedNode, markVisited: alreadyVisited);
             FocusOnNode(selectedNode, instant: true);
         }
         else
@@ -157,6 +185,16 @@ public class MapManager : MonoBehaviour
             if (start != null) FocusOnNode(start, instant: true);
         }
 
+        if(MapRunData.nodeToMarkVisited != -1 &&
+            nodeUIById.TryGetValue(MapRunData.nodeToMarkVisited, out var toVisit))
+        {
+            SelectNode(toVisit, markVisited: true, updateInteractable: true);
+            MapRunData.nodeToMarkVisited = -1;
+        }
+
+
+        OnMapReady?.Invoke();
+        OnMapReady = null;
         
 
         
@@ -180,28 +218,39 @@ public class MapManager : MonoBehaviour
         Debug.Log("== KONIEC MAPY ==");
     }
 
-    public void SelectNode(MapNodeUI node)
+    public void SelectNode(MapNodeUI node, bool markVisited = true, bool updateInteractable = true)
     {
         OnNodeSelected?.Invoke(node);
 
         MapRunData.currentNode = node.data;
         currentNode = node;
 
-        foreach (var ui in nodeUIById.Values)
+        if(updateInteractable)
         {
-            ui.SetInteractable(false);
-        }
-
-        foreach (int id in MapRunData.currentNode.connectedTo)
-        {
-            if (nodeUIById.TryGetValue(id, out var connectedUI))
+            foreach (var ui in nodeUIById.Values)
             {
-                connectedUI.SetInteractable(true);
+                ui.SetInteractable(false);
+            }
+
+            foreach (int id in MapRunData.currentNode.connectedTo)
+            {
+                if (nodeUIById.TryGetValue(id, out var connectedUI))
+                {
+                    connectedUI.SetInteractable(true);
+                }
             }
         }
 
-        MapRunData.currentNode.wasVisisted = true;
-        node.UpdateVisual();
+        if(markVisited)
+        {
+            MapRunData.currentNode.wasVisisted = true;
+            node.UpdateVisual();
+        }
+
+        
+
+        
+        RunSaveManager.Save();
     }
 
 
@@ -270,5 +319,102 @@ public class MapManager : MonoBehaviour
     public MapNodeUI GetCurrentNodeUI() => currentNode;
 
     public MapNodeUI GetStartNodeUI() => nodeUIById.Values.FirstOrDefault(n => n.GetNodeData().type == NodeType.Start);
+
+    public static MapNodeData FindNodeById(int id)
+    {
+        var map = MapRunData.currentMap;
+        if (map == null) return null;
+
+        for(int c = 0; c < map.columns.Count; c++)
+        {
+            var col = map.columns[c];
+            for (int i = 0; i < col.Count; i++)
+            {
+                if (col[i].id == id)
+                    return col[i];
+            }
+        }
+        return null;
+    }
+
+    private void AssignFightsByDifficulty(MapData map)
+    {
+        if (map == null) return;
+        if (progression == null) return;
+
+        var nonBossList = FightDatabase.instance.GetNonBossForAct(MapRunData.currentAct);
+        var bossList = FightDatabase.instance.GetBossesForAct(MapRunData.currentAct);
+
+
+        int columnsCount = map.columns.Count;
+        if (columnsCount <= 2) return;
+
+        for (int col = 0; col < columnsCount; col++)
+        {
+            foreach(var node in map.columns[col])
+            {
+                if (node == null) continue;
+
+                if (node.type == NodeType.Boss)
+                {
+                    if (node.fightIndex < 0 && bossList.Count > 0)
+                    {
+                        var rng = new System.Random(unchecked(MapRunData.currentSeed ^ (node.id * 313556)));
+                        int idx = rng.Next(bossList.Count);
+                        node.fightIndex = idx;
+
+                    }
+                }
+                else if (node.type == NodeType.Fight)
+                {
+                    int fightCols = columnsCount - 1;
+                    float t = Mathf.InverseLerp(1, fightCols - 1, col);
+                    t = Mathf.Clamp01(t);
+
+                    float c = progression.curve.Evaluate(t);
+                    float targetF = Mathf.Lerp(progression.minDifficulty, progression.maxDifficulty, c) * progression.actDifficultyMul;
+                    int target = Mathf.RoundToInt(targetF);
+
+                    var rng = new System.Random(unchecked(MapRunData.currentSeed ^ (node.id * 542346)));
+                    int roll = target + rng.Next(-progression.variance, progression.variance + 1);
+                    roll = Mathf.Clamp(roll, progression.minDifficulty, progression.maxDifficulty);
+
+                    int chosenIndexInNonBoss = PickIndexClosestByDifficulty(nonBossList, roll, rng);
+                    if (chosenIndexInNonBoss >= 0)
+                    {
+                        node.fightIndex = chosenIndexInNonBoss;
+                    }
+                }
+                
+            }
+        }
+
+        Debug.Log($"[MapManager] Assigned fights for Act {MapRunData.currentAct} ({nonBossList.Count} fights, {bossList.Count} bosses)");
+    }
+
+    private int PickIndexClosestByDifficulty(List<FightData> list, int targetDiff, System.Random rng)
+    {
+        if (list == null || list.Count == 0) return -1;
+        int bestIdx = -1;
+        int bestScore = int.MaxValue;
+
+        for(int i = 0; i < list.Count; i++)
+        {
+            var f = list[i];
+            if (f == null) continue;
+
+            int score = Mathf.Abs(f.difficulty - targetDiff);
+            if(score < bestScore)
+            {
+                bestScore = score;
+                bestIdx = i;
+            }
+            else if (score == bestScore)
+            {
+                if (rng.NextDouble() < 0.5) bestIdx = i;
+            }
+        }
+        return bestIdx;
+    }
     
 }

@@ -21,8 +21,7 @@ public class MapGenerator : MonoBehaviour
         map.seed = seed;
 
         int nodeId = 0;
-        int fightCounter = 0;
-        int bossCounter = 0;
+        
 
         for (int col = 0; col < columns; col++)
         {
@@ -46,7 +45,7 @@ public class MapGenerator : MonoBehaviour
                 else if (col == columns - 1)
                 {
                     node.type = NodeType.Boss;
-                    node.fightIndex = bossCounter++;
+                    node.fightIndex = -1;
                 }
                 else
                 {
@@ -54,11 +53,8 @@ public class MapGenerator : MonoBehaviour
 
                     if (node.type == NodeType.Fight)
                     {
-                        bool tut = (TutorialState.I != null && TutorialState.I.Active);
-                        int idx = NextAllowedFightIndex(fightCounter, tut);
-                        node.fightIndex = idx;
-
-                        fightCounter = idx + 1;
+                        if (node.type == NodeType.Fight)
+                            node.fightIndex = -1;
                     }
                 }
 
@@ -71,30 +67,8 @@ public class MapGenerator : MonoBehaviour
             
         }
 
-        if(map.columns.Count > 1)
-        {
-            foreach (var node in map.columns[1])
-            {
-                
-                node.type = NodeType.Fight;
+        
 
-                bool tut = (TutorialState.I != null && TutorialState.I.Active);
-                int idx = NextAllowedFightIndex(fightCounter, tut);
-                node.fightIndex = idx;
-
-                fightCounter = idx + 1;
-            }
-        }
-
-        if(TutorialState.I != null && TutorialState.I.Active && map.columns.Count > 1)
-        {
-            int idx = TutorialState.I.Profile.tutorialFightIndex;
-            foreach(var node in map.columns[1])
-            {
-                node.type = NodeType.Fight;
-                node.fightIndex = idx;
-            }
-        }
 
 
         List<MapNodeData> allMiddleNodes = new List<MapNodeData>();
@@ -114,21 +88,7 @@ public class MapGenerator : MonoBehaviour
             randomNode.type = NodeType.Event;
         }
 
-        int requiredFights = columns - 2;
-        int currentFights = allMiddleNodes.Count(n => n.type == NodeType.Fight);
-
-        while (currentFights < requiredFights)
-        {
-            var canditate = allMiddleNodes.Find(n => n.type != NodeType.Fight && n.type != NodeType.Shop && n.type != NodeType.Event);
-            if (canditate == null) break;
-
-            bool tut = (TutorialState.I != null && TutorialState.I.Active);
-            int idx = NextAllowedFightIndex(fightCounter, tut);
-            canditate.fightIndex = idx;
-
-            fightCounter = idx + 1;
-            currentFights++;
-        }
+        
 
 
         for(int col = 0; col < map.columns.Count - 1; col++)
@@ -179,24 +139,6 @@ public class MapGenerator : MonoBehaviour
         return NodeType.Event;
     }
 
-    private int NextAllowedFightIndex(int startIdx, bool tutorialActive)
-    {
-        int i = startIdx;
-        int safety = 10000;
-
-        while(safety-- > 0)
-        {
-            var fd = FightDatabase.instance.GetByTypeAndIndex(NodeType.Fight, i);
-            if(fd == null) { i++; continue; }
-
-            bool allowed = !fd.isBoss && (!fd.isTutorialOnly || tutorialActive);
-
-            if (allowed) return i;
-            i++;
-        }
-
-        return startIdx;
-    }
 
     
     

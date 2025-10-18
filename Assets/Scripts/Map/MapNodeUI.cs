@@ -41,7 +41,7 @@ public class MapNodeUI : MonoBehaviour
             case NodeType.Fight:
             case NodeType.Boss:
             {
-                    mapManager.SelectNode(this);
+                    MapRunData.pendingNodeId = data.id;
 
 
                     var fight = FightDatabase.instance.GetByTypeAndIndex(data.type, data.fightIndex);
@@ -52,6 +52,7 @@ public class MapNodeUI : MonoBehaviour
                     }
 
                     BattleDataCarrier.selectedFight = fight;
+                    RunSaveManager.Save();
                     SceneLoader.LoadScene("LoadingScene");
                     break;
             }
@@ -190,5 +191,6 @@ public class MapNodeUI : MonoBehaviour
         return (corners[0] + corners[2]) / 2f;
     }
 
+    
 
 }

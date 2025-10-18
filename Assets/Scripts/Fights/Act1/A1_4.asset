@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cb099c62b8b4a4fa7d0b23510c5b4d, type: 3}
+  m_Name: A1_4
+  m_EditorClassIdentifier: Assembly-CSharp::FightData
+  fightName: Pushback
+  isBoss: 0
+  isTutorialOnly: 0
+  levelLenght: 23
+  enemies:
+  - enemyPrefab: {fileID: 5667778855852757539, guid: bc9c532a3c5373a4eb83d1a8bcbc800e, type: 3}
+    delay: 4
+    quantity: 3
+    quantityInterval: 2.5
+    isInfinite: 0
+    repeatInterval: 0
+  - enemyPrefab: {fileID: 5667778855852757539, guid: 6afbac57380371443a44e8937265ebf5, type: 3}
+    delay: 10
+    quantity: 1
+    quantityInterval: 0
+    isInfinite: 0
+    repeatInterval: 0
+  difficulty: 3
+  act: 1

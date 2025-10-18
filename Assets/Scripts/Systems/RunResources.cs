@@ -24,6 +24,10 @@ public static class RunResources
         materials = 0;
     }
 
+    public static void SetCash(int amount)
+    {
+        cash = amount;
+    }
     public static void AddCash(int amount)
     {
         cash += amount;

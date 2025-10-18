@@ -386,6 +386,8 @@ MonoBehaviour:
   buyButton: {fileID: 7492356155282397435}
   icon: {fileID: 4930148908592339175}
   levelText: {fileID: 5028672581413159038}
+  ownedColor: {r: 0.504717, g: 1, b: 0.6691793, a: 0}
+  upgradedColor: {r: 1, g: 0.79322517, b: 0, a: 0}
 --- !u!114 &6672100285146437775
 MonoBehaviour:
   m_ObjectHideFlags: 0

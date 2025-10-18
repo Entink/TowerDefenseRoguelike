@@ -120,6 +120,7 @@ public class PauseManager : MonoBehaviour
     public void OnClickExitToBase()
     {
         Time.timeScale = 1f;
+        Resume();
         RunData.ResetRun();
         MapRunData.Reset();
 

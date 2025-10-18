@@ -11,6 +11,11 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI levelText;
 
+    [Header("Colors")]
+    [SerializeField] private Color ownedColor;
+    [SerializeField] private Color upgradedColor;
+
+
     UnitId unit;
     SkillNode node;
     UnitSkillTreeDef def;
@@ -48,8 +53,27 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
     void UpdateLevelBadge()
     {
         if (!levelText) return;
-        if (node.maxLevel > 1) levelText.text = $"Lv {level}/{node.maxLevel}";
-        else levelText.text = level >= 1 ? "OWNED" : "";
+        if (node.maxLevel > 1)
+        {
+            levelText.text = $"Lv {level}/{node.maxLevel}";
+            if(level < node.maxLevel && level > 0)
+            {
+                icon.color = upgradedColor;
+            }
+            else if (level == node.maxLevel && level > 0)
+            {
+                icon.color = ownedColor;
+            }
+        }
+        else
+        {
+            levelText.text = level >= 1 ? "OWNED" : "";
+            if(level >= 1)
+            {
+                icon.color = ownedColor;
+            }
+        }
+
 
     }
 

@@ -12,6 +12,7 @@ public class UnitSelectionManager : MonoBehaviour
     public Transform unitButtonContainer;
     public GameObject unitButtonPrefab;
     public Button confirmButton;
+    [SerializeField] private Button continueButton;
 
     [Header("Settings")]
     public int maxSelectableUnits = 3;
@@ -27,6 +28,8 @@ public class UnitSelectionManager : MonoBehaviour
 
         maxSelectableUnits = UpgradeManager.GetCurrentUnitLimit();
         GenerateUnitButtons();
+        confirmButton.interactable = false;
+        confirmButton.onClick.AddListener(OnConfirm);
 
     }
 
@@ -40,6 +43,13 @@ public class UnitSelectionManager : MonoBehaviour
         GenerateUnitButtons();
         confirmButton.interactable = false;
         confirmButton.onClick.AddListener(OnConfirm);
+
+        if(continueButton != null)
+        {
+            continueButton.gameObject.SetActive(RunSaveManager.Exists());
+            continueButton.onClick.RemoveAllListeners();
+            continueButton.onClick.AddListener(OnContinue);
+        }
     }
 
     private void GenerateUnitButtons()
@@ -117,6 +127,40 @@ public class UnitSelectionManager : MonoBehaviour
             MapRunData.currentSeed = Random.Range(0, int.MaxValue);
 
         }
+        RunSaveManager.Delete();
+        RunStatsCollector.Reset();
         SceneLoader.LoadScene("MapScene");
+    }
+
+    private void OnContinue()
+    {
+        if(!RunSaveManager.TryLoad(out var dto))
+        {
+            Debug.LogWarning("[Continue] Save not found or invalid");
+            return;
+        }
+
+        MapRunData.currentSeed = dto.seed;
+
+        MapManager.OnMapReady += () =>
+        {
+            RunSaveManager.ApplyDTO(dto);
+
+            foreach(var n in MapManager.instance.GetAllNodeUI())
+            {
+                if(n.GetNodeData().id == dto.currentNodeId)
+                {
+                    bool wasVisited = MapRunData.currentNode != null && MapRunData.currentNode.wasVisisted;
+                    MapManager.instance.SelectNode(n, markVisited: wasVisited, updateInteractable: true);
+                    MapManager.instance.FocusOnNode(n, true);
+                    break;
+                }
+            }
+
+            
+        };
+
+        SceneLoader.LoadScene("MapScene");
+
     }
 }

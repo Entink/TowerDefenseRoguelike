@@ -68,6 +68,9 @@ public class VictoryScreenManager : MonoBehaviour
         else
         {
             if (modifierChoicePanel != null) modifierChoicePanel.gameObject.SetActive(false);
+            fightSummaryPanel.Show(fightSnap, materialsReward, RunStatsCollector.S.materialsEarned);
+
+            //fightSummaryPanel.gameObject.SetActive(false);
 
             if (runSummaryPanel) runSummaryPanel.Show("RUN SUMMARY (VICTORY)", -1);
 
@@ -89,6 +92,8 @@ public class VictoryScreenManager : MonoBehaviour
             PlayerPrefs.SetInt("finished_key", 1);
             RunData.ResetRun();
             MapRunData.Reset();
+            RunSaveManager.Delete();
+            RunStatsCollector.Reset();
 
             SceneLoader.LoadScene("MainBaseScene");
             return;
@@ -103,12 +108,18 @@ public class VictoryScreenManager : MonoBehaviour
             
             MapRunData.Reset();
             RunResources.Reset();
-
+            RunSaveManager.Delete();
+            RunStatsCollector.Reset();
 
             SceneLoader.LoadScene("MainBaseScene");
         }
         else
         {
+            if (MapRunData.currentNode != null)
+                MapRunData.currentNode.wasVisisted = true;
+            MapRunData.nodeToMarkVisited = MapRunData.pendingNodeId;
+            MapRunData.pendingNodeId = -1;
+            RunSaveManager.Save();
             SceneLoader.LoadScene("MapScene");
 
         }

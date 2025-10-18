@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class LevelBuilder : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class LevelBuilder : MonoBehaviour
     public FightData testFight;
     [SerializeField] private FightData fight;
 
+
+
+    [SerializeField] private TextMeshProUGUI fightName;
 
     public float baseOffsetFromEdge = 1f;
 
@@ -29,6 +33,8 @@ public class LevelBuilder : MonoBehaviour
 
         playerBase.localPosition = new Vector3(halfLength - baseOffsetFromEdge, playerBase.localPosition.y, 0);
         enemyBase.localPosition = new Vector3(-halfLength + baseOffsetFromEdge, enemyBase.localPosition.y, 0);
+
+        if (fight.name != null) fightName.text = fight.name;
 
     }
 }

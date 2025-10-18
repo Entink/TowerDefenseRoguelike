@@ -51,10 +51,13 @@ public class HPBarManager : MonoBehaviour
         hoveredHPBars.Remove(hpBar);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        showAlliesHP = Input.GetKey(KeyCode.Q);
-        showEnemiesHP = Input.GetKey(KeyCode.E);
+        if (Input.GetKeyDown(KeyCode.E))
+            showAlliesHP = !showAlliesHP;
+        if (Input.GetKeyDown(KeyCode.Q))
+            showEnemiesHP = !showEnemiesHP;
+        
 
         foreach (HPBar hpBar in allyHPBars)
         {

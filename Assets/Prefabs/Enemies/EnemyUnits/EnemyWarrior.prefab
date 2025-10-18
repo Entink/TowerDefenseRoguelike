@@ -5408,7 +5408,7 @@ MonoBehaviour:
   ally: 0
   unitId: 0
   unitype: 0
-  maxHP: 170
+  maxHP: 160
   speed: 1
   attackSpeed: 0.9
   damage: 10

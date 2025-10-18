@@ -17,6 +17,11 @@ public class DefeatScreenUI : MonoBehaviour
 
         Time.timeScale = 1f;
 
+        RunSaveManager.Delete();
+        RunStatsCollector.Reset();
+        MapRunData.pendingNodeId = -1;
+        MapRunData.nodeToMarkVisited = -1;
+
         SceneLoader.LoadScene("MainBaseScene");
     }
 }

@@ -150,9 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  columns: 8
+  columns: 15
   minNodesPerColumn: 2
-  maxNodesPerColumn: 3
+  maxNodesPerColumn: 4
   totalFights: 3
 --- !u!4 &256546431
 Transform:
@@ -189,6 +189,7 @@ MonoBehaviour:
   generator: {fileID: 256546430}
   eventDb: {fileID: 11400000, guid: 3e19a72cbdfbfdd4c86123f97a2e51ee, type: 2}
   eventPanel: {fileID: 464159763}
+  progression: {fileID: 11400000, guid: 4b6cd64ad71d0aa4996ff8782ef20a9a, type: 2}
 --- !u!1 &288805429
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,12 +803,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allFights:
   - {fileID: 11400000, guid: 69700bc868624ed4d8890f9029f8ac8f, type: 2}
-  - {fileID: 11400000, guid: 863043974ae60d44e99ad16f52cddb66, type: 2}
-  - {fileID: 11400000, guid: c36aca9e31399be4e920bd49d4a53b40, type: 2}
-  - {fileID: 11400000, guid: 54cbeec920370b34c8929840a128cedf, type: 2}
-  - {fileID: 11400000, guid: 6f79f29bd3819eb42900073f24db01d1, type: 2}
-  - {fileID: 11400000, guid: cfb5cf7c27df1af45bc1a956b3560939, type: 2}
   - {fileID: 11400000, guid: 0d5762b98246d6b49973ac0c241d3ed6, type: 2}
+  - {fileID: 11400000, guid: 83721739a25d22840bb3742fc9c9cc07, type: 2}
+  - {fileID: 11400000, guid: 6eff91a2cbb6c5344b07841e5d77c224, type: 2}
+  - {fileID: 11400000, guid: c5f67aea7dc1ab7409691b3e21aca6c3, type: 2}
+  - {fileID: 11400000, guid: 55734a3fde43acd4f82c42ac076c4e8d, type: 2}
+  - {fileID: 11400000, guid: 988ca121395dedf428a11d92c2e40348, type: 2}
+  - {fileID: 11400000, guid: 8bd5b6154206afc448d7ff9f3a89e243, type: 2}
+  - {fileID: 11400000, guid: ca54891f11ac38d478d8905173359cd9, type: 2}
+  - {fileID: 11400000, guid: 5389fedf3c8b16342b1257ddda202eb6, type: 2}
+  - {fileID: 11400000, guid: a718fc238c005cc4997db20ade7296c8, type: 2}
+  - {fileID: 11400000, guid: bd7eaf453b0310f40843a947a9de821f, type: 2}
+  - {fileID: 11400000, guid: 6a073070f06b9e54d9f17ddd0d1f375e, type: 2}
+  - {fileID: 11400000, guid: f52871eacee3b3a48a7157a3a9d39d41, type: 2}
+  - {fileID: 11400000, guid: 32f640b1165576b43a72a0ec6735f4f6, type: 2}
+  - {fileID: 11400000, guid: 506691382f5499e4d87b507a92661689, type: 2}
+  - {fileID: 11400000, guid: 34f69a0cc926fc842be807f986307f93, type: 2}
 --- !u!4 &809297319
 Transform:
   m_ObjectHideFlags: 0

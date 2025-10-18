@@ -287,8 +287,8 @@ MonoBehaviour:
   unitype: 0
   maxHP: 110
   speed: 0.9
-  attackSpeed: 0.85
-  damage: 14
+  attackSpeed: 0.9
+  damage: 13
   attackRange: 2.8
   multiStrikeCount: 1
   multiStrikeDelay: 0

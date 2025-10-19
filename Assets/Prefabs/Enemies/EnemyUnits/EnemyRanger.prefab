@@ -5168,6 +5168,7 @@ GameObject:
   - component: {fileID: 3417997121379744153}
   - component: {fileID: 5211703556411920890}
   - component: {fileID: 7135356929754621322}
+  - component: {fileID: 8760232969391440098}
   m_Layer: 8
   m_Name: EnemyRanger
   m_TagString: Untagged
@@ -5421,6 +5422,13 @@ MonoBehaviour:
   kbRes: 0.05
   cost: 0
   cooldown: 0
+  onHitPoison: 0
+  onHitPoisonDuration: 3
+  onHitPoisonPercentPerSecond: 0.02
+  onHitPoisonMaxStacks: 3
+  onHitBurn: 0
+  onHitBurnDuration: 3
+  onHitBurnDps: 5
 --- !u!114 &5211703556411920890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5449,6 +5457,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SFXUnit
   sfxAnchor: {fileID: 0}
+--- !u!114 &8760232969391440098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5667778855852757539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093815b4e0b0ab4458269e05ffa4fffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusController
 --- !u!1 &7881763793435385390
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] RunSummaryPanel runSummaryPanel;
 
+    [SerializeField] private RewardConfig rewardConfig;
+    private bool defeatProcessed;
     private void Awake()
     {
         if (instance == null)
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
+        defeatProcessed = false;
         runState = RunState.InFight;
         endTriggered = false;
         if (defeatScreen != null) defeatScreen.SetActive(false);
@@ -115,15 +118,26 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayerDefeated()
     {
+        if (defeatProcessed) return;
+        defeatProcessed = true;
+
         runState = RunState.Lost;
         RunStatsCollector.AddFromFight(CombatStatsTracker.I);
         RunStatsCollector.OnFightResult(false);
 
-        int bank = RunStatsCollector.S.materialsEarned;
-        int payout = Mathf.RoundToInt(bank * 0.7f);
-        runSummaryPanel.Show("RUN SUMMARY (DEFEAT)", payout);
-        PlayerPrefs.SetInt("defeat_payout_materials", payout);
-        PlayerPrefs.Save();
+        var cfg = rewardConfig != null ? rewardConfig : Resources.Load<RewardConfig>("RewardConfig");
+        var fight = BattleDataCarrier.selectedFight;
+        var isBoss = fight != null && fight.isBoss;
+
+        var totalMaterials = RunStatsCollector.S.materialsEarned;
+        var payoutMaterials = Mathf.RoundToInt(totalMaterials * 0.7f);
+
+    
+        DefeatPayoutCarrier.materials = payoutMaterials;
+        RunStatsCollector.S.materialsEarned = 0;
+
+        runSummaryPanel.Show("RUN SUMMARY (DEFEAT)", payoutMaterials);
+
 
         Time.timeScale = 0f;
 

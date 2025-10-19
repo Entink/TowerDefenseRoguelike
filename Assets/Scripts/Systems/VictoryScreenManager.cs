@@ -17,6 +17,8 @@ public class VictoryScreenManager : MonoBehaviour
     [SerializeField] private RunSummaryPanel runSummaryPanel;
     [SerializeField] private FightSummaryPanel fightSummaryPanel;
 
+    [SerializeField] private RewardConfig rewardConfig;
+
     public int cashReward;
     public int materialsReward;
 
@@ -36,8 +38,18 @@ public class VictoryScreenManager : MonoBehaviour
         runData = FindAnyObjectByType<RunData>();
         continueButton.onClick.AddListener(OnContinue);
 
-        RunResources.AddCash(cashReward);
-        RunStatsCollector.AddMaterials(materialsReward);
+        var cfg = rewardConfig != null ? rewardConfig : Resources.Load<RewardConfig>("RewardConfig");
+        var fight = BattleDataCarrier.selectedFight;
+        var result = RewardCalculator.Compute(isBossFight, fight.difficulty, true, cfg);
+
+        cashReward = result.cash;
+        materialsReward = result.materials;
+
+        RunResources.AddCash(result.cash);
+        RunStatsCollector.AddMaterials(result.materials);
+
+        //RunResources.AddCash(cashReward);
+        //RunStatsCollector.AddMaterials(materialsReward);
 
         //Debug.Log($"Cash: {RunResources.GetCash()} | Materials: {RunResources.GetMaterials()}");
         cashText.text = $"Cash earned: {cashReward}\nTotal cash: {RunResources.GetCash()}";
@@ -104,6 +116,7 @@ public class VictoryScreenManager : MonoBehaviour
             Debug.Log("[VictoryScreenManager] Powrót do bazy");
             int payout = RunStatsCollector.S.materialsEarned;
             RunResources.AddMaterials(payout);
+            RunStatsCollector.S.materialsEarned = 0;
 
             RunData.ResetRun();
             

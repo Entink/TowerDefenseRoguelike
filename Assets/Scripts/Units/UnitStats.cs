@@ -37,6 +37,15 @@ public class UnitStats : MonoBehaviour
     public float cooldown;
 
 
+    [Header("On-Hit Effects")]
+    public bool onHitPoison;
+    public float onHitPoisonDuration = 3f;
+    public float onHitPoisonPercentPerSecond = 0.02f;
+    public int onHitPoisonMaxStacks = 3;
+
+    public bool onHitBurn;
+    public float onHitBurnDuration = 3f;
+    public float onHitBurnDps = 5f;
     
 
     

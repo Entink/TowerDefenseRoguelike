@@ -8,9 +8,12 @@ public class DefeatScreenUI : MonoBehaviour
 
     public void ReturnToBase()
     {
-        int payout = PlayerPrefs.GetInt("defeat_payout_materials", 0);
-        RunResources.AddMaterials(payout);
-        PlayerPrefs.DeleteKey("deafeat_payout_materials");
+        int payout = DefeatPayoutCarrier.materials;
+        if(payout > 0)
+        {
+            RunResources.AddMaterials(payout);
+            DefeatPayoutCarrier.materials = 0;
+        }
 
         MapRunData.Reset();
         RunData.ResetRun();

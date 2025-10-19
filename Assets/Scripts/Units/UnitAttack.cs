@@ -8,6 +8,7 @@ public class UnitAttack : MonoBehaviour
 
     private UnitStats stats;
     private UnitController controller;
+    private StatusController status;
     private Coroutine attackCoroutine;
 
     [SerializeField, ReadOnly] private LayerMask enemyLayer;
@@ -21,6 +22,7 @@ public class UnitAttack : MonoBehaviour
     {
         stats = GetComponent<UnitStats>();
         controller = GetComponent<UnitController>();
+        status = GetComponent<StatusController>();
 
         enemyLayer = controller.GetEnemyLayer();
         sfx = GetComponent<SFXUnit>();
@@ -79,7 +81,9 @@ public class UnitAttack : MonoBehaviour
 
     private IEnumerator AttackCoroutine()
     {
-        yield return new WaitForSeconds((1f / stats.attackSpeed) / 2f);
+        float atkMul0 = status != null ? status.GetAttackSpeedMul() : 1f;
+        float firstDelay = Mathf.Max(0.01f, (1f / Mathf.Max(0.01f, stats.attackSpeed * atkMul0)) / 2f);
+        yield return new WaitForSeconds(firstDelay);
         
         while(true)
         {
@@ -89,10 +93,19 @@ public class UnitAttack : MonoBehaviour
                 continue;
             }
 
+            float atkMul = status != null ? status.GetAttackSpeedMul() : 1f;
+            float dmgMul = status != null ? status.GetDamageMul() : 1f;
+            float rangeAdd = status != null ? status.GetRangeAdd() : 0f;
+            float kbForceMul = status != null ? status.GetKBForceMul() : 1f;
+
+            float effectiveAS = Mathf.Max(0.01f, stats.attackSpeed * atkMul);
+            float effectiveRange = Mathf.Max(0f, stats.attackRange + rangeAdd);
+            float effectiveKB = stats.kbForce * kbForceMul;
+
 
             List<Collider2D> targets = new List<Collider2D>();
 
-            var closest = FindClosestEnemy(transform.position, stats.attackRange, enemyLayer);
+            var closest = FindClosestEnemy(transform.position, effectiveRange, enemyLayer);
 
             if (stats.isAOE)
             {
@@ -136,15 +149,16 @@ public class UnitAttack : MonoBehaviour
                         UnitStats attackerStats = stats;
                         UnitStats targetStats = target.GetComponent<UnitStats>();
 
-                        float multiplier = 1f;
+                        float typeMul = 1f;
 
                         if(attackerStats != null && targetStats != null)
                         {
-                            multiplier = UnitTypeHelper.GetBonusMultiplier(attackerStats.unitype, targetStats.unitype);
+                            typeMul = UnitTypeHelper.GetBonusMultiplier(attackerStats.unitype, targetStats.unitype);
                         }
 
-                        float finalDamage = attackerStats.damage * multiplier;
-                        uc.TakeDamage(finalDamage, stats.kbForce);
+                        float finalDamage = attackerStats.damage * typeMul * dmgMul;
+                        uc.TakeDamage(finalDamage, effectiveKB);
+
                         if(CombatStatsTracker.I != null)
                         {
                             if (controller != null && controller.IsAlly)
@@ -152,17 +166,45 @@ public class UnitAttack : MonoBehaviour
                             else
                                 CombatStatsTracker.I.OnDamageTaken(finalDamage);
                         }
-                        if(controller != null && controller.lifeSteal > 0f)
+
+                        float lsBonus = status != null ? status.GetLifeStealAdd() : 0f;
+                        float totalLS = Mathf.Max(0f, controller != null ? controller.lifeSteal + lsBonus : lsBonus);
+                        if (totalLS > 0f && controller != null)
+                            controller.Heal(finalDamage * totalLS);
+
+                        var sc = uc.GetComponent<StatusController>();
+                        if(sc != null)
                         {
-                            controller.Heal(finalDamage * controller.lifeSteal);
+                            if(stats.onHitPoison)
+                            {
+                                var e = new PoisonPercentEffect
+                                {
+                                    duration = stats.onHitBurnDuration,
+                                    percentPerSecond = stats.onHitPoisonPercentPerSecond,
+                                    maxStacks = Mathf.Max(1, stats.onHitPoisonMaxStacks)
+                                };
+                                sc.Apply(e);
+                            }
+
+                            if(stats.onHitBurn)
+                            {
+                                var e = new BurnFlatEffect
+                                {
+                                    duration = stats.onHitBurnDuration,
+                                    damagePerSecond = stats.onHitBurnDps
+                                };
+                                sc.Apply(e);
+                            }
                         }
+
                         continue;
                     }
 
                     BaseController bc = target.GetComponent<BaseController>();
                     if (bc != null)
                     {
-                        bc.TakeDamage(stats.damage);
+                        float finalDamage = stats.damage * dmgMul;
+                        bc.TakeDamage(finalDamage);
                         if (CombatStatsTracker.I != null)
                         {
                             if (controller != null && controller.IsAlly && !bc.isPlayerBase)
@@ -182,7 +224,7 @@ public class UnitAttack : MonoBehaviour
             if (targets.Count > 0)
                 OnAttackFired?.Invoke();
 
-            yield return new WaitForSeconds(1f / stats.attackSpeed);
+            yield return new WaitForSeconds(1f / effectiveAS);
         }
     }
 
@@ -195,7 +237,10 @@ public class UnitAttack : MonoBehaviour
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, stats.attackRange);
+        float rangeAdd = 0f;
+        var sc = GetComponent<StatusController>();
+        if (sc != null) rangeAdd = sc.GetRangeAdd();
+        Gizmos.DrawWireSphere(transform.position, Mathf.Max(0f, stats.attackRange + rangeAdd));
 
         if(stats.isAOE && lastAOECenter.HasValue)
         {

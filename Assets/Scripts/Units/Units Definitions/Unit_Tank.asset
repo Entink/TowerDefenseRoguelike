@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   displayName: Tank
-  unitPrefab: {fileID: 2005501345440514604, guid: e2a26dc0f38529d478f2df424e5734f0, type: 3}
+  unitPrefab: {fileID: 2019576201408043290, guid: 38da0ec669b223b4bba76fdbf8261923, type: 3}
   unlockedByDefault: 0
+  unlockMethod: 0
   costMaterials: 25
   requiresUnlocked: 

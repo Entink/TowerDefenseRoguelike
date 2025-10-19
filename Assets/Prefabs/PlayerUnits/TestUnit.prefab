@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 4600127789261272449}
   - component: {fileID: 5054475821399374824}
   - component: {fileID: 1821214662517968090}
+  - component: {fileID: 2444697442291204851}
   m_Layer: 7
   m_Name: TestUnit
   m_TagString: Untagged
@@ -298,6 +299,13 @@ MonoBehaviour:
   kbRes: 0
   cost: 0
   cooldown: 0
+  onHitPoison: 0
+  onHitPoisonDuration: 3
+  onHitPoisonPercentPerSecond: 0.02
+  onHitPoisonMaxStacks: 3
+  onHitBurn: 0
+  onHitBurnDuration: 3
+  onHitBurnDps: 5
 --- !u!114 &5054475821399374824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +334,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SFXUnit
   sfxAnchor: {fileID: 0}
+--- !u!114 &2444697442291204851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005501345440514604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093815b4e0b0ab4458269e05ffa4fffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusController
 --- !u!1 &2104031316149904101
 GameObject:
   m_ObjectHideFlags: 0

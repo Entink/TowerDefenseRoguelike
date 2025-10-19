@@ -23,6 +23,8 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     [SerializeField] public bool IsStunned => isStunned;
 
+    private StatusController status;
+
     [Header("Tree runtime bonuses")]
     public float regenPerSecond = 0f;
     public float lifeSteal = 0f;
@@ -46,7 +48,12 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     private void Awake()
     {
-
+        status = GetComponent<StatusController>();
+        if(status != null)
+        {
+            status.OnRequestDamage += OnStatusRequestDamage;
+            status.OnRequestHeal += OnStatusRequestHeal;
+        }
         stats = GetComponent<UnitStats>();
         hpBar = GetComponentInChildren<HPBar>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -110,11 +117,14 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     //Health subsystem
     public void TakeDamage(float dmg, float kbPower)
     {
-        CurrentHP -= dmg;
+        float finalDamage = status != null ? status.ModifyIncomingDamage(dmg) : dmg;
+        CurrentHP -= finalDamage;
         sfx?.PlayHit();
         StartCoroutine(HitEffect());
 
-        float finalKB = kbPower * (1f - stats.kbRes);
+        float kbResMul = status != null ? status.GetKBResMul() : 1f;
+        float resClamped = Mathf.Clamp01(stats.kbRes * kbResMul);
+        float finalKB = kbPower * (1f - resClamped);
         if(kbPower > 0f)
         {
             StartCoroutine(Knockback(finalKB));
@@ -197,7 +207,8 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     //Movement subsystem
     public void Move()
     {
-        transform.Translate(moveDirection * stats.speed * Time.deltaTime);
+        float moveMul = status != null ? status.GetMoveMul() : 1f;
+        transform.Translate(moveDirection * stats.speed * moveMul * Time.deltaTime);
     }
 
     private float attackBuffer = 0.1f;
@@ -254,5 +265,17 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (amount <= 0f || currentHP <= 0f) return;
         currentHP = Mathf.Min(stats.maxHP, currentHP + amount);
+    }
+
+    void OnStatusRequestDamage(float amount)
+    {
+        if (amount <= 0) return;
+        TakeDamage(amount,0);
+    }
+
+    void OnStatusRequestHeal(float amount)
+    {
+        if (amount <= 0) return;
+        Heal(amount);
     }
 }

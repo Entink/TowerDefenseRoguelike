@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   displayName: Runner
-  unitPrefab: {fileID: 2005501345440514604, guid: 7953b720d1d1cf44ebbbdf9b8449ca82, type: 3}
+  unitPrefab: {fileID: 865969543581683040, guid: b3c9e8d766e44974d8c1d99ee4d46937, type: 3}
   unlockedByDefault: 0
   unlockMethod: 0
   costMaterials: 25

@@ -4,7 +4,7 @@ public static class UnitSkillTreeRuntime
 {
     public static void ApplyToRecruitment(UnitStats stats, ref int cost, ref float cooldown)
     {
-        var db = Resources.Load<UnitSkillTreeDatabase>("UnitSKillTrees");
+        var db = Resources.Load<UnitSkillTreeDatabase>("UnitSkillTrees");
         if (db == null || stats == null) return;
         var tree = db.Get(stats.unitId);
         if (tree == null || tree.nodes == null) return;
@@ -28,7 +28,7 @@ public static class UnitSkillTreeRuntime
                 if (node.addRecruitCostFlat != 0) costFlat += node.addRecruitCostFlat;
 
                 if (node.reduceRecruitCooldownPercent > 0f) cdMult *= (1f - node.reduceRecruitCooldownPercent);
-                if (node.addRecruitCostFlat != 0f) cdFlat += node.addRecruitCooldownFlat;
+                if (node.addRecruitCooldownFlat != 0f) cdFlat += node.addRecruitCooldownFlat;
             }
         }
 
@@ -106,14 +106,9 @@ public static class UnitSkillTreeRuntime
             }
         }
 
-        if(dmgMult != 1f || addDmgFlat != 0f)
+        if(addDmgFlat != 0f)
         {
-            stats.damage = Mathf.Max(1, (stats.damage + addDmgFlat) * dmgMult);
-        }
-
-        if (rangeMult != 1f || rangeFlat != 0f)
-        {
-            stats.attackRange = Mathf.Max(0.05f, (stats.attackRange + rangeFlat) * rangeMult);
+            stats.damage = Mathf.Max(0, stats.damage + addDmgFlat);
         }
 
         if (forceAOE) stats.isAOE = true;
@@ -125,22 +120,39 @@ public static class UnitSkillTreeRuntime
         if (addMulti != 0)
         {
             stats.multiStrikeCount = Mathf.Max(1, stats.multiStrikeCount + addMulti);
-            stats.multiStrikeDelay = stats.multiStrikeDelay + (1 / (2 * stats.attackSpeed));
+            stats.multiStrikeDelay = stats.multiStrikeDelay + (1 / (2 * Mathf.Max(0.01f, stats.attackSpeed)));
         }
 
         if (kbResist != 0f)
         {
-            stats.kbRes += kbResist;
-            if(stats.kbRes > 1f)
+            stats.kbRes = Mathf.Clamp01(stats.kbRes + kbResist);
+        }
+
+        var sc = controller != null ? controller.GetComponent<StatusController>() : stats.GetComponent<StatusController>();
+        if(sc != null)
+        {
+            float baseRange = stats.attackRange;
+            float rangeAddTotal = baseRange * (rangeMult - 1f) + rangeFlat;
+
+            var perm = new BuffStatModifierEffect
             {
-                stats.kbRes = 1f;
+                duration = 0f,
+                damageMul = dmgMult,
+                rangeAdd = rangeAddTotal,
+                lifeStealAdd = lifesteal
+            };
+            sc.Apply(perm);
+
+            if(regenPS > 0f)
+            {
+                sc.Apply(new RegenFlatEffect { duration = 0f, healPerSecond = regenPS });
             }
         }
 
         if(controller != null)
         {
-            controller.regenPerSecond += regenPS;
-            controller.lifeSteal = controller.lifeSteal + lifesteal;
+            controller.regenPerSecond += 0f;
+            controller.lifeSteal = controller.lifeSteal + 0f;
         }
             
     }

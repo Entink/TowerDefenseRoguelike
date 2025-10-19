@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 5
   displayName: Nanomage
-  unitPrefab: {fileID: 2005501345440514604, guid: cce93366fd86b114da06b58307eea53d, type: 3}
-  unlockedByDefault: 0
+  unitPrefab: {fileID: 4228383224909538954, guid: 3c640d95c14d7b641acacee629f0ebdd, type: 3}
+  unlockedByDefault: 1
   unlockMethod: 1
   costMaterials: 0
   requiresUnlocked: 

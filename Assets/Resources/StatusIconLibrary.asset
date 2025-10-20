@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f764552155e1c40882a6c4733a6d6c, type: 3}
+  m_Name: StatusIconLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::StatusIconLibrary
+  entries:
+  - typeName: BurnFlatEffect
+    icon: {fileID: 1098286324429101383, guid: d8be88515d061554a83c0ea4693c1591, type: 3}
+  - typeName: PoisonPercentEffect
+    icon: {fileID: -4347532159779508366, guid: 2944110116ea33942822ec3a3a57aeb9, type: 3}
+  - typeName: RegenFlatEffect
+    icon: {fileID: 811347052310813615, guid: 8c1b97f8f55effa4e9ebbd956ea4ca36, type: 3}
+  - typeName: ShieldEffect
+    icon: {fileID: -6717884257390833292, guid: 63f3446ca4ca061429c29836beaf14a0, type: 3}
+  - typeName: BuffStatModifierEffect
+    icon: {fileID: 6233934136529506686, guid: 13354bdb84b68a44d95349fca89f2476, type: 3}

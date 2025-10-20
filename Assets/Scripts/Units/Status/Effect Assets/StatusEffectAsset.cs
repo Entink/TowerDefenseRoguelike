@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class StatusEffectAsset : MonoBehaviour
+public abstract class StatusEffectAsset : ScriptableObject
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float duration = 3f;
+    public int stacks = 1;
+    public int maxStacks = 1;
+    public abstract StatusEffect Create();
+    protected void Prime(StatusEffect e)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        e.duration = duration;
+        e.stacks = stacks;
+        e.maxStacks = maxStacks < 1 ? 1 : maxStacks;
     }
 }

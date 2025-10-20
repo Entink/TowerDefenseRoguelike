@@ -30,6 +30,8 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public float lifeSteal = 0f;
 
 
+
+
     public float CurrentHP
     {
         get { return currentHP;  }
@@ -53,6 +55,7 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             status.OnRequestDamage += OnStatusRequestDamage;
             status.OnRequestHeal += OnStatusRequestHeal;
+            status.OnRequestDamageSilent += OnStatusRequestDamageSilent;
         }
         stats = GetComponent<UnitStats>();
         hpBar = GetComponentInChildren<HPBar>();
@@ -277,5 +280,18 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         if (amount <= 0) return;
         Heal(amount);
+    }
+
+    void OnStatusRequestDamageSilent(float amount)
+    {
+        if (amount <= 0f) return;
+        float dmg = status != null ? status.ModifyIncomingDamage(amount) : amount;
+        CurrentHP -= dmg;
+        if(CombatStatsTracker.I != null)
+        {
+            if (IsAlly) CombatStatsTracker.I.OnDamageTaken(dmg);
+            else CombatStatsTracker.I.OnDamageDealt(dmg);
+        }
+        if (currentHP <= 0f) Die();
     }
 }

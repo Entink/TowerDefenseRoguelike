@@ -117,6 +117,14 @@ PrefabInstance:
       value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: hasBaseShield
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: baseShieldAmount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: multiStrikeCount
       value: 1
       objectReference: {fileID: 0}

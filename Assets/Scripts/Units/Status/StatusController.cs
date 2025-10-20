@@ -7,6 +7,8 @@ public class StatusController : MonoBehaviour
 {
     public Action<float> OnRequestDamage;
     public Action<float> OnRequestHeal;
+    public System.Action<float> OnRequestDamageSilent;
+    public System.Action EffectsChanged;
 
     readonly List<StatusEffect> effects = new();
 
@@ -20,6 +22,34 @@ public class StatusController : MonoBehaviour
     float lifeStealAdd = 0f;
     float shieldHP = 0f;
 
+    [SerializeField] public bool applyBaselinesFromStats = true;
+    bool baselinesApplied;
+
+    public struct StatusIconData { public string typeName; public int stacks; }
+
+    public List<StatusIconData> GetIconData()
+    {
+        var dict = new System.Collections.Generic.Dictionary<string, int>();
+        for(int i = 0; i < effects.Count; i++)
+        {
+            var eff = effects[i];
+            if (eff.uiHidden && !(eff is ShieldEffect)) continue;
+            if (eff is ShieldEffect && GetShield() <= 0f) continue;
+
+            var t = effects[i].GetType().Name;
+            if (!dict.TryGetValue(t, out var s)) s = 0;
+            s += Mathf.Max(1, effects[i].stacks);
+            dict[t] = s;
+        }
+        var list = new System.Collections.Generic.List<StatusIconData>(dict.Count);
+        foreach (var kv in dict) list.Add(new StatusIconData { typeName = kv.Key, stacks = kv.Value });
+        return list;
+    }
+    private void Awake()
+    {
+        if (applyBaselinesFromStats) ApplyBaselinesFromStats();
+    }
+
     private void Update()
     {
         float dt = Time.deltaTime;
@@ -32,28 +62,76 @@ public class StatusController : MonoBehaviour
                 e.OnExpire(this);
                 effects.RemoveAt(i);
                 RebuildAggregates();
+                EffectsChanged?.Invoke();
             }
         }
     }
 
     public void Apply(StatusEffect effect)
     {
+        int visibleSameTypeIndex = -1;
         for(int i = 0; i < effects.Count; i++)
         {
             var e = effects[i];
-            if(e.GetType() == effect.GetType() && e.CanStack(effect))
+            if (e.GetType() != effect.GetType()) continue;
+
+            if (e.uiHidden && !effect.uiHidden) continue;
+
+            if (!e.uiHidden && effect.uiHidden) continue;
+
+            if(e.CanStack(effect))
             {
                 e.AddStack();
+                e.ResetTimer();
+                EffectsChanged?.Invoke();
                 return;
             }
+
+            visibleSameTypeIndex = i;
+            break;
+
+            
+        }
+
+        if(visibleSameTypeIndex >= 0)
+        {
+            effects[visibleSameTypeIndex] = effect;
+            effect.OnApply(this);
+            RebuildAggregates();
+            EffectsChanged?.Invoke();
+            return;
         }
         effects.Add(effect);
         effect.OnApply(this);
         RebuildAggregates();
+        EffectsChanged?.Invoke();
+    }
+
+    void ApplyBaselinesFromStats()
+    {
+        if (baselinesApplied) return;
+        var us = GetComponent<UnitStats>();
+        if (us == null) return;
+
+        if(us.hasBaseArmor && us.baseArmorFlat != 0f)
+        {
+            var permArmor = new BuffStatModifierEffect { duration = 0f, armorAdd = us.baseArmorFlat, uiHidden = true };
+            Apply(permArmor);
+        }
+
+        if(us.hasBaseShield && us.baseShieldAmount > 0f)
+        {
+            var permShield = new ShieldEffect { duration = 0f, shieldAmount = us.baseShieldAmount };
+            Apply(permShield);
+        }
+
+        baselinesApplied = true;
     }
 
     public float ModifyIncomingDamage(float dmg)
     {
+        float before = shieldHP;
+
         float reduced = Mathf.Max(0f, dmg - armorFlat);
         if(shieldHP > 0f)
         {
@@ -61,6 +139,9 @@ public class StatusController : MonoBehaviour
             shieldHP -= absorb;
             reduced -= absorb;
         }
+
+        if (before > 0f && shieldHP <= 0f) EffectsChanged?.Invoke();
+
         return reduced;
     }
 
@@ -99,6 +180,14 @@ public class StatusController : MonoBehaviour
 
         for (int i = 0; i < effects.Count; i++)
             if (effects[i] is IAggregatedModifier a) a.ApplyTo(this);
+    }
+
+    public List<StatusEffect> GetActiveEffectsSnapshot()
+    {
+        var list = new List<StatusEffect>(effects.Count);
+        for (int i = 0; i < effects.Count; i++)
+            list.Add(effects[i]);
+        return list;
     }
 
     

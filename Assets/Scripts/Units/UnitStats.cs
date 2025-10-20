@@ -36,16 +36,13 @@ public class UnitStats : MonoBehaviour
     public int cost;
     public float cooldown;
 
+    [Header("Baseline Statuses")]
+    public bool hasBaseArmor;
+    public float baseArmorFlat = 0f;
 
-    [Header("On-Hit Effects")]
-    public bool onHitPoison;
-    public float onHitPoisonDuration = 3f;
-    public float onHitPoisonPercentPerSecond = 0.02f;
-    public int onHitPoisonMaxStacks = 3;
+    public bool hasBaseShield;
+    public float baseShieldAmount = 0f;
 
-    public bool onHitBurn;
-    public float onHitBurnDuration = 3f;
-    public float onHitBurnDps = 5f;
     
 
     

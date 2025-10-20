@@ -5,6 +5,7 @@ public abstract class StatusEffect
     public float duration;
     public int stacks = 1;
     public int maxStacks = 1;
+    public bool uiHidden;
 
     protected float elapsed;
     public bool IsExpired => elapsed >= duration && duration > 0f;
@@ -16,6 +17,8 @@ public abstract class StatusEffect
     public virtual bool CanStack(StatusEffect other) => other.GetType() == GetType() && stacks < maxStacks;
 
     public void AddStack() { stacks = Mathf.Clamp(stacks + 1, 1, maxStacks); }
+
+    public void ResetTimer() { elapsed = 0f; }
 
     public void Tick(StatusController target, float dt)
     {

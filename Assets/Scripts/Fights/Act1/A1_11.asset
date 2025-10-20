@@ -17,13 +17,13 @@ MonoBehaviour:
   isTutorialOnly: 0
   levelLenght: 35
   enemies:
-  - enemyPrefab: {fileID: 5667778855852757539, guid: ad4662f9814a7fc409c7e1c7f3bc7c66, type: 3}
+  - enemyPrefab: {fileID: 185170301535806664, guid: 427c1732532279347875209a7081cea2, type: 3}
     delay: 8
     quantity: 2
     quantityInterval: 4
     isInfinite: 0
     repeatInterval: 0
-  - enemyPrefab: {fileID: 5667778855852757539, guid: bc9c532a3c5373a4eb83d1a8bcbc800e, type: 3}
+  - enemyPrefab: {fileID: 6350948256703853174, guid: e5dce6c2afc0bae4dbb8d318e6d083dc, type: 3}
     delay: 14
     quantity: 4
     quantityInterval: 2.5

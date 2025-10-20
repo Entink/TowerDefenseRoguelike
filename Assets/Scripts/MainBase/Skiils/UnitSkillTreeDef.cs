@@ -51,5 +51,18 @@ public class SkillNode
 
     [Header("Sustain (per level)")]
     public float lifeSteal;
+
+    [Header("Status: On Spawn (per level)")]
+    public StatusEffectAsset[] onSpawnEffects;
+
+    [Header("Status: On Hit (per level)")]
+    public StatusEffectAsset[] onHitEffects;
+
+    [Header("Status: Aura (per level)")]
+    public bool grantAura;
+    public float auraRadius;
+    public float auraTickInterval = 1f;
+    public StatusEffectAsset[] auraAllyEffects;
+    public StatusEffectAsset[] auraEnemyEffects;
     
 }

@@ -803,7 +803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allFights:
   - {fileID: 11400000, guid: 69700bc868624ed4d8890f9029f8ac8f, type: 2}
-  - {fileID: 11400000, guid: 0d5762b98246d6b49973ac0c241d3ed6, type: 2}
+  - {fileID: 11400000, guid: 3c6f66ed34395534892fe4843b9a3257, type: 2}
   - {fileID: 11400000, guid: 83721739a25d22840bb3742fc9c9cc07, type: 2}
   - {fileID: 11400000, guid: 6eff91a2cbb6c5344b07841e5d77c224, type: 2}
   - {fileID: 11400000, guid: c5f67aea7dc1ab7409691b3e21aca6c3, type: 2}

@@ -117,12 +117,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: onHitBurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: attackRange
       value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: attackSpeed
       value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: hasBaseArmor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: baseArmorFlat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: hasBaseShield
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: baseShieldAmount
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: multiStrikeCount
@@ -156,6 +176,18 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.4222223
       objectReference: {fileID: 0}
+    - target: {fileID: 7643895282278327580, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: Effects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7643895282278327580, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: 'Effects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 5960479ffbd956e45971a8be370224af, type: 2}
+    - target: {fileID: 7643895282278327580, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: 'Effects.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9f472ec45a40b294a8a514793ec6352e, type: 2}
     - target: {fileID: 7902042828665981605, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

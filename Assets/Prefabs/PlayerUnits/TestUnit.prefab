@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 5054475821399374824}
   - component: {fileID: 1821214662517968090}
   - component: {fileID: 2444697442291204851}
+  - component: {fileID: 7643895282278327580}
   m_Layer: 7
   m_Name: TestUnit
   m_TagString: Untagged
@@ -299,13 +300,10 @@ MonoBehaviour:
   kbRes: 0
   cost: 0
   cooldown: 0
-  onHitPoison: 0
-  onHitPoisonDuration: 3
-  onHitPoisonPercentPerSecond: 0.02
-  onHitPoisonMaxStacks: 3
-  onHitBurn: 0
-  onHitBurnDuration: 3
-  onHitBurnDps: 5
+  hasBaseArmor: 0
+  baseArmorFlat: 0
+  hasBaseShield: 0
+  baseShieldAmount: 0
 --- !u!114 &5054475821399374824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +344,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093815b4e0b0ab4458269e05ffa4fffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusController
+  applyBaselinesFromStats: 1
+--- !u!114 &7643895282278327580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005501345440514604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5929fd2d9fb024f939b05fdd1b3666, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnHitEffectSource
+  enemyEffects: []
 --- !u!1 &2104031316149904101
 GameObject:
   m_ObjectHideFlags: 0
@@ -5416,6 +5428,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3245033405559015534}
+  - {fileID: 7614589411758911772}
   m_Father: {fileID: 2890305995035307143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5511,3 +5524,55 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!1 &3982553624950662078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7614589411758911772}
+  - component: {fileID: 5668125477342640367}
+  m_Layer: 7
+  m_Name: StatusIcons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7614589411758911772
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982553624950662078}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 341871958620452557}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.4}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5668125477342640367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982553624950662078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21bdbdfd7ee2048af275f1f864132a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusIconUI
+  library: {fileID: 11400000, guid: 4bf9f03c02dcd4041a87efc2151df7a9, type: 2}
+  refreshInterval: 0.25
+  iconSize: {x: 0.5, y: 0.5}
+  spacing: 0.7

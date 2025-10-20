@@ -5056,6 +5056,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8425730167993056224}
+  - {fileID: 6161001872565853981}
   m_Father: {fileID: 2203889305496423684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5422,13 +5423,10 @@ MonoBehaviour:
   kbRes: 0.25
   cost: 0
   cooldown: 0
-  onHitPoison: 0
-  onHitPoisonDuration: 3
-  onHitPoisonPercentPerSecond: 0.02
-  onHitPoisonMaxStacks: 3
-  onHitBurn: 0
-  onHitBurnDuration: 3
-  onHitBurnDps: 5
+  hasBaseArmor: 0
+  baseArmorFlat: 0
+  hasBaseShield: 0
+  baseShieldAmount: 0
 --- !u!114 &5211703556411920890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5469,6 +5467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093815b4e0b0ab4458269e05ffa4fffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusController
+  applyBaselinesFromStats: 1
 --- !u!1 &7881763793435385390
 GameObject:
   m_ObjectHideFlags: 0
@@ -5558,3 +5557,55 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &8296032411315959717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6161001872565853981}
+  - component: {fileID: 8284616289031995194}
+  m_Layer: 7
+  m_Name: StatusIcons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6161001872565853981
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296032411315959717}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8897551670945327054}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.4}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8284616289031995194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296032411315959717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21bdbdfd7ee2048af275f1f864132a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusIconUI
+  library: {fileID: 11400000, guid: 4bf9f03c02dcd4041a87efc2151df7a9, type: 2}
+  refreshInterval: 0.25
+  iconSize: {x: 0.5, y: 0.5}
+  spacing: 0.7

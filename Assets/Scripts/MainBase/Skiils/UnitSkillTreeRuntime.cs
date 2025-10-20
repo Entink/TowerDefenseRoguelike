@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public static class UnitSkillTreeRuntime
 {
@@ -154,6 +155,88 @@ public static class UnitSkillTreeRuntime
             controller.regenPerSecond += 0f;
             controller.lifeSteal = controller.lifeSteal + 0f;
         }
+
+        var sc2 = controller != null ? controller.GetComponent<StatusController>() : stats.GetComponent<StatusController>();
+        var hit = controller != null ? controller.GetComponent<OnHitEffectSource>() : stats.GetComponent<OnHitEffectSource>();
+        var aura = controller != null ? controller.GetComponent<AuraEffectSource>() : stats.GetComponent<AuraEffectSource>();
+
+        List<StatusEffectAsset> spawnList = new();
+        List<StatusEffectAsset> hitList = new();
+        List<StatusEffectAsset> auraAlly = new();
+        List<StatusEffectAsset> auraEnemy = new();
+        bool anyAura = false;
+        float auraRadius = 0f;
+        float auraTick = 0f;
             
+
+        foreach(var node in tree.nodes)
+        {
+            if (node == null) continue;
+            int lvl = UnitSkillProgress.GetLevel(stats.unitId, node.nodeId);
+            if (lvl <= 0) continue;
+
+            for(int i = 0; i < lvl; i++)
+            {
+                if (node.onSpawnEffects != null) spawnList.AddRange(node.onSpawnEffects);
+                if (node.onHitEffects != null) hitList.AddRange(node.onHitEffects);
+
+                if(node.grantAura)
+                {
+                    anyAura = true;
+                    auraRadius = Mathf.Max(auraRadius, node.auraRadius);
+                    if (auraTick <= 0f || node.auraTickInterval < auraTick) auraTick = node.auraTickInterval;
+                    if (node.auraAllyEffects != null) auraAlly.AddRange(node.auraAllyEffects);
+                    if (node.auraEnemyEffects != null) auraEnemy.AddRange(node.auraEnemyEffects);
+                }
+            }
+        }
+
+        if(sc2 != null && spawnList.Count >0)
+        {
+            for(int i = 0; i < spawnList.Count; i++)
+            {
+                var a = spawnList[i];
+                if (a == null) continue;
+                sc2.Apply(a.Create());
+            }
+        }
+
+        if(hitList.Count > 0)
+        {
+            if (hit == null)
+                hit = (controller != null ? controller.gameObject : stats.gameObject).AddComponent<OnHitEffectSource>();
+
+            for(int i = 0; i < hitList.Count; i++)
+            {
+                var a = hitList[i];
+                if (a == null) continue;
+                if (!hit.Effects.Contains(a)) hit.Effects.Add(a);
+            }
+        }
+
+
+        if(anyAura)
+        {
+            if (aura == null)
+                aura = (controller != null ? controller.gameObject : stats.gameObject).AddComponent<AuraEffectSource>();
+
+            aura.radius = Mathf.Max(aura.radius, auraRadius);
+            if (aura.tickInterval <= 0f || (auraTick > 0f && auraTick < aura.tickInterval))
+                aura.tickInterval = (auraTick > 0f ? auraTick : 1f);
+
+            for(int i = 0; i < auraAlly.Count; i++)
+            {
+                var a = auraAlly[i];
+                if (a == null) continue;
+                if (!aura.allyEffects.Contains(a)) aura.allyEffects.Add(a);
+            }
+
+            for(int i = 0; i <auraEnemy.Count; i++)
+            {
+                var a = auraEnemy[i];
+                if (a == null) continue;
+                if (!aura.enemyEffects.Contains(a)) aura.enemyEffects.Add(a);
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ public class BuffStatModifierEffect : StatusEffect, IAggregatedModifier
     public float rangeAdd = 0f;
     public float lifeStealAdd = 0f;
 
-    public override bool CanStack(StatusEffect other) => false;
+    public override bool CanStack(StatusEffect other) => maxStacks > 1;
 
     public void ApplyTo(StatusController target)
     {

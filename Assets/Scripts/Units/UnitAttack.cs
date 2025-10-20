@@ -10,6 +10,7 @@ public class UnitAttack : MonoBehaviour
     private UnitController controller;
     private StatusController status;
     private Coroutine attackCoroutine;
+    private OnHitEffectSource hitSource;
 
     [SerializeField, ReadOnly] private LayerMask enemyLayer;
 
@@ -20,6 +21,7 @@ public class UnitAttack : MonoBehaviour
 
     private void Start()
     {
+        hitSource = GetComponent<OnHitEffectSource>();
         stats = GetComponent<UnitStats>();
         controller = GetComponent<UnitController>();
         status = GetComponent<StatusController>();
@@ -175,26 +177,8 @@ public class UnitAttack : MonoBehaviour
                         var sc = uc.GetComponent<StatusController>();
                         if(sc != null)
                         {
-                            if(stats.onHitPoison)
-                            {
-                                var e = new PoisonPercentEffect
-                                {
-                                    duration = stats.onHitBurnDuration,
-                                    percentPerSecond = stats.onHitPoisonPercentPerSecond,
-                                    maxStacks = Mathf.Max(1, stats.onHitPoisonMaxStacks)
-                                };
-                                sc.Apply(e);
-                            }
-
-                            if(stats.onHitBurn)
-                            {
-                                var e = new BurnFlatEffect
-                                {
-                                    duration = stats.onHitBurnDuration,
-                                    damagePerSecond = stats.onHitBurnDps
-                                };
-                                sc.Apply(e);
-                            }
+                            if (hitSource != null)
+                                hitSource.ApplyTo(uc);
                         }
 
                         continue;

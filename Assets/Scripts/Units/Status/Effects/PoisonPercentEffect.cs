@@ -20,7 +20,7 @@ public class PoisonPercentEffect : StatusEffect
         {
             float delta = carry;
             carry = 0f;
-            target.OnRequestDamage?.Invoke(delta);
+            target.OnRequestDamageSilent?.Invoke(delta);
         }
     }
 }

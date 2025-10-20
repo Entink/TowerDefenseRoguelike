@@ -17,7 +17,7 @@ MonoBehaviour:
   isTutorialOnly: 0
   levelLenght: 22
   enemies:
-  - enemyPrefab: {fileID: 5667778855852757539, guid: bc9c532a3c5373a4eb83d1a8bcbc800e, type: 3}
+  - enemyPrefab: {fileID: 6350948256703853174, guid: e5dce6c2afc0bae4dbb8d318e6d083dc, type: 3}
     delay: 4
     quantity: 4
     quantityInterval: 2.5

@@ -69,43 +69,53 @@ public class StatusController : MonoBehaviour
 
     public void Apply(StatusEffect effect)
     {
-        int visibleSameTypeIndex = -1;
-        for(int i = 0; i < effects.Count; i++)
+        if(effect.IsPermament)
         {
-            var e = effects[i];
-            if (e.GetType() != effect.GetType()) continue;
-
-            if (e.uiHidden && !effect.uiHidden) continue;
-
-            if (!e.uiHidden && effect.uiHidden) continue;
-
-            if(e.CanStack(effect))
-            {
-                e.AddStack();
-                e.ResetTimer();
-                EffectsChanged?.Invoke();
-                return;
-            }
-
-            visibleSameTypeIndex = i;
-            break;
-
-            
-        }
-
-        if(visibleSameTypeIndex >= 0)
-        {
-            effects[visibleSameTypeIndex] = effect;
+            effects.Add(effect);
             effect.OnApply(this);
             RebuildAggregates();
             EffectsChanged?.Invoke();
             return;
         }
+
+        int sameKeyIndex = -1;
+        for(int i = 0; i < effects.Count; i++)
+        {
+            var e = effects[i];
+            if (e.IsPermament) continue;
+            if (e.effectKey != effect.effectKey) continue;
+
+            if (e.uiHidden != effect.uiHidden) continue;
+
+            sameKeyIndex = i;
+            break;
+        }
+
+        if(sameKeyIndex >= 0)
+        {
+            var current = effects[sameKeyIndex];
+
+            if(current.CanStack(effect) && current.stacks < current.maxStacks)
+            {
+                current.AddStack();
+                current.ResetTimer();
+                EffectsChanged?.Invoke();
+                return;
+            }
+
+            effects[sameKeyIndex] = effect;
+            effect.OnApply(this);
+            RebuildAggregates();
+            EffectsChanged?.Invoke();
+            return;
+        }
+
         effects.Add(effect);
         effect.OnApply(this);
         RebuildAggregates();
         EffectsChanged?.Invoke();
     }
+
 
     void ApplyBaselinesFromStats()
     {
@@ -152,6 +162,7 @@ public class StatusController : MonoBehaviour
     public float GetKBResMul() => kbResMul;
     public float GetRangeAdd() => rangeAdd;
     public float GetLifeStealAdd() => lifeStealAdd;
+    public float GetArmorAdd() => armorFlat;
 
     public void AddShield(float amount) { shieldHP += amount; }
     public void SetShield(float amount) { shieldHP = Mathf.Max(0f, amount); }

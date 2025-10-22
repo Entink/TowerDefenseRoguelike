@@ -14,129 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitId: 1
   nodes:
-  - nodeId: basicTraining
-    displayName: Basic Training
-    description: 
-    icon: {fileID: 0}
-    col: 0
-    row: 0
-    costMaterials: 3
-    prerequisites: []
-    maxLevel: 3
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 3
-    addPercentDMG: 0
-    addFlatDMG: 1
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: improvedTraining
-    displayName: Improved Training
-    description: 
+  - nodeId: w_start
+    displayName: Warrior's Resolve
+    description: "Unyielding focus at the front line \u2013 slightly improves defense
+      and sustain."
     icon: {fileID: 0}
     col: 1
     row: 0
-    costMaterials: 5
-    prerequisites:
-    - basicTraining
-    maxLevel: 3
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.3
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 5
-    addPercentDMG: 0
-    addFlatDMG: 3
-    addPercentRange: 0.1
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: combatTraining
-    displayName: Combat Training
-    description: 
-    icon: {fileID: 0}
-    col: 2
-    row: 0
-    costMaterials: 7
-    prerequisites:
-    - improvedTraining
-    maxLevel: 3
+    costMaterials: 1
+    prerequisites: []
+    maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
     addRecruitCooldownFlat: 0
     addPercentHP: 0
-    addFlatHP: 10
-    addPercentDMG: 0
-    addFlatDMG: 3
-    addPercentRange: 0.1
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 1
-    lifeSteal: 0
-  - nodeId: specialTraining
-    displayName: Special Training
-    description: 
-    icon: {fileID: 0}
-    col: 3
-    row: 0
-    costMaterials: 10
-    prerequisites:
-    - combatTraining
-    maxLevel: 1
-    reduceRecruitCostPercent: 0.1
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.1
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0.15
     addFlatHP: 0
-    addPercentDMG: 0.1
-    addFlatDMG: 1
-    addPercentRange: 0.2
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 1
-    knockbackResist: 0.1
-    regenPerSec: 1
-    lifeSteal: 0
-  - nodeId: supplies
-    displayName: Supplies
-    description: 
-    icon: {fileID: 0}
-    col: 0
-    row: 1
-    costMaterials: 3
-    prerequisites:
-    - basicTraining
-    maxLevel: 5
-    reduceRecruitCostPercent: 0.05
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.02
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 1
     addPercentDMG: 0
     addFlatDMG: 0
     addPercentRange: 0
@@ -146,52 +39,33 @@ MonoBehaviour:
     enableAOE: 0
     addMultiStrike: 0
     knockbackResist: 0
-    regenPerSec: 0.2
+    regenPerSec: 0
     lifeSteal: 0
-  - nodeId: betterSupplies
-    displayName: 
-    description: 
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 40e7a188ef0f849439febf7b87a4b94a, type: 2}
+    - {fileID: 11400000, guid: 36cb6791b336a7049b6c63ce1c8c143b, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: iron_skin
+    displayName: Iron Skin
+    description: Hardened plates increase raw protection.
     icon: {fileID: 0}
-    col: 1
+    col: 0
     row: 1
-    costMaterials: 5
+    costMaterials: 2
     prerequisites:
-    - supplies
-    - improvedTraining
-    maxLevel: 3
-    reduceRecruitCostPercent: 0.05
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.02
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 2
-    addPercentDMG: 0
-    addFlatDMG: 1
-    addPercentRange: 0.03
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0.2
-    lifeSteal: 0
-  - nodeId: survivalTactics
-    displayName: Survival Tactics
-    description: 
-    icon: {fileID: 0}
-    col: 2
-    row: 1
-    costMaterials: 5
-    prerequisites:
-    - combatTraining
+    - w_start
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
     addRecruitCooldownFlat: 0
-    addPercentHP: 0.05
-    addFlatHP: 5
+    addPercentHP: 0
+    addFlatHP: 0
     addPercentDMG: 0
     addFlatDMG: 0
     addPercentRange: 0
@@ -201,17 +75,198 @@ MonoBehaviour:
     enableAOE: 0
     addMultiStrike: 0
     knockbackResist: 0
-    regenPerSec: 0.5
-    lifeSteal: 0.01
-  - nodeId: comboSpecialist
-    displayName: Combo Specialist
-    description: 
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 40e7a188ef0f849439febf7b87a4b94a, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: tempered_blade
+    displayName: Tempered Blade
+    description: Well-tempered steel strikes harder.
     icon: {fileID: 0}
-    col: 3
+    col: 1
     row: 1
-    costMaterials: 15
+    costMaterials: 2
     prerequisites:
-    - specialTraining
+    - w_start
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0.08
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: shield_training
+    displayName: Shield Training
+    description: Proper bracing adds a protective buffer on entry.
+    icon: {fileID: 0}
+    col: 2
+    row: 1
+    costMaterials: 2
+    prerequisites:
+    - w_start
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 5bed91cdd17115b47a80eef72927458d, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: resolute_stance
+    displayName: Resolute Stance
+    description: Dig in and refuse to budge.
+    icon: {fileID: 0}
+    col: 0
+    row: 2
+    costMaterials: 3
+    prerequisites:
+    - iron_skin
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0.1
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: weapon_drill
+    displayName: Weapon Drill
+    description: Drills refine the swing cadence for faster strikes.
+    icon: {fileID: 0}
+    col: 1
+    row: 2
+    costMaterials: 3
+    prerequisites:
+    - tempered_blade
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 5f7f9ee7a6e2a814791dcea108628b17, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: bulldoze
+    displayName: Bulldoze
+    description: Each hit carries greater force, sending foes reeling.
+    icon: {fileID: 0}
+    col: 2
+    row: 2
+    costMaterials: 3
+    prerequisites:
+    - shield_training
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 6f7f30a109e03d9409c351f6240a9683, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: guardian_presence
+    displayName: "Guardian\u2019s Presence (Aura)"
+    description: A protective aura bolsters nearby allies.
+    icon: {fileID: 0}
+    col: 0
+    row: 3
+    costMaterials: 5
+    prerequisites:
+    - resolute_stance
     maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -220,33 +275,6 @@ MonoBehaviour:
     addPercentHP: 0
     addFlatHP: 0
     addPercentDMG: 0
-    addFlatDMG: 3
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 1
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: duelTraining
-    displayName: Duel Training
-    description: 
-    icon: {fileID: 0}
-    col: 4
-    row: 1
-    costMaterials: 0
-    prerequisites:
-    - comboSpecialist
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
     addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
@@ -257,261 +285,25 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-  - nodeId: sharpenedBlade
-    displayName: Sharpened Blade
-    description: 
-    icon: {fileID: 0}
-    col: -1
-    row: 2
-    costMaterials: 0
-    prerequisites:
-    - strongerPlatings
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: strongerPlatings
-    displayName: Stronger Platings
-    description: 
-    icon: {fileID: 0}
-    col: 0
-    row: 2
-    costMaterials: 0
-    prerequisites:
-    - improvedArmor
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: improvedArmor
-    displayName: 
-    description: 
-    icon: {fileID: 0}
-    col: 1
-    row: 2
-    costMaterials: 0
-    prerequisites:
-    - betterSupplies
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: longerBlows
-    displayName: Longer Blows
-    description: 
-    icon: {fileID: 0}
-    col: 2
-    row: 2
-    costMaterials: 0
-    prerequisites:
-    - improvedArmor
-    - survivalTactics
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: X1
-    displayName: X1
-    description: 
-    icon: {fileID: 0}
-    col: 3
-    row: 2
-    costMaterials: 0
-    prerequisites:
-    - comboSpecialist
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: meditation
-    displayName: Meditation
-    description: 
-    icon: {fileID: 0}
-    col: 4
-    row: 2
-    costMaterials: 0
-    prerequisites:
-    - duelTraining
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: pathOfWind
-    displayName: Path of Wind
-    description: 
-    icon: {fileID: 0}
-    col: 5
-    row: 2
-    costMaterials: 0
-    prerequisites:
-    - meditation
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: energizedBlade
-    displayName: Energized Blade
-    description: 
-    icon: {fileID: 0}
-    col: -1
-    row: 3
-    costMaterials: 0
-    prerequisites:
-    - sharpenedBlade
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: combatMastery
-    displayName: Combat Mastery
-    description: 
-    icon: {fileID: 0}
-    col: 0
-    row: 3
-    costMaterials: 0
-    prerequisites:
-    - energizedBlade
-    - energizedArmor
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: energizedArmor
-    displayName: Energized Armor
-    description: 
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 1
+    auraRadius: 2
+    auraTickInterval: 1
+    auraAllyEffects:
+    - {fileID: 11400000, guid: 47415f3859b4f904084dcd7e2ca99fe2, type: 2}
+    - {fileID: 11400000, guid: c04a440f4fd134c45975f6fbff93fc0a, type: 2}
+    auraEnemyEffects: []
+  - nodeId: weaken_strike
+    displayName: Weaken Strike (On-Hit)
+    description: Struck enemies deal less damage for a short time.
     icon: {fileID: 0}
     col: 1
     row: 3
-    costMaterials: 0
+    costMaterials: 4
     prerequisites:
-    - fasterTraining
-    maxLevel: 0
+    - weapon_drill
+    maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -529,16 +321,24 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-  - nodeId: fasterTraining
-    displayName: Faster Training
-    description: 
+    onSpawnEffects: []
+    onHitEffects:
+    - {fileID: 11400000, guid: da74200566811db4dae190e6e6787f62, type: 2}
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: crushing_blow
+    displayName: Crushing Blow (On-Hit)
+    description: Cracks enemy armor on impact.
     icon: {fileID: 0}
     col: 2
     row: 3
-    costMaterials: 0
+    costMaterials: 4
     prerequisites:
-    - longerBlows
-    maxLevel: 0
+    - bulldoze
+    maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -556,70 +356,24 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-  - nodeId: X2
-    displayName: X2
-    description: 
-    icon: {fileID: 0}
-    col: 3
-    row: 3
-    costMaterials: 0
-    prerequisites:
-    - X1
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: X3
-    displayName: X3
-    description: 
-    icon: {fileID: 0}
-    col: 5
-    row: 3
-    costMaterials: 0
-    prerequisites:
-    - pathOfWind
-    maxLevel: 0
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-  - nodeId: heavyBlows
-    displayName: Heavy Blows
-    description: 
+    onSpawnEffects: []
+    onHitEffects:
+    - {fileID: 11400000, guid: 8c7f5ec31cfb0fc459e6b79eb043ec70, type: 2}
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: second_wind
+    displayName: Second Wind
+    description: Steady breath, steady blade.
     icon: {fileID: 0}
     col: 0
     row: 4
-    costMaterials: 0
+    costMaterials: 6
     prerequisites:
-    - combatMastery
-    maxLevel: 0
+    - guardian_presence
+    maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -637,17 +391,58 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-  - nodeId: X4
-    displayName: X4
-    description: 
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 36cb6791b336a7049b6c63ce1c8c143b, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: lifedrain
+    displayName: Lifedrain
+    description: Converts a portion of damage dealt into vitality.
+    icon: {fileID: 0}
+    col: 1
+    row: 4
+    costMaterials: 6
+    prerequisites:
+    - weaken_strike
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0.05
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: bulwark
+    displayName: Bulwark
+    description: Reinforced stance with extra plating and cover.
     icon: {fileID: 0}
     col: 2
     row: 4
-    costMaterials: 0
+    costMaterials: 6
     prerequisites:
-    - fasterTraining
-    - X2
-    maxLevel: 0
+    - crushing_blow
+    maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -665,16 +460,25 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-  - nodeId: X5
-    displayName: X5
-    description: 
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 9cea75d094958a4479ec29aa3e1e5b4c, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: unbreakable
+    displayName: Unbreakable (Capstone)
+    description: Stand fast. Break the tide. Become the wall.
     icon: {fileID: 0}
-    col: 5
-    row: 4
-    costMaterials: 0
+    col: 1
+    row: 5
+    costMaterials: 10
     prerequisites:
-    - X3
-    maxLevel: 0
+    - second_wind
+    - bulwark
+    maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -689,6 +493,15 @@ MonoBehaviour:
     addFlatAoe: 0
     enableAOE: 0
     addMultiStrike: 0
-    knockbackResist: 0
+    knockbackResist: 0.25
     regenPerSec: 0
     lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 07c5edccfdbebb9498326f68e0390eb9, type: 2}
+    - {fileID: 11400000, guid: 083c4ea8ef784fd4b98dc1f084e0c11c, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []

@@ -81,7 +81,7 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         Debug.Log("Najechano na node'a");
         if (ModifierTooltip.I == null) return;
-        ModifierTooltip.I.Show(BuildTooltipText());
+        ModifierTooltip.I.ShowAt(transform as RectTransform, BuildTooltipText(), ModifierTooltip.TooltipSide.Right);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -100,7 +100,8 @@ public class SkillNodeButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             if(ModifierTooltip.I != null)
             {
-                ModifierTooltip.I.Show(BuildTooltipText());
+                ModifierTooltip.I.ShowAt(transform as RectTransform, BuildTooltipText());
+
             }
         }
     }

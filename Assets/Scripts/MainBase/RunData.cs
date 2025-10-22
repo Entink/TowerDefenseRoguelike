@@ -142,5 +142,5 @@ public partial class RunData : MonoBehaviour
     }
 
     public static void ClearSelectedUnits() => selectedUnits.Clear();
-    
+
 }

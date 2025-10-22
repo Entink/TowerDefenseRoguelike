@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c681af47dda79a44da8aac125337685a, type: 3}
+  m_Name: P_Regen_small
+  m_EditorClassIdentifier: Assembly-CSharp::RegenFlatEffectAsset
+  hideIcon: 1
+  effectKey: P_Regen_S
+  duration: 0
+  stacks: 1
+  maxStacks: 1
+  healPerSecond: 1

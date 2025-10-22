@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deca8416ffed5ab45808e5298f10eae1, type: 3}
-  m_Name: PoisonPercentEffect
-  m_EditorClassIdentifier: Assembly-CSharp::PoisonPercentEffectAsset
-  duration: 3
+  m_Script: {fileID: 11500000, guid: e8630fb4279f7734c8dc27dc6ebcdb0d, type: 3}
+  m_Name: Shield_30
+  m_EditorClassIdentifier: Assembly-CSharp::ShieldEffectAsset
+  hideIcon: 0
+  effectKey: Shield_30
+  duration: 10
   stacks: 1
   maxStacks: 1
-  percentPerSecond: 0.02
+  shieldAmount: 30

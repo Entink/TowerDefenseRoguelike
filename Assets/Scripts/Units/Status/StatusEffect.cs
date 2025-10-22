@@ -6,9 +6,11 @@ public abstract class StatusEffect
     public int stacks = 1;
     public int maxStacks = 1;
     public bool uiHidden;
+    public string effectKey;
 
     protected float elapsed;
     public bool IsExpired => elapsed >= duration && duration > 0f;
+    public bool IsPermament => duration <= 0f;
 
     public virtual void OnApply(StatusController target) { }
     public virtual void OnExpire(StatusController target) { }

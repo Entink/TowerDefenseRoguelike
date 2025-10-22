@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c681af47dda79a44da8aac125337685a, type: 3}
-  m_Name: RegenFlatEffect
-  m_EditorClassIdentifier: Assembly-CSharp::RegenFlatEffectAsset
-  duration: 3
+  m_Script: {fileID: 11500000, guid: e8630fb4279f7734c8dc27dc6ebcdb0d, type: 3}
+  m_Name: P_Shield_30
+  m_EditorClassIdentifier: Assembly-CSharp::ShieldEffectAsset
+  hideIcon: 0
+  effectKey: P_Shield_30
+  duration: 0
   stacks: 1
   maxStacks: 1
-  healPerSecond: 3
+  shieldAmount: 30

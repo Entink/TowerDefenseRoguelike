@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardConfig
   normalCash: 12
   normalMaterials: 1
-  bossCash: 40
-  bossMaterials: 5
-  difficultyMultiplier: 1
+  difficultyMultiplier: 0.33
   winCashMul: 1
   winMaterialsMul: 1
+  bossMaterialsMul: 3
   defeatBaseMaterials: 1
   defeatMaterialsMul: 0.7

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dcae09667b284d4692f5a677881e67d, type: 3}
+  m_Name: P_Speed_12
+  m_EditorClassIdentifier: Assembly-CSharp::BuffStatModifierEffectAsset
+  hideIcon: 1
+  effectKey: P_Speed_12
+  duration: 0
+  stacks: 1
+  maxStacks: 1
+  damageMul: 1
+  attackSpeedMul: 1
+  moveMul: 1.12
+  kbForceMul: 1
+  kbResMul: 1
+  armorAdd: 0
+  rangeAdd: 0
+  lifeStealAdd: 0

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b452e2c750b5cba478209abc0b19aa75, type: 3}
-  m_Name: UnitSkiilTree_Ranger
-  m_EditorClassIdentifier: 
-  unitId: 2
+  m_Name: UnitSkiilTree_Nanomage
+  m_EditorClassIdentifier: Assembly-CSharp::UnitSkillTreeDef
+  unitId: 5
   nodes:
-  - nodeId: r_start
-    displayName: Ranger's Instinct
-    description: "Years of experience sharpen instincts \u2013 slightly increases
-      damage and range."
+  - nodeId: n_start
+    displayName: Nanite Awakening
+    description: "Microscopic swarms spin up \u2013 modest boost to range and damage
+      on deployment."
     icon: {fileID: 0}
     col: 1
     row: 0
@@ -48,15 +48,15 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: fletched_arrows
-    displayName: Fletched Arrows
-    description: Improved arrow fletching increases projectile stability and damage.
+  - nodeId: quantum_focus
+    displayName: Quantum Focus
+    description: Tighter energy control increases spell potency.
     icon: {fileID: 0}
     col: 0
     row: 1
     costMaterials: 2
     prerequisites:
-    - r_start
+    - n_start
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -82,83 +82,15 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: keen_sight
-    displayName: Keen Sight
-    description: Enhanced perception allows attacking from a greater distance.
+  - nodeId: flux_coils
+    displayName: Flux Coils
+    description: Stabilized conduits extend effective casting distance.
     icon: {fileID: 0}
     col: 1
     row: 1
     costMaterials: 2
     prerequisites:
-    - r_start
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0.08
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: quick_orders
-    displayName: Quick Orders
-    description: Faster communication reduces unit recruitment cooldown.
-    icon: {fileID: 0}
-    col: 2
-    row: 1
-    costMaterials: 2
-    prerequisites:
-    - r_start
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.06
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: range_bands
-    displayName: Range Bands
-    description: Reinforced bowstrings increase effective attack range.
-    icon: {fileID: 0}
-    col: 1
-    row: 2
-    costMaterials: 3
-    prerequisites:
-    - keen_sight
+    - n_start
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -184,53 +116,19 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: steady_grip
-    displayName: Steady Grip
-    description: A firm grip on the bow improves precision and attack power.
+  - nodeId: synaptic_relays
+    displayName: Synaptic Relays
+    description: Faster signaling shortens recruitment cooldown.
     icon: {fileID: 0}
-    col: 0
-    row: 2
-    costMaterials: 3
+    col: 2
+    row: 1
+    costMaterials: 2
     prerequisites:
-    - fletched_arrows
+    - n_start
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0.05
-    addFlatDMG: 1
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: ready_to_roll
-    displayName: Ready to Roll
-    description: Efficient logistics reduce recruitment costs.
-    icon: {fileID: 0}
-    col: 2
-    row: 2
-    costMaterials: 3
-    prerequisites:
-    - quick_orders
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: -5
-    reduceRecruitCooldownPercent: 0
+    reduceRecruitCooldownPercent: 0.06
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
@@ -252,15 +150,119 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: toxic_tips
-    displayName: Toxic Tips
-    description: Arrows are coated with poison, applying damage over time.
+  - nodeId: capacitive_weave
+    displayName: Capacitive Weave
+    description: Capacitors pre-charge a protective buffer.
+    icon: {fileID: 0}
+    col: 0
+    row: 2
+    costMaterials: 3
+    prerequisites:
+    - quantum_focus
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 5bed91cdd17115b47a80eef72927458d, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: arc_conduction
+    displayName: Arc Conduction
+    description: Bolts arc to nearby targets, dealing light splash damage.
     icon: {fileID: 0}
     col: 1
+    row: 2
+    costMaterials: 3
+    prerequisites:
+    - flux_coils
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0.2
+    addFlatAoe: 0.15
+    enableAOE: 1
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: overclock
+    displayName: Overclock
+    description: Ramps up casting rhythm on entry.
+    icon: {fileID: 0}
+    col: 2
+    row: 2
+    costMaterials: 3
+    prerequisites:
+    - synaptic_relays
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 5f7f9ee7a6e2a814791dcea108628b17, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: irradiate
+    displayName: Irradiate (On-Hit)
+    description: Infuses targets with burning particles that deal damage over time.
+    icon: {fileID: 0}
+    col: 0
     row: 3
     costMaterials: 4
     prerequisites:
-    - range_bands
+    - capacitive_weave
     maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -281,59 +283,25 @@ MonoBehaviour:
     lifeSteal: 0
     onSpawnEffects: []
     onHitEffects:
-    - {fileID: 11400000, guid: 9f472ec45a40b294a8a514793ec6352e, type: 2}
+    - {fileID: 11400000, guid: 5960479ffbd956e45971a8be370224af, type: 2}
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: marksman_form
-    displayName: Marksman Form
-    description: Adopts the stance of a trained marksman, boosting attack damage.
+  - nodeId: disruptive_pulse
+    displayName: Disruptive Pulse (On-Hit)
+    description: Nanites scramble enemy output, reducing their damage briefly.
     icon: {fileID: 0}
-    col: 0
+    col: 1
     row: 3
     costMaterials: 4
     prerequisites:
-    - steady_grip
-    maxLevel: 2
+    - arc_conduction
+    maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0.1
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: skirmish_cadence
-    displayName: Skirmish Cadance
-    description: Refined battle rhythm shortens recruitment cooldown further.
-    icon: {fileID: 0}
-    col: 2
-    row: 3
-    costMaterials: 4
-    prerequisites:
-    - ready_to_roll
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.05
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
@@ -349,22 +317,23 @@ MonoBehaviour:
     regenPerSec: 0
     lifeSteal: 0
     onSpawnEffects: []
-    onHitEffects: []
+    onHitEffects:
+    - {fileID: 11400000, guid: da74200566811db4dae190e6e6787f62, type: 2}
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: twin_shot
-    displayName: Twin Shot
-    description: The Ranger fires two consecutive arrows in rapid succession.
+  - nodeId: static_snare
+    displayName: Static Snare (On-Hit)
+    description: Electrostatic bind slows the target for a moment.
     icon: {fileID: 0}
     col: 2
-    row: 4
-    costMaterials: 6
+    row: 3
+    costMaterials: 4
     prerequisites:
-    - skirmish_cadence
-    maxLevel: 2
+    - overclock
+    maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -378,27 +347,28 @@ MonoBehaviour:
     addPercentAoe: 0
     addFlatAoe: 0
     enableAOE: 0
-    addMultiStrike: 1
+    addMultiStrike: 0
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
     onSpawnEffects: []
-    onHitEffects: []
+    onHitEffects:
+    - {fileID: 11400000, guid: c85e8aae086fef343a954797ce444d16, type: 2}
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: spotters_call
-    displayName: Spotter's Call
-    description: "Emits a tactical aura that increases nearby allies\u2019 attack
-      capabilities."
+  - nodeId: nanite_diffuser
+    displayName: "Nanite Diffuser (Aura \u2013 Allies)"
+    description: "A cloud of helper nanites boosts nearby allies\u2019 tempo and
+      recovery."
     icon: {fileID: 0}
     col: 0
     row: 4
     costMaterials: 6
     prerequisites:
-    - marksman_form
+    - irradiate
     maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -420,21 +390,22 @@ MonoBehaviour:
     onSpawnEffects: []
     onHitEffects: []
     grantAura: 1
-    auraRadius: 2.2
+    auraRadius: 2
     auraTickInterval: 1
     auraAllyEffects:
-    - {fileID: 11400000, guid: 5e81bd5af4981524a9bc7759d7b4806d, type: 2}
+    - {fileID: 11400000, guid: dc558efce59806b4e9dba3c0e573d268, type: 2}
+    - {fileID: 11400000, guid: 3229186829e387344ae0ec5c6679c386, type: 2}
     auraEnemyEffects: []
-  - nodeId: shrapnel_heads
-    displayName: Shrapnel Heads
-    description: Arrows shatter on impact, damaging enemies in a small area.
+  - nodeId: entropy_field
+    displayName: "Entropy Field (Aura \u2013 Enemies)"
+    description: 'Local entropy rises: nearby foes slow and weaken slightly.'
     icon: {fileID: 0}
     col: 1
     row: 4
     costMaterials: 6
     prerequisites:
-    - toxic_tips
-    maxLevel: 2
+    - disruptive_pulse
+    maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -445,10 +416,46 @@ MonoBehaviour:
     addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
-    addPercentAoe: 0.15
-    addFlatAoe: 0.1
-    enableAOE: 1
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
     addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 1
+    auraRadius: 2
+    auraTickInterval: 1
+    auraAllyEffects: []
+    auraEnemyEffects:
+    - {fileID: 11400000, guid: 4cf43e8bc54038f459b4939de182e7c4, type: 2}
+    - {fileID: 11400000, guid: f4a148b38823e5d4892a304dd89adf93, type: 2}
+  - nodeId: twin_cast
+    displayName: Twin Cast
+    description: Splits the casting pattern to release a rapid double strike.
+    icon: {fileID: 0}
+    col: 2
+    row: 4
+    costMaterials: 6
+    prerequisites:
+    - static_snare
+    maxLevel: 1
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 1
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
@@ -459,16 +466,16 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: arrow_storm
-    displayName: Arrow Storm
-    description: Unleashes a devastating storm of arrows over a wide area.
+  - nodeId: overload_protocol
+    displayName: Overload Protocol (Capstone)
+    description: Vents surplus charge into a devastating barrage and faster deployments.
     icon: {fileID: 0}
     col: 1
     row: 5
     costMaterials: 10
     prerequisites:
-    - twin_shot
-    - shrapnel_heads
+    - nanite_diffuser
+    - twin_cast
     maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -487,8 +494,7 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-    onSpawnEffects:
-    - {fileID: 11400000, guid: 6cbcf800ab0b48442a038164f7707cc7, type: 2}
+    onSpawnEffects: []
     onHitEffects: []
     grantAura: 0
     auraRadius: 0

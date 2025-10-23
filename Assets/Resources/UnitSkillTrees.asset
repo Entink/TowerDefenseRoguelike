@@ -15,3 +15,6 @@ MonoBehaviour:
   trees:
   - {fileID: 11400000, guid: 3e3a1e028168a6d43ab2d9437a5f3ec4, type: 2}
   - {fileID: 11400000, guid: 2885baa638c4bc0429afe922e51453eb, type: 2}
+  - {fileID: 11400000, guid: 0e785c947f0985b4395ed2deb154e2b0, type: 2}
+  - {fileID: 11400000, guid: 363a916e111b0fd4b9412f65c439e8df, type: 2}
+  - {fileID: 11400000, guid: 68b0e57592f783746a7a14d60f4128e1, type: 2}

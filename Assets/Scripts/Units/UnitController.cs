@@ -194,7 +194,9 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
             GameManager.instance.UnregisterUnit();
         }
-        
+
+        var deathSrc = GetComponent<OnDeathEffectSource>();
+        if (deathSrc != null) deathSrc.Trigger();
 
         if(deathEffect != null)
         {

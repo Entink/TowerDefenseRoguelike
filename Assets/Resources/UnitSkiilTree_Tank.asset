@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b452e2c750b5cba478209abc0b19aa75, type: 3}
-  m_Name: UnitSkiilTree_Ranger
-  m_EditorClassIdentifier: 
-  unitId: 2
+  m_Name: UnitSkiilTree_Tank
+  m_EditorClassIdentifier: Assembly-CSharp::UnitSkillTreeDef
+  unitId: 3
   nodes:
-  - nodeId: r_start
-    displayName: Ranger's Instinct
-    description: "Years of experience sharpen instincts \u2013 slightly increases
-      damage and range."
+  - nodeId: t_start
+    displayName: Tank's Vow
+    description: "A solemn oath to hold the line \u2013 starts with extra plating
+      and shielding."
     icon: {fileID: 0}
     col: 1
     row: 0
@@ -30,41 +30,7 @@ MonoBehaviour:
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
-    addPercentDMG: 0.05
-    addFlatDMG: 0
-    addPercentRange: 0.05
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: fletched_arrows
-    displayName: Fletched Arrows
-    description: Improved arrow fletching increases projectile stability and damage.
-    icon: {fileID: 0}
-    col: 0
-    row: 1
-    costMaterials: 2
-    prerequisites:
-    - r_start
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0.08
+    addPercentDMG: 0
     addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
@@ -75,22 +41,24 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-    onSpawnEffects: []
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 9cea75d094958a4479ec29aa3e1e5b4c, type: 2}
+    - {fileID: 11400000, guid: 40e7a188ef0f849439febf7b87a4b94a, type: 2}
     onHitEffects: []
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: keen_sight
-    displayName: Keen Sight
-    description: Enhanced perception allows attacking from a greater distance.
+  - nodeId: fortified_plating
+    displayName: Fortified Plating
+    description: Additional metal layers increase raw protection.
     icon: {fileID: 0}
-    col: 1
+    col: 0
     row: 1
     costMaterials: 2
     prerequisites:
-    - r_start
+    - t_start
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -100,7 +68,7 @@ MonoBehaviour:
     addFlatHP: 0
     addPercentDMG: 0
     addFlatDMG: 0
-    addPercentRange: 0.08
+    addPercentRange: 0
     addFlatRange: 0
     addPercentAoe: 0
     addFlatAoe: 0
@@ -109,22 +77,58 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-    onSpawnEffects: []
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 40e7a188ef0f849439febf7b87a4b94a, type: 2}
     onHitEffects: []
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: quick_orders
-    displayName: Quick Orders
-    description: Faster communication reduces unit recruitment cooldown.
+  - nodeId: layered_shielding
+    displayName: Layered Shielding
+    description: Reinforced barriers absorb opening bursts of damage.
+    icon: {fileID: 0}
+    col: 1
+    row: 1
+    costMaterials: 2
+    prerequisites:
+    - t_start
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 5bed91cdd17115b47a80eef72927458d, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: deployment_drills
+    displayName: Deployment Drills
+    description: Smoother formations reduce recruitment cooldown.
     icon: {fileID: 0}
     col: 2
     row: 1
     costMaterials: 2
     prerequisites:
-    - r_start
+    - t_start
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -150,15 +154,15 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: range_bands
-    displayName: Range Bands
-    description: Reinforced bowstrings increase effective attack range.
+  - nodeId: unshakable
+    displayName: Unshakable
+    description: "Plants the feet\u2014harder to push around."
     icon: {fileID: 0}
-    col: 1
+    col: 0
     row: 2
     costMaterials: 3
     prerequisites:
-    - keen_sight
+    - fortified_plating
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -168,13 +172,13 @@ MonoBehaviour:
     addFlatHP: 0
     addPercentDMG: 0
     addFlatDMG: 0
-    addPercentRange: 0.06
-    addFlatRange: 0.2
+    addPercentRange: 0
+    addFlatRange: 0
     addPercentAoe: 0
     addFlatAoe: 0
     enableAOE: 0
     addMultiStrike: 0
-    knockbackResist: 0
+    knockbackResist: 0.15
     regenPerSec: 0
     lifeSteal: 0
     onSpawnEffects: []
@@ -184,15 +188,15 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: steady_grip
-    displayName: Steady Grip
-    description: A firm grip on the bow improves precision and attack power.
+  - nodeId: reinforced_frame
+    displayName: Reinforced Frame
+    description: Internal supports improve battlefield sustain.
     icon: {fileID: 0}
-    col: 0
+    col: 1
     row: 2
     costMaterials: 3
     prerequisites:
-    - fletched_arrows
+    - layered_shielding
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -200,8 +204,8 @@ MonoBehaviour:
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
-    addPercentDMG: 0.05
-    addFlatDMG: 1
+    addPercentDMG: 0
+    addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
     addPercentAoe: 0
@@ -211,22 +215,23 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-    onSpawnEffects: []
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 36cb6791b336a7049b6c63ce1c8c143b, type: 2}
     onHitEffects: []
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: ready_to_roll
-    displayName: Ready to Roll
-    description: Efficient logistics reduce recruitment costs.
+  - nodeId: logistics_overdrive
+    displayName: Logistics Overdrive
+    description: Streamlined supply lines reduce recruitment cost.
     icon: {fileID: 0}
     col: 2
     row: 2
     costMaterials: 3
     prerequisites:
-    - quick_orders
+    - deployment_drills
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: -5
@@ -252,153 +257,15 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: toxic_tips
-    displayName: Toxic Tips
-    description: Arrows are coated with poison, applying damage over time.
-    icon: {fileID: 0}
-    col: 1
-    row: 3
-    costMaterials: 4
-    prerequisites:
-    - range_bands
-    maxLevel: 1
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects:
-    - {fileID: 11400000, guid: 9f472ec45a40b294a8a514793ec6352e, type: 2}
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: marksman_form
-    displayName: Marksman Form
-    description: Adopts the stance of a trained marksman, boosting attack damage.
+  - nodeId: bulwark_aura
+    displayName: Bulwark Aura (Allies)
+    description: Projects a protective field that bolsters nearby allies.
     icon: {fileID: 0}
     col: 0
     row: 3
-    costMaterials: 4
+    costMaterials: 5
     prerequisites:
-    - steady_grip
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0.1
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: skirmish_cadence
-    displayName: Skirmish Cadance
-    description: Refined battle rhythm shortens recruitment cooldown further.
-    icon: {fileID: 0}
-    col: 2
-    row: 3
-    costMaterials: 4
-    prerequisites:
-    - ready_to_roll
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.05
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: twin_shot
-    displayName: Twin Shot
-    description: The Ranger fires two consecutive arrows in rapid succession.
-    icon: {fileID: 0}
-    col: 2
-    row: 4
-    costMaterials: 6
-    prerequisites:
-    - skirmish_cadence
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 1
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: spotters_call
-    displayName: Spotter's Call
-    description: "Emits a tactical aura that increases nearby allies\u2019 attack
-      capabilities."
-    icon: {fileID: 0}
-    col: 0
-    row: 4
-    costMaterials: 6
-    prerequisites:
-    - marksman_form
+    - unshakable
     maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -420,20 +287,162 @@ MonoBehaviour:
     onSpawnEffects: []
     onHitEffects: []
     grantAura: 1
-    auraRadius: 2.2
+    auraRadius: 2
     auraTickInterval: 1
     auraAllyEffects:
-    - {fileID: 11400000, guid: 5e81bd5af4981524a9bc7759d7b4806d, type: 2}
+    - {fileID: 11400000, guid: 47415f3859b4f904084dcd7e2ca99fe2, type: 2}
+    - {fileID: 11400000, guid: 3229186829e387344ae0ec5c6679c386, type: 2}
     auraEnemyEffects: []
-  - nodeId: shrapnel_heads
-    displayName: Shrapnel Heads
-    description: Arrows shatter on impact, damaging enemies in a small area.
+  - nodeId: intimidating_presence
+    displayName: Intimidating Presence (Enemies)
+    description: "The Tank\u2019s glare weakens nearby enemies."
+    icon: {fileID: 0}
+    col: 1
+    row: 3
+    costMaterials: 5
+    prerequisites:
+    - reinforced_frame
+    maxLevel: 1
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 1
+    auraRadius: 2
+    auraTickInterval: 1
+    auraAllyEffects: []
+    auraEnemyEffects:
+    - {fileID: 11400000, guid: da74200566811db4dae190e6e6787f62, type: 2}
+  - nodeId: shield_bash
+    displayName: 'Shield Bash (On-Hit) [WIP]'
+    description: 'WIP
+
+      A crushing bash that briefly stuns the target.'
+    icon: {fileID: 0}
+    col: 2
+    row: 3
+    costMaterials: 0
+    prerequisites:
+    - logistics_overdrive
+    maxLevel: 1
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: hardened_core
+    displayName: Hardened Core
+    description: Denser plating, fewer weak spots.
+    icon: {fileID: 0}
+    col: 0
+    row: 4
+    costMaterials: 6
+    prerequisites:
+    - bulwark_aura
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 40e7a188ef0f849439febf7b87a4b94a, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: bastion
+    displayName: Bastion
+    description: A stronger barrier to withstand heavy barrages.
     icon: {fileID: 0}
     col: 1
     row: 4
     costMaterials: 6
     prerequisites:
-    - toxic_tips
+    - intimidating_presence
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 9cea75d094958a4479ec29aa3e1e5b4c, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: shockwave
+    displayName: Shockwave
+    description: Heavy impacts create a short-range concussive blast.
+    icon: {fileID: 0}
+    col: 2
+    row: 4
+    costMaterials: 6
+    prerequisites:
+    - shield_bash
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -459,20 +468,20 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: arrow_storm
-    displayName: Arrow Storm
-    description: Unleashes a devastating storm of arrows over a wide area.
+  - nodeId: immovable_object
+    displayName: Immovable Object (Capstone)
+    description: Be the wall. Refuse to yield.
     icon: {fileID: 0}
     col: 1
     row: 5
     costMaterials: 10
     prerequisites:
-    - twin_shot
-    - shrapnel_heads
+    - hardened_core
+    - bastion
     maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.08
+    reduceRecruitCooldownPercent: 0
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
@@ -480,15 +489,16 @@ MonoBehaviour:
     addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
-    addPercentAoe: 0.2
+    addPercentAoe: 0
     addFlatAoe: 0
     enableAOE: 0
-    addMultiStrike: 1
-    knockbackResist: 0
+    addMultiStrike: 0
+    knockbackResist: 0.3
     regenPerSec: 0
     lifeSteal: 0
     onSpawnEffects:
-    - {fileID: 11400000, guid: 6cbcf800ab0b48442a038164f7707cc7, type: 2}
+    - {fileID: 11400000, guid: 083c4ea8ef784fd4b98dc1f084e0c11c, type: 2}
+    - {fileID: 11400000, guid: 07c5edccfdbebb9498326f68e0390eb9, type: 2}
     onHitEffects: []
     grantAura: 0
     auraRadius: 0

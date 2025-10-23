@@ -21,6 +21,7 @@ public class StatusController : MonoBehaviour
     float rangeAdd = 0f;
     float lifeStealAdd = 0f;
     float shieldHP = 0f;
+    float regenFlat = 0f;
 
     [SerializeField] public bool applyBaselinesFromStats = true;
     bool baselinesApplied;
@@ -64,6 +65,11 @@ public class StatusController : MonoBehaviour
                 RebuildAggregates();
                 EffectsChanged?.Invoke();
             }
+        }
+
+        if(regenFlat > 0f)
+        {
+            OnRequestHeal?.Invoke(regenFlat * Time.deltaTime);
         }
     }
 
@@ -140,19 +146,29 @@ public class StatusController : MonoBehaviour
 
     public float ModifyIncomingDamage(float dmg)
     {
-        float before = shieldHP;
+        float baseDamage = Mathf.Max(0f, dmg);
 
-        float reduced = Mathf.Max(0f, dmg - armorFlat);
+        float armor = GetArmorAdd();
+        float armorSoftCap = 0.6f * baseDamage;
+        float effectiveArmor = Mathf.Min(armor, armorSoftCap);
+        float afterArmor = Mathf.Max(0f, baseDamage - effectiveArmor);
+
+        float minFloor = Mathf.Max(0f, 0.1f * baseDamage);
+        float mitigated = Mathf.Max(afterArmor, minFloor);
+
+
+
+        
         if(shieldHP > 0f)
         {
-            float absorb = Mathf.Min(shieldHP, reduced);
+            float absorb = Mathf.Min(shieldHP, mitigated);
             shieldHP -= absorb;
-            reduced -= absorb;
+            mitigated -= absorb;
+            if (absorb > 0f && shieldHP <= 0f) EffectsChanged?.Invoke();
         }
 
-        if (before > 0f && shieldHP <= 0f) EffectsChanged?.Invoke();
 
-        return reduced;
+        return Mathf.Max(0f, mitigated);
     }
 
     public float GetDamageMul() => dmgMul;
@@ -168,6 +184,9 @@ public class StatusController : MonoBehaviour
     public void SetShield(float amount) { shieldHP = Mathf.Max(0f, amount); }
     public float GetShield() => shieldHP;
 
+    public float GetRegenFlat() => regenFlat;
+    public void AddRegenFlat(float add) { regenFlat += add; }
+
     public void AddArmor(float amount) { armorFlat += amount; }
     public void AddDamageMul(float mul) { dmgMul *= mul; }
     public void AddAttackSpeedMul(float mul) { atkSpeedMul *= mul; }
@@ -178,7 +197,7 @@ public class StatusController : MonoBehaviour
     public void AddLifeSteal(float add) { lifeStealAdd += add; }
 
 
-    void RebuildAggregates()
+    public void RebuildAggregates()
     {
         dmgMul = 1f;
         atkSpeedMul = 1f;
@@ -188,9 +207,17 @@ public class StatusController : MonoBehaviour
         armorFlat = 0f;
         rangeAdd = 0f;
         lifeStealAdd = 0f;
+        regenFlat = 0f;
 
         for (int i = 0; i < effects.Count; i++)
             if (effects[i] is IAggregatedModifier a) a.ApplyTo(this);
+
+        var caps = Resources.Load<BalancingCapsConfig>("Balance/BalancingCapsConfig");
+        if(caps != null)
+        {
+            armorFlat = Mathf.Min(armorFlat, caps.armorCap_Act1);
+            regenFlat = Mathf.Min(regenFlat, caps.regenCap_Act1);
+        }
     }
 
     public List<StatusEffect> GetActiveEffectsSnapshot()

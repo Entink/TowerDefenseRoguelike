@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 3
   displayName: Tank
   unitPrefab: {fileID: 2019576201408043290, guid: 38da0ec669b223b4bba76fdbf8261923, type: 3}
-  unlockedByDefault: 0
+  unlockedByDefault: 1
   unlockMethod: 0
   costMaterials: 25
   requiresUnlocked: 

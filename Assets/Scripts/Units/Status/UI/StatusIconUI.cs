@@ -11,6 +11,7 @@ public class StatusIconUI : MonoBehaviour
     public float refreshInterval = 0.25f;
     public Vector2 iconSize = new Vector2(20, 20);
     public float spacing = 4f;
+    public float fontSize = 16f;
 
     StatusController sc;
     RectTransform rt;
@@ -87,6 +88,7 @@ public class StatusIconUI : MonoBehaviour
             {
                 txt.text = data.stacks > 1 ? data.stacks.ToString() : "";
             }
+            
         }
 
         for (int i = items.Count; i < pool.Count; i++)
@@ -112,7 +114,7 @@ public class StatusIconUI : MonoBehaviour
             tr.pivot = new Vector2(1, 0);
             tr.anchoredPosition = new Vector2(0, 0);
             var tmp = txtGo.GetComponent<TextMeshProUGUI>();
-            tmp.fontSize = 14;
+            tmp.fontSize = fontSize;
             tmp.alignment = TextAlignmentOptions.BottomRight;
 
             pool.Add(go);

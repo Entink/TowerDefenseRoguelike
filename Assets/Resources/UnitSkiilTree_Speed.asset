@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b452e2c750b5cba478209abc0b19aa75, type: 3}
-  m_Name: UnitSkiilTree_Ranger
-  m_EditorClassIdentifier: 
-  unitId: 2
+  m_Name: UnitSkiilTree_Speed
+  m_EditorClassIdentifier: Assembly-CSharp::UnitSkillTreeDef
+  unitId: 4
   nodes:
-  - nodeId: r_start
-    displayName: Ranger's Instinct
-    description: "Years of experience sharpen instincts \u2013 slightly increases
-      damage and range."
+  - nodeId: f_start
+    displayName: "Runner\u2019s Spark"
+    description: "Quick feet and quicker hands \u2013 a slight boost to speed and
+      tempo."
     icon: {fileID: 0}
     col: 1
     row: 0
@@ -30,41 +30,7 @@ MonoBehaviour:
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
-    addPercentDMG: 0.05
-    addFlatDMG: 0
-    addPercentRange: 0.05
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: fletched_arrows
-    displayName: Fletched Arrows
-    description: Improved arrow fletching increases projectile stability and damage.
-    icon: {fileID: 0}
-    col: 0
-    row: 1
-    costMaterials: 2
-    prerequisites:
-    - r_start
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0.08
+    addPercentDMG: 0
     addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
@@ -75,22 +41,24 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-    onSpawnEffects: []
+    onSpawnEffects:
+    - {fileID: 11400000, guid: c9a851bccc8241940b3e43be9235af82, type: 2}
+    - {fileID: 11400000, guid: 5f7f9ee7a6e2a814791dcea108628b17, type: 2}
     onHitEffects: []
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: keen_sight
-    displayName: Keen Sight
-    description: Enhanced perception allows attacking from a greater distance.
+  - nodeId: fleet_footed
+    displayName: Fleet-Footed
+    description: Moves faster between engagements.
     icon: {fileID: 0}
-    col: 1
+    col: 0
     row: 1
     costMaterials: 2
     prerequisites:
-    - r_start
+    - f_start
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -100,7 +68,7 @@ MonoBehaviour:
     addFlatHP: 0
     addPercentDMG: 0
     addFlatDMG: 0
-    addPercentRange: 0.08
+    addPercentRange: 0
     addFlatRange: 0
     addPercentAoe: 0
     addFlatAoe: 0
@@ -109,22 +77,58 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-    onSpawnEffects: []
+    onSpawnEffects:
+    - {fileID: 11400000, guid: c9a851bccc8241940b3e43be9235af82, type: 2}
     onHitEffects: []
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: quick_orders
-    displayName: Quick Orders
-    description: Faster communication reduces unit recruitment cooldown.
+  - nodeId: light_draw
+    displayName: Light Draw
+    description: "Lighter draw and release \u2013 attacks come out faster."
+    icon: {fileID: 0}
+    col: 1
+    row: 1
+    costMaterials: 2
+    prerequisites:
+    - f_start
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 5f7f9ee7a6e2a814791dcea108628b17, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: rapid_muster
+    displayName: Rapid Muster
+    description: Streamlined call-ups reduce recruitment cooldown.
     icon: {fileID: 0}
     col: 2
     row: 1
     costMaterials: 2
     prerequisites:
-    - r_start
+    - f_start
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -150,83 +154,15 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: range_bands
-    displayName: Range Bands
-    description: Reinforced bowstrings increase effective attack range.
-    icon: {fileID: 0}
-    col: 1
-    row: 2
-    costMaterials: 3
-    prerequisites:
-    - keen_sight
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0.06
-    addFlatRange: 0.2
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: steady_grip
-    displayName: Steady Grip
-    description: A firm grip on the bow improves precision and attack power.
+  - nodeId: lean_kit
+    displayName: Lean Kit
+    description: Cuts excess gear, lowering recruitment cost.
     icon: {fileID: 0}
     col: 0
     row: 2
     costMaterials: 3
     prerequisites:
-    - fletched_arrows
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0.05
-    addFlatDMG: 1
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: ready_to_roll
-    displayName: Ready to Roll
-    description: Efficient logistics reduce recruitment costs.
-    icon: {fileID: 0}
-    col: 2
-    row: 2
-    costMaterials: 3
-    prerequisites:
-    - quick_orders
+    - fleet_footed
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: -5
@@ -252,15 +188,83 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: toxic_tips
-    displayName: Toxic Tips
-    description: Arrows are coated with poison, applying damage over time.
+  - nodeId: nimble_reflexes
+    displayName: Nimble Reflexes
+    description: Harder to stagger when darting through the fray.
     icon: {fileID: 0}
     col: 1
+    row: 2
+    costMaterials: 3
+    prerequisites:
+    - light_draw
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0.1
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: cutting_edges
+    displayName: Cutting Edges
+    description: Sharper blades for quick strikes.
+    icon: {fileID: 0}
+    col: 2
+    row: 2
+    costMaterials: 3
+    prerequisites:
+    - rapid_muster
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0.06
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: hamstring
+    displayName: Hamstring (On-Hit)
+    description: "Cuts at tendons \u2013 briefly slows the target on hit."
+    icon: {fileID: 0}
+    col: 0
     row: 3
     costMaterials: 4
     prerequisites:
-    - range_bands
+    - lean_kit
     maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -281,59 +285,25 @@ MonoBehaviour:
     lifeSteal: 0
     onSpawnEffects: []
     onHitEffects:
-    - {fileID: 11400000, guid: 9f472ec45a40b294a8a514793ec6352e, type: 2}
+    - {fileID: 11400000, guid: c85e8aae086fef343a954797ce444d16, type: 2}
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: marksman_form
-    displayName: Marksman Form
-    description: Adopts the stance of a trained marksman, boosting attack damage.
+  - nodeId: dart_and_weave
+    displayName: Dart and Weave
+    description: "Breathe, flow, recover \u2013 slight sustain while moving in."
     icon: {fileID: 0}
-    col: 0
+    col: 1
     row: 3
     costMaterials: 4
     prerequisites:
-    - steady_grip
+    - nimble_reflexes
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0.1
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 0
-    auraRadius: 0
-    auraTickInterval: 0
-    auraAllyEffects: []
-    auraEnemyEffects: []
-  - nodeId: skirmish_cadence
-    displayName: Skirmish Cadance
-    description: Refined battle rhythm shortens recruitment cooldown further.
-    icon: {fileID: 0}
-    col: 2
-    row: 3
-    costMaterials: 4
-    prerequisites:
-    - ready_to_roll
-    maxLevel: 2
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0.05
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
@@ -348,23 +318,24 @@ MonoBehaviour:
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-    onSpawnEffects: []
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 1a8f2da4b2cb65c48b9e42726d2a2227, type: 2}
     onHitEffects: []
     grantAura: 0
     auraRadius: 0
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: twin_shot
-    displayName: Twin Shot
-    description: The Ranger fires two consecutive arrows in rapid succession.
+  - nodeId: flurry_training
+    displayName: Flurry Training
+    description: Trains bursty combos for rapid follow-ups.
     icon: {fileID: 0}
     col: 2
-    row: 4
-    costMaterials: 6
+    row: 3
+    costMaterials: 5
     prerequisites:
-    - skirmish_cadence
-    maxLevel: 2
+    - cutting_edges
+    maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
     reduceRecruitCooldownPercent: 0
@@ -389,51 +360,15 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: spotters_call
-    displayName: Spotter's Call
-    description: "Emits a tactical aura that increases nearby allies\u2019 attack
-      capabilities."
+  - nodeId: blade_whirl
+    displayName: Blade Whirl
+    description: Wide, glancing cuts hit nearby foes in close quarters.
     icon: {fileID: 0}
     col: 0
     row: 4
     costMaterials: 6
     prerequisites:
-    - marksman_form
-    maxLevel: 1
-    reduceRecruitCostPercent: 0
-    addRecruitCostFlat: 0
-    reduceRecruitCooldownPercent: 0
-    addRecruitCooldownFlat: 0
-    addPercentHP: 0
-    addFlatHP: 0
-    addPercentDMG: 0
-    addFlatDMG: 0
-    addPercentRange: 0
-    addFlatRange: 0
-    addPercentAoe: 0
-    addFlatAoe: 0
-    enableAOE: 0
-    addMultiStrike: 0
-    knockbackResist: 0
-    regenPerSec: 0
-    lifeSteal: 0
-    onSpawnEffects: []
-    onHitEffects: []
-    grantAura: 1
-    auraRadius: 2.2
-    auraTickInterval: 1
-    auraAllyEffects:
-    - {fileID: 11400000, guid: 5e81bd5af4981524a9bc7759d7b4806d, type: 2}
-    auraEnemyEffects: []
-  - nodeId: shrapnel_heads
-    displayName: Shrapnel Heads
-    description: Arrows shatter on impact, damaging enemies in a small area.
-    icon: {fileID: 0}
-    col: 1
-    row: 4
-    costMaterials: 6
-    prerequisites:
-    - toxic_tips
+    - hamstring
     maxLevel: 2
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -459,16 +394,87 @@ MonoBehaviour:
     auraTickInterval: 0
     auraAllyEffects: []
     auraEnemyEffects: []
-  - nodeId: arrow_storm
-    displayName: Arrow Storm
-    description: Unleashes a devastating storm of arrows over a wide area.
+  - nodeId: adrenaline_surge
+    displayName: Adrenaline Surge
+    description: A rush of focus boosts damage and attack tempo.
+    icon: {fileID: 0}
+    col: 1
+    row: 4
+    costMaterials: 6
+    prerequisites:
+    - dart_and_weave
+    maxLevel: 2
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0.08
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects:
+    - {fileID: 11400000, guid: 5f7f9ee7a6e2a814791dcea108628b17, type: 2}
+    onHitEffects: []
+    grantAura: 0
+    auraRadius: 0
+    auraTickInterval: 0
+    auraAllyEffects: []
+    auraEnemyEffects: []
+  - nodeId: scouts_rally
+    displayName: "Scout\u2019s Rally (Aura)"
+    description: Rallies nearby allies to move and strike faster.
+    icon: {fileID: 0}
+    col: 2
+    row: 4
+    costMaterials: 6
+    prerequisites:
+    - flurry_training
+    maxLevel: 1
+    reduceRecruitCostPercent: 0
+    addRecruitCostFlat: 0
+    reduceRecruitCooldownPercent: 0
+    addRecruitCooldownFlat: 0
+    addPercentHP: 0
+    addFlatHP: 0
+    addPercentDMG: 0
+    addFlatDMG: 0
+    addPercentRange: 0
+    addFlatRange: 0
+    addPercentAoe: 0
+    addFlatAoe: 0
+    enableAOE: 0
+    addMultiStrike: 0
+    knockbackResist: 0
+    regenPerSec: 0
+    lifeSteal: 0
+    onSpawnEffects: []
+    onHitEffects: []
+    grantAura: 1
+    auraRadius: 2
+    auraTickInterval: 1
+    auraAllyEffects:
+    - {fileID: 11400000, guid: dc558efce59806b4e9dba3c0e573d268, type: 2}
+    - {fileID: 11400000, guid: 320fcd761ccba314287637cc1b9c9bbb, type: 2}
+    auraEnemyEffects: []
+  - nodeId: blitz_commander
+    displayName: Blitz Commander (Capstone)
+    description: "Command the charge \u2013 relentless pace and rapid deployments."
     icon: {fileID: 0}
     col: 1
     row: 5
     costMaterials: 10
     prerequisites:
-    - twin_shot
-    - shrapnel_heads
+    - blade_whirl
+    - scouts_rally
     maxLevel: 1
     reduceRecruitCostPercent: 0
     addRecruitCostFlat: 0
@@ -480,15 +486,14 @@ MonoBehaviour:
     addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
-    addPercentAoe: 0.2
+    addPercentAoe: 0
     addFlatAoe: 0
     enableAOE: 0
     addMultiStrike: 1
     knockbackResist: 0
     regenPerSec: 0
     lifeSteal: 0
-    onSpawnEffects:
-    - {fileID: 11400000, guid: 6cbcf800ab0b48442a038164f7707cc7, type: 2}
+    onSpawnEffects: []
     onHitEffects: []
     grantAura: 0
     auraRadius: 0

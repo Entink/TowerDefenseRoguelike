@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 4
   displayName: Runner
   unitPrefab: {fileID: 865969543581683040, guid: b3c9e8d766e44974d8c1d99ee4d46937, type: 3}
-  unlockedByDefault: 0
+  unlockedByDefault: 1
   unlockMethod: 0
   costMaterials: 25
   requiresUnlocked: 03000000

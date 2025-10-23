@@ -1,18 +1,13 @@
 using UnityEngine;
 
-public class RegenFlatEffect : StatusEffect
+public class RegenFlatEffect : StatusEffect, IAggregatedModifier
 {
     public float healPerSecond = 3f;
-    float carry;
+    
 
-    public override void OnTick(StatusController target, float dt)
+    public void ApplyTo(StatusController target)
     {
-        carry += healPerSecond * stacks * dt;
-        if(carry > 0)
-        {
-            float delta = carry;
-            carry = 0f;
-            target.OnRequestHeal?.Invoke(delta);
-        }
+        if (target == null) return;
+        target.AddRegenFlat(healPerSecond * Mathf.Max(1, stacks));
     }
 }

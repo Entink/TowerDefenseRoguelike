@@ -11,28 +11,34 @@ public static class RewardCalculator
 
     public static RewardResult Compute(bool isBoss, float difficulty, bool won, RewardConfig cfg)
     {
-        var d = difficulty <= 0f ? 1f : difficulty;
-        var baseCash = cfg.normalCash;
-        var baseMat = cfg.normalMaterials;
+        float diffMul = 0.5f + 0.5f * Mathf.Clamp01(difficulty);
+        float diffCfg = (cfg.difficultyMultiplier <= 0f ? 1f : cfg.difficultyMultiplier);
 
-        var cash = baseCash * (cfg.difficultyMultiplier <= 0f ? 1f : cfg.difficultyMultiplier) * d;
-        var mat = baseMat * (cfg.difficultyMultiplier <= 0f ? 1f : cfg.difficultyMultiplier) * d;
+        float baseCash = cfg.normalCash;
+        float baseMat = cfg.normalMaterials;
+
+        float cash = baseCash * diffCfg * diffMul;
+        float mat = baseMat * diffCfg * diffMul;
 
         if(isBoss)
         {
             cash = 0f;
-            mat *= cfg.bossMaterialsMul <= 0f ? 1f : cfg.bossMaterialsMul;
-
+            float bossMul = (cfg.bossMaterialsMul <= 0f ? 1f : cfg.bossMaterialsMul);
+            mat *= bossMul;
         }
 
-        if(won)
+        if(!won)
         {
-            cash *= cfg.winCashMul <= 0f ? 1f : cfg.winCashMul;
-            mat *= cfg.winMaterialsMul <= 0f ? 1f : cfg.winMaterialsMul;
-            return new RewardResult { cash = (int)cash, materials = (int)mat };
+            return new RewardResult { cash = 0, materials = 0 };
         }
 
-        return new RewardResult { cash = 0, materials = 0 };
+        float winCashMul = (cfg.winCashMul <= 0f ? 1f : cfg.winCashMul);
+        float winMatMul = (cfg.winMaterialsMul <= 0f ? 1f : cfg.winMaterialsMul);
+
+        cash *= winCashMul;
+        mat *= winMatMul;
+
+        return new RewardResult { cash = Mathf.FloorToInt(cash), materials = Mathf.FloorToInt(mat) };
     }
 
     public static int ComputeDefeatMaterials(bool isBoss, RewardConfig cfg)

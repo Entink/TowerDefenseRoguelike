@@ -26,7 +26,7 @@ MonoBehaviour:
     icon: {fileID: 0}
     minMaterials: -999
     minCash: -999
-    deltaMaterials: 15
+    deltaMaterials: 5
     deltaCash: 0
     addModifier: 0
     modifier: 0

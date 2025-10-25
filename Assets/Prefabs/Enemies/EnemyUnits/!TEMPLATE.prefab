@@ -5572,6 +5572,8 @@ MonoBehaviour:
   multiStrikeDelay: 0
   isAOE: 0
   aoeRadius: 0
+  piercingTargets: 1
+  piercingSecondaryMul: 1
   kbForce: 0.45
   kbRes: 0.25
   cost: 0

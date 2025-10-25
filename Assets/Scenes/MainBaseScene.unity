@@ -2408,7 +2408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 625157279}
   body: {fileID: 1001895482}
-  offset: {x: 16, y: 16}
+  offset: {x: 16, y: 260}
   edgePadding: 8
 --- !u!1 &937369798
 GameObject:

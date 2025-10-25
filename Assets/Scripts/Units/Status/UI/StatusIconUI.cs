@@ -73,7 +73,7 @@ public class StatusIconUI : MonoBehaviour
             go.SetActive(true);
 
             var img = go.GetComponent<Image>();
-            var txt = go.GetComponentInChildren<TextMeshProUGUI>(true);
+            //var txt = go.GetComponentInChildren<TextMeshProUGUI>(true);
 
             
             var sp = library.Get(data.typeName);
@@ -84,10 +84,10 @@ public class StatusIconUI : MonoBehaviour
             rti.anchoredPosition = new Vector2(x, 0f);
             x += iconSize.x + spacing;
 
-            if(txt != null)
-            {
-                txt.text = data.stacks > 1 ? data.stacks.ToString() : "";
-            }
+            //if(txt != null)
+            //{
+            //    txt.text = data.stacks > 1 ? data.stacks.ToString() : "";
+            //}
             
         }
 
@@ -106,16 +106,16 @@ public class StatusIconUI : MonoBehaviour
             r.anchorMax = new Vector2(0, 0.5f);
             r.pivot = new Vector2(0, 0.5f);
 
-            var txtGo = new GameObject("Stack", typeof(RectTransform), typeof(TextMeshProUGUI));
-            var tr = txtGo.GetComponent<RectTransform>();
-            tr.SetParent(r, false);
-            tr.anchorMin = new Vector2(1, 0);
-            tr.anchorMax = new Vector2(1, 0);
-            tr.pivot = new Vector2(1, 0);
-            tr.anchoredPosition = new Vector2(0, 0);
-            var tmp = txtGo.GetComponent<TextMeshProUGUI>();
-            tmp.fontSize = fontSize;
-            tmp.alignment = TextAlignmentOptions.BottomRight;
+            //var txtGo = new GameObject("Stack", typeof(RectTransform), typeof(TextMeshProUGUI));
+            //var tr = txtGo.GetComponent<RectTransform>();
+            //tr.SetParent(r, false);
+            //tr.anchorMin = new Vector2(1, 0);
+            //tr.anchorMax = new Vector2(1, 0);
+            //tr.pivot = new Vector2(1, 0);
+            //tr.anchoredPosition = new Vector2(0, 0);
+            //var tmp = txtGo.GetComponent<TextMeshProUGUI>();
+            //tmp.fontSize = fontSize;
+            //tmp.alignment = TextAlignmentOptions.BottomRight;
 
             pool.Add(go);
             go.SetActive(false);

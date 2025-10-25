@@ -371,7 +371,7 @@ MonoBehaviour:
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
-    addPercentDMG: 0
+    addPercentDMG: -0.05
     addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0
@@ -476,7 +476,7 @@ MonoBehaviour:
     addRecruitCooldownFlat: 0
     addPercentHP: 0
     addFlatHP: 0
-    addPercentDMG: 0
+    addPercentDMG: -0.1
     addFlatDMG: 0
     addPercentRange: 0
     addFlatRange: 0

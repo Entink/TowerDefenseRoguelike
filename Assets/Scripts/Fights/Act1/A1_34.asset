@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cb099c62b8b4a4fa7d0b23510c5b4d, type: 3}
+  m_Name: A1_34
+  m_EditorClassIdentifier: Assembly-CSharp::FightData
+  fightName: Iron Reign
+  isBoss: 0
+  isTutorialOnly: 0
+  levelLenght: 38
+  enemies:
+  - enemyPrefab: {fileID: 85044629072420479, guid: 0b2a57e761520274f9a2c87a5d4caf86, type: 3}
+    delay: 6
+    quantity: 1
+    quantityInterval: 0
+    isInfinite: 1
+    repeatInterval: 16
+  - enemyPrefab: {fileID: 2166256863721097731, guid: a982d3303fd707a40946c17b79c11e07, type: 3}
+    delay: 4
+    quantity: 2
+    quantityInterval: 8
+    isInfinite: 0
+    repeatInterval: 0
+  difficulty: 10
+  act: 1

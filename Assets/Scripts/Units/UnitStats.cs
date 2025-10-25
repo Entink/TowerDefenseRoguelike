@@ -28,6 +28,10 @@ public class UnitStats : MonoBehaviour
     public bool isAOE;
     public float aoeRadius;
 
+    [Header("Piercing")]
+    [Min(1)] public int piercingTargets = 1;
+    [Range(0f, 5f)] public float piercingSecondaryMul = 1f;
+
     [Header("Knockback")]
     public float kbForce;
     [Range(0f, 1f)] public float kbRes;

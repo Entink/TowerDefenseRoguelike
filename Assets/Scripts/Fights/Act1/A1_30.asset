@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cb099c62b8b4a4fa7d0b23510c5b4d, type: 3}
+  m_Name: A1_30
+  m_EditorClassIdentifier: Assembly-CSharp::FightData
+  fightName: Rally Call
+  isBoss: 0
+  isTutorialOnly: 0
+  levelLenght: 33
+  enemies:
+  - enemyPrefab: {fileID: 5512171077323883094, guid: 89bd4c2f3d244a3409dd319321f41782, type: 3}
+    delay: 5
+    quantity: 1
+    quantityInterval: 0
+    isInfinite: 1
+    repeatInterval: 18
+  - enemyPrefab: {fileID: 1862445853447972581, guid: 3ace101a17a1f3a46858b07682e31c9f, type: 3}
+    delay: 8
+    quantity: 2
+    quantityInterval: 8
+    isInfinite: 0
+    repeatInterval: 0
+  difficulty: 8
+  act: 1

@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2203889305496423684, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2203889305496423684, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2203889305496423684, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: maxHP
-      value: 75
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: speed
@@ -88,10 +88,42 @@ PrefabInstance:
       propertyPath: attackSpeed
       value: 1.4
       objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: hasBaseArmor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: hasBaseShield
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: baseShieldAmount
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767127235695361806, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767127235695361806, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999286424256781317, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999286424256781317, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 5667778855852757539, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: m_Name
       value: BOSS1_SUMMON2
       objectReference: {fileID: 0}
+    - target: {fileID: 8882659606158400856, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 827538889749247048, guid: b09238d7d9142fd4bb96ed714cfa2168, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

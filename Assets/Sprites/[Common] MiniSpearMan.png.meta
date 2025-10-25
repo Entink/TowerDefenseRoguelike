@@ -1,0 +1,962 @@
+fileFormatVersion: 2
+guid: 3d60810c841f6544d859f1db889bbb85
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4363481053012277684
+    second: '[Common] MiniSpearMan_0'
+  - first:
+      213: -1437311537496294576
+    second: '[Common] MiniSpearMan_1'
+  - first:
+      213: -2708791742301064613
+    second: '[Common] MiniSpearMan_2'
+  - first:
+      213: 6082825802855130224
+    second: '[Common] MiniSpearMan_3'
+  - first:
+      213: 3128616251291882737
+    second: '[Common] MiniSpearMan_4'
+  - first:
+      213: 5936896511087052239
+    second: '[Common] MiniSpearMan_5'
+  - first:
+      213: -323152176422017076
+    second: '[Common] MiniSpearMan_6'
+  - first:
+      213: -798114269236927871
+    second: '[Common] MiniSpearMan_7'
+  - first:
+      213: 3461317040715735518
+    second: '[Common] MiniSpearMan_8'
+  - first:
+      213: 7243861143806289262
+    second: '[Common] MiniSpearMan_9'
+  - first:
+      213: 597722270272134181
+    second: '[Common] MiniSpearMan_10'
+  - first:
+      213: 5304501743150954082
+    second: '[Common] MiniSpearMan_11'
+  - first:
+      213: 5088365565276512546
+    second: '[Common] MiniSpearMan_12'
+  - first:
+      213: 5537568144611681908
+    second: '[Common] MiniSpearMan_13'
+  - first:
+      213: 1682016233041453265
+    second: '[Common] MiniSpearMan_14'
+  - first:
+      213: -8451550692085390758
+    second: '[Common] MiniSpearMan_15'
+  - first:
+      213: -2722538957371901148
+    second: '[Common] MiniSpearMan_16'
+  - first:
+      213: -802416850810982590
+    second: '[Common] MiniSpearMan_17'
+  - first:
+      213: 3998730801432404286
+    second: '[Common] MiniSpearMan_18'
+  - first:
+      213: 7476272668122637901
+    second: '[Common] MiniSpearMan_19'
+  - first:
+      213: 747822706619183667
+    second: '[Common] MiniSpearMan_20'
+  - first:
+      213: -7318919033579505519
+    second: '[Common] MiniSpearMan_21'
+  - first:
+      213: -2872624224080087705
+    second: '[Common] MiniSpearMan_22'
+  - first:
+      213: 6894927001146121800
+    second: '[Common] MiniSpearMan_23'
+  - first:
+      213: 3756704886982265641
+    second: '[Common] MiniSpearMan_24'
+  - first:
+      213: -7841841746559835905
+    second: '[Common] MiniSpearMan_25'
+  - first:
+      213: -1810042176205774289
+    second: '[Common] MiniSpearMan_26'
+  - first:
+      213: -3239210399194266672
+    second: '[Common] MiniSpearMan_27'
+  - first:
+      213: -7467409428014685260
+    second: '[Common] MiniSpearMan_28'
+  - first:
+      213: -8536232243227992520
+    second: '[Common] MiniSpearMan_29'
+  - first:
+      213: -1748107651159045172
+    second: '[Common] MiniSpearMan_30'
+  - first:
+      213: -3863146596751774154
+    second: '[Common] MiniSpearMan_31'
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 12
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_0'
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 168
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b9b1f426e23e8c30800000000000000
+      internalID: 4363481053012277684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_1'
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 168
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05b76f795c4ad0ce0800000000000000
+      internalID: -1437311537496294576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_2'
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 168
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5232ad1340786ad0800000000000000
+      internalID: -2708791742301064613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_3'
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 168
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 074a2c9e6d98a6450800000000000000
+      internalID: 6082825802855130224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_4'
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 136
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f454c887e31b6b20800000000000000
+      internalID: 3128616251291882737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_5'
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 136
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc5899bfbe7146250800000000000000
+      internalID: 5936896511087052239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_6'
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 136
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc7a8f3cecee38bf0800000000000000
+      internalID: -323152176422017076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_7'
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 136
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18266fbfc478ce4f0800000000000000
+      internalID: -798114269236927871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_8'
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 136
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed12eda7281190030800000000000000
+      internalID: 3461317040715735518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_9'
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 136
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6524d6a45d578460800000000000000
+      internalID: 7243861143806289262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_10'
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 104
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52c19e9ec398b4800800000000000000
+      internalID: 597722270272134181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_11'
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 104
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 266f3fe1b306d9940800000000000000
+      internalID: 5304501743150954082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_12'
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 104
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 221e2a5b5818d9640800000000000000
+      internalID: 5088365565276512546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_13'
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 104
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 476291363e469dc40800000000000000
+      internalID: 5537568144611681908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_14'
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 72
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d060ec2ad8b75710800000000000000
+      internalID: 1682016233041453265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_15'
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 72
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a522b0d7c6f06ba80800000000000000
+      internalID: -8451550692085390758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_16'
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42b7fae2e39973ad0800000000000000
+      internalID: -2722538957371901148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_17'
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 72
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24faf95202e3dd4f0800000000000000
+      internalID: -802416850810982590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_18'
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 72
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e31aacb4a785e7730800000000000000
+      internalID: 3998730801432404286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_19'
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 72
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d466963716e01c760800000000000000
+      internalID: 7476272668122637901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_20'
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 72
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 332f10f1accc06a00800000000000000
+      internalID: 747822706619183667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_21'
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 72
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 198f5af8ae9fd6a90800000000000000
+      internalID: -7318919033579505519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_22'
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 40
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 765368eec736228d0800000000000000
+      internalID: -2872624224080087705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_23'
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 40
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84e509f9393bfaf50800000000000000
+      internalID: 6894927001146121800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_24'
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 40
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92b4d8ad03f722430800000000000000
+      internalID: 3756704886982265641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_25'
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 40
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff0e877ba7e2c2390800000000000000
+      internalID: -7841841746559835905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_26'
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 8
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f22a7c21b3071e6e0800000000000000
+      internalID: -1810042176205774289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_27'
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 8
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d34643dd430c03d0800000000000000
+      internalID: -3239210399194266672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_28'
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 8
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b328c270be6e5890800000000000000
+      internalID: -7467409428014685260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_29'
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 8
+        width: 19
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83ed82e6006398980800000000000000
+      internalID: -8536232243227992520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_30'
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 8
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccbc5876a597db7e0800000000000000
+      internalID: -1748107651159045172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '[Common] MiniSpearMan_31'
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 8
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63ee95953a8536ac0800000000000000
+      internalID: -3863146596751774154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      '[Common] MiniSpearMan_0': 4363481053012277684
+      '[Common] MiniSpearMan_1': -1437311537496294576
+      '[Common] MiniSpearMan_10': 597722270272134181
+      '[Common] MiniSpearMan_11': 5304501743150954082
+      '[Common] MiniSpearMan_12': 5088365565276512546
+      '[Common] MiniSpearMan_13': 5537568144611681908
+      '[Common] MiniSpearMan_14': 1682016233041453265
+      '[Common] MiniSpearMan_15': -8451550692085390758
+      '[Common] MiniSpearMan_16': -2722538957371901148
+      '[Common] MiniSpearMan_17': -802416850810982590
+      '[Common] MiniSpearMan_18': 3998730801432404286
+      '[Common] MiniSpearMan_19': 7476272668122637901
+      '[Common] MiniSpearMan_2': -2708791742301064613
+      '[Common] MiniSpearMan_20': 747822706619183667
+      '[Common] MiniSpearMan_21': -7318919033579505519
+      '[Common] MiniSpearMan_22': -2872624224080087705
+      '[Common] MiniSpearMan_23': 6894927001146121800
+      '[Common] MiniSpearMan_24': 3756704886982265641
+      '[Common] MiniSpearMan_25': -7841841746559835905
+      '[Common] MiniSpearMan_26': -1810042176205774289
+      '[Common] MiniSpearMan_27': -3239210399194266672
+      '[Common] MiniSpearMan_28': -7467409428014685260
+      '[Common] MiniSpearMan_29': -8536232243227992520
+      '[Common] MiniSpearMan_3': 6082825802855130224
+      '[Common] MiniSpearMan_30': -1748107651159045172
+      '[Common] MiniSpearMan_31': -3863146596751774154
+      '[Common] MiniSpearMan_4': 3128616251291882737
+      '[Common] MiniSpearMan_5': 5936896511087052239
+      '[Common] MiniSpearMan_6': -323152176422017076
+      '[Common] MiniSpearMan_7': -798114269236927871
+      '[Common] MiniSpearMan_8': 3461317040715735518
+      '[Common] MiniSpearMan_9': 7243861143806289262
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

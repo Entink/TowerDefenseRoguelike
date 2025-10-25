@@ -109,57 +109,118 @@ public class UnitAttack : MonoBehaviour
 
             var closest = FindClosestEnemy(transform.position, effectiveRange, enemyLayer);
 
-            if (stats.isAOE)
+            if(stats.isAOE)
             {
-                if (closest != null)
+                if(closest != null)
                 {
                     Vector3 aoeCenter = closest.transform.position;
                     lastAOECenter = aoeCenter;
 
                     var aoeHits = Physics2D.OverlapCircleAll(aoeCenter, stats.aoeRadius, enemyLayer);
 
+                    var seenUC = new HashSet<int>();
+                    var seenBC = new HashSet<int>();
+
                     foreach(var h in aoeHits)
                     {
                         if (h == null) continue;
-                        var uc = h.GetComponent<UnitController>();
-                        var bc = h.GetComponent<BaseController>();
-                        if (uc == null && bc == null) continue;
+
+                        var ucH = h.GetComponent<UnitController>();
+                        var bcH = h.GetComponent<BaseController>();
+                        if (ucH == null && bcH == null) continue;
+
+                        if(ucH != null)
+                        {
+                            if (!seenUC.Add(ucH.GetInstanceID())) continue;
+                        }
+                        else if(bcH != null)
+                        {
+                            if (!seenBC.Add(bcH.GetInstanceID())) continue;
+                        }
+
                         targets.Add(h);
                     }
-
                 }
             }
             else
             {
-                if (closest != null)
+                Vector2 dir = (controller != null && controller.IsAlly) ? Vector2.left : Vector2.right;
+
+                var hits = Physics2D.OverlapCircleAll(transform.position, effectiveRange, enemyLayer);
+
+                var seenUC = new HashSet<int>();
+                var seenBC = new HashSet<int>();
+
+                var ordered = new List<(Collider2D col, float proj, float distSqr)>();
+
+                foreach(var h in hits)
+                {
+                    if (h == null) continue;
+                    var ucH = h.GetComponent<UnitController>();
+                    var bcH = h.GetComponent<BaseController>();
+                    if (ucH == null && bcH == null) continue;
+
+                    float dx = h.transform.position.x - transform.position.x;
+                    if(controller != null)
+                    {
+                        if (controller.IsAlly && dx > 0f) continue;
+                        if (!controller.IsAlly && dx < 0f) continue;
+                    }
+
+                    Vector2 to = (Vector2)(h.transform.position - transform.position);
+                    float proj = Vector2.Dot(to, dir);
+                    if (proj <= 0f) continue;
+
+                    if (ucH != null)
+                    {
+                        if (!seenUC.Add(ucH.GetInstanceID())) continue;
+                    }
+                    else if (bcH != null)
+                    {
+                        if (!seenBC.Add(bcH.GetInstanceID())) continue;
+                    }
+
+                    ordered.Add((h,proj,to.sqrMagnitude));
+                }
+
+                ordered.Sort((a, b) =>
+                {
+                    int cmp = a.proj.CompareTo(b.proj);
+                    if (cmp != 0) return cmp;
+                    return a.distSqr.CompareTo(b.distSqr);
+                });
+
+                int maxTargets = Mathf.Max(1, stats.piercingTargets);
+                for (int iSel = 0; iSel < ordered.Count && iSel < maxTargets; iSel++)
+                    targets.Add(ordered[iSel].col);
+
+                if (targets.Count == 0 && closest != null)
                     targets.Add(closest);
             }
 
 
             for (int i = 0; i < stats.multiStrikeCount; i++)
             {
-                foreach (Collider2D target in targets)
+                for(int tIndex = 0; tIndex < targets.Count;tIndex++)
                 {
-                    if (target == null)
-                    {
-                        continue;
-                    }
+                    var target = targets[tIndex];
+                    if (target == null) continue;
+
+                    float secondaryMul = (tIndex == 0) ? 1f : Mathf.Max(0f, stats.piercingSecondaryMul);
 
                     UnitController uc = target.GetComponent<UnitController>();
-                    if (uc != null)
+                    if(uc != null)
                     {
                         UnitStats attackerStats = stats;
                         UnitStats targetStats = target.GetComponent<UnitStats>();
 
                         float typeMul = 1f;
-
-                        if(attackerStats != null && targetStats != null)
-                        {
+                        if (attackerStats != null && targetStats != null)
                             typeMul = UnitTypeHelper.GetBonusMultiplier(attackerStats.unitype, targetStats.unitype);
-                        }
 
-                        float finalDamage = attackerStats.damage * typeMul * dmgMul;
+                        float finalDamage = attackerStats.damage * typeMul * dmgMul * secondaryMul;
                         uc.TakeDamage(finalDamage, effectiveKB);
+                        Debug.Log($"[UnitAttack] {this.controller.name} attacked {uc.name} for {finalDamage} [i:{i},tIndex:{tIndex}]");
 
                         if(CombatStatsTracker.I != null)
                         {
@@ -174,12 +235,9 @@ public class UnitAttack : MonoBehaviour
                         if (totalLS > 0f && controller != null)
                             controller.Heal(finalDamage * totalLS);
 
-                        var sc = uc.GetComponent<StatusController>();
-                        if(sc != null)
-                        {
-                            if (hitSource != null)
-                                hitSource.ApplyTo(uc);
-                        }
+                        var scT = uc.GetComponent<StatusController>();
+                        if (scT != null && hitSource != null)
+                            hitSource.ApplyTo(uc);
 
                         continue;
                     }
@@ -187,22 +245,22 @@ public class UnitAttack : MonoBehaviour
                     BaseController bc = target.GetComponent<BaseController>();
                     if (bc != null)
                     {
-                        float finalDamage = stats.damage * dmgMul;
+                        float finalDamage = stats.damage * dmgMul * secondaryMul;
                         bc.TakeDamage(finalDamage);
+
                         if (CombatStatsTracker.I != null)
                         {
                             if (controller != null && controller.IsAlly && !bc.isPlayerBase)
-                                CombatStatsTracker.I.OnDamageDealt(stats.damage);
+                                CombatStatsTracker.I.OnDamageDealt(finalDamage);
                             else if (controller != null && !controller.IsAlly && bc.isPlayerBase)
-                                CombatStatsTracker.I.OnDamageTaken(stats.damage);
+                                CombatStatsTracker.I.OnDamageTaken(finalDamage);
                         }
                     }
-                }
 
-                if (i < stats.multiStrikeCount - 1)
-                {
-                    yield return new WaitForSeconds(stats.multiStrikeDelay);
+                    
                 }
+                if (i < stats.multiStrikeCount - 1)
+                    yield return new WaitForSeconds(stats.multiStrikeDelay);
             }
 
             if (targets.Count > 0)

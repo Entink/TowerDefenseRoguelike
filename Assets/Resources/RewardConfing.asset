@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RewardConfing
   m_EditorClassIdentifier: Assembly-CSharp::RewardConfig
   normalCash: 12
-  normalMaterials: 1
-  difficultyMultiplier: 0.33
+  normalMaterials: 3
+  difficultyMultiplier: 1
   winCashMul: 1
   winMaterialsMul: 1
   bossMaterialsMul: 3

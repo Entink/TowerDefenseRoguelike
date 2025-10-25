@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cb099c62b8b4a4fa7d0b23510c5b4d, type: 3}
+  m_Name: A1_23
+  m_EditorClassIdentifier: Assembly-CSharp::FightData
+  fightName: Burning Trail
+  isBoss: 0
+  isTutorialOnly: 0
+  levelLenght: 26
+  enemies:
+  - enemyPrefab: {fileID: 5399236264638847705, guid: 3880bb59eb116204caa48ae830ad38a4, type: 3}
+    delay: 6
+    quantity: 1
+    quantityInterval: 0
+    isInfinite: 0
+    repeatInterval: 0
+  - enemyPrefab: {fileID: 7666091794299782946, guid: 8a914c8879bccca4ca4a882645f33589, type: 3}
+    delay: 9
+    quantity: 1
+    quantityInterval: 0
+    isInfinite: 1
+    repeatInterval: 12
+  - enemyPrefab: {fileID: 6350948256703853174, guid: e5dce6c2afc0bae4dbb8d318e6d083dc, type: 3}
+    delay: 3
+    quantity: 2
+    quantityInterval: 5
+    isInfinite: 0
+    repeatInterval: 0
+  difficulty: 5
+  act: 1

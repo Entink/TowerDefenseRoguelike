@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97cb099c62b8b4a4fa7d0b23510c5b4d, type: 3}
+  m_Name: A1_36
+  m_EditorClassIdentifier: Assembly-CSharp::FightData
+  fightName: Last Stand
+  isBoss: 0
+  isTutorialOnly: 0
+  levelLenght: 40
+  enemies:
+  - enemyPrefab: {fileID: 6962833859662210196, guid: a419a433940fa7c499b8f39a9d1b0de2, type: 3}
+    delay: 10
+    quantity: 2
+    quantityInterval: 7
+    isInfinite: 1
+    repeatInterval: 13
+  - enemyPrefab: {fileID: 8471583779967884157, guid: 2ebddc29a0c61a14084fbba9cbf02741, type: 3}
+    delay: 11
+    quantity: 4
+    quantityInterval: 19
+    isInfinite: 0
+    repeatInterval: 0
+  - enemyPrefab: {fileID: 85044629072420479, guid: 0b2a57e761520274f9a2c87a5d4caf86, type: 3}
+    delay: 8
+    quantity: 3
+    quantityInterval: 14
+    isInfinite: 0
+    repeatInterval: 0
+  difficulty: 10
+  act: 1

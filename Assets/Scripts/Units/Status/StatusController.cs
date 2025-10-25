@@ -23,6 +23,9 @@ public class StatusController : MonoBehaviour
     float shieldHP = 0f;
     float regenFlat = 0f;
 
+    int pierceTargetsAdd = 0;
+    float pierceSecondaryMulMul = 1f;
+
     [SerializeField] public bool applyBaselinesFromStats = true;
     bool baselinesApplied;
 
@@ -196,6 +199,10 @@ public class StatusController : MonoBehaviour
     public void AddRange(float add) { rangeAdd += add; }
     public void AddLifeSteal(float add) { lifeStealAdd += add; }
 
+    public int GetPierceTargetsAdd() => pierceTargetsAdd;
+    public float GetPierceSecondaryMulMul() => pierceSecondaryMulMul;
+    public void AddPierceTargets(int add) { pierceTargetsAdd += add; }
+    public void MulPierceSecondary(float mul) { pierceSecondaryMulMul *= Mathf.Max(0f, mul); }
 
     public void RebuildAggregates()
     {
@@ -208,6 +215,8 @@ public class StatusController : MonoBehaviour
         rangeAdd = 0f;
         lifeStealAdd = 0f;
         regenFlat = 0f;
+        pierceTargetsAdd = 0;
+        pierceSecondaryMulMul = 1f;
 
         for (int i = 0; i < effects.Count; i++)
             if (effects[i] is IAggregatedModifier a) a.ApplyTo(this);

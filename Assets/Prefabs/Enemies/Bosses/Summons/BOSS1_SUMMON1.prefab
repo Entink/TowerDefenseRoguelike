@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: maxHP
-      value: 155
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: kbForce
@@ -84,10 +84,46 @@ PrefabInstance:
       propertyPath: attackSpeed
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: hasBaseArmor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: baseArmorFlat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: hasBaseShield
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417997121379744153, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: baseShieldAmount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767127235695361806, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.1666666
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767127235695361806, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.3333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999286424256781317, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.1666666
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999286424256781317, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.3333334
+      objectReference: {fileID: 0}
     - target: {fileID: 5667778855852757539, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
       propertyPath: m_Name
       value: BOSS1_SUMMON1
       objectReference: {fileID: 0}
+    - target: {fileID: 8882659606158400856, guid: 15c4f05199de40a45884f8913b0fe63e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4363481053012277684, guid: 3d60810c841f6544d859f1db889bbb85, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

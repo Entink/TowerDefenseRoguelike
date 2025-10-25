@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2451cff11e591584c892cbaf63fddffd, type: 3}
   m_Name: SpottersCall
   m_EditorClassIdentifier: Assembly-CSharp::RangerAura1EffectAsset
+  hideIcon: 0
+  effectKey: SpottersCall
   duration: 3
   stacks: 1
   maxStacks: 1
-  damageMul: 99
+  damageMul: 1.05
   attackSpeedMul: 1.05
-  rangeAdd: 99
+  rangeAdd: 0.2

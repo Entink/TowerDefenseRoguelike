@@ -21,9 +21,11 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private bool isStunned = false;
     [SerializeField] private float stunEndTime = 0f;
 
-    [SerializeField] public bool IsStunned => isStunned;
+    public bool IsStunned => isStunned;
 
     private StatusController status;
+
+    [SerializeField] SimpleSpriteAnimator animator;
 
     [Header("Tree runtime bonuses")]
     public float regenPerSecond = 0f;
@@ -101,9 +103,17 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private void FixedUpdate()
     {
         if(isStunned && Time.time >= stunEndTime)
+        {
             isStunned = false;
+            if (animator) animator.SetStunned(false);
 
-        if (IsStunned) return;
+        }
+
+        if (IsStunned)
+        {
+            if (animator) animator.SetStunned(true);
+            return;
+        }
 
         if(regenPerSecond > 0f && currentHP > 0 && currentHP < stats.maxHP)
         {
@@ -113,6 +123,10 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if(!IsEnemyInFront())
         {
             Move();
+        }
+        else
+        {
+            if (animator) animator.SetMoving(false);
         }
     }
 
@@ -213,7 +227,17 @@ public class UnitController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void Move()
     {
         float moveMul = status != null ? status.GetMoveMul() : 1f;
-        transform.Translate(moveDirection * stats.speed * moveMul * Time.deltaTime);
+        float effSpeed = stats.speed * moveMul;
+
+        transform.Translate(moveDirection * effSpeed * Time.deltaTime);
+
+        if (animator != null)
+        {
+            animator.SetMoving(true);
+            
+            float mul = (stats.speed > 0f) ? (effSpeed / stats.speed) : 1f;
+            animator.SetMoveSpeedMul(mul);
+        }
     }
 
     private float attackBuffer = 0.1f;

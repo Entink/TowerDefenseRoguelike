@@ -17,6 +17,8 @@ public class UnitAttack : MonoBehaviour
     private Vector3? lastAOECenter = null;
 
     public System.Action OnAttackFired;
+
+    [SerializeField] SimpleSpriteAnimator animator;
     
 
     private void Start()
@@ -196,12 +198,33 @@ public class UnitAttack : MonoBehaviour
 
                 if (targets.Count == 0 && closest != null)
                     targets.Add(closest);
+
+                
             }
 
+            if (targets.Count == 0)
+            {
+                if (animator != null) animator.SetMoving(true);
+                yield return new WaitForSeconds(1f / effectiveAS);
+                continue;
+            }
+
+            if (animator != null) animator.SetMoving(false);
 
             for (int i = 0; i < stats.multiStrikeCount; i++)
             {
-                for(int tIndex = 0; tIndex < targets.Count;tIndex++)
+                if (animator != null)
+                {
+                    float atkMulNow = status != null ? status.GetAttackSpeedMul() : 1f;
+                    float effectiveASNow = Mathf.Max(0.01f, stats.attackSpeed * atkMulNow);
+                    float desiredDuration = (stats.multiStrikeCount > 1)
+                        ? Mathf.Max(0.05f, stats.multiStrikeDelay)
+                        : 1f / effectiveASNow;
+
+                    animator.SetAttackDuration(desiredDuration);
+                    animator.PlayAttackOnce();
+                }
+                for (int tIndex = 0; tIndex < targets.Count;tIndex++)
                 {
                     var target = targets[tIndex];
                     if (target == null) continue;

@@ -10,6 +10,7 @@ public class DebugConsoleUI : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI logText;
     [SerializeField] private TMP_InputField commandInput;
+    [SerializeField] private DebugConsole debugConsole;
 
     [Header("Settings")]
     [SerializeField] private int maxLogLines = 20;
@@ -118,57 +119,20 @@ public class DebugConsoleUI : MonoBehaviour
 
         AppendLine($"> {input}");
 
-        string result = ExecuteLocalCommand(input);
+        string result = debugConsole != null ? debugConsole.ExecuteCommand(input) : "DebugConsole reference is missing.";
 
-        if (!string.IsNullOrWhiteSpace(result))
+        if(result == "__CLEAR__")
+        {
+            ClearLog();
+        }
+        else if(!string.IsNullOrWhiteSpace(result))
+        {
             AppendLine(result);
+        }
 
         commandInput.text = string.Empty;
         commandInput.ActivateInputField();
         commandInput.Select();
-    }
-
-    private string ExecuteLocalCommand(string input)
-    {
-        string trimmedInput = input.Trim();
-        string[] parts = trimmedInput.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
-
-        if (parts.Length == 0)
-            return string.Empty;
-
-        string command = parts[0].ToLower();
-
-        switch (command)
-        {
-            case "help":
-                return "Available commands: help, clear, echo, timescale";
-
-            case "clear":
-                ClearLog();
-                return string.Empty;
-
-            case "echo":
-                if (parts.Length == 1)
-                    return string.Empty;
-
-                return trimmedInput.Substring(parts[0].Length).TrimStart();
-
-            case "timescale":
-                if (parts.Length < 2)
-                    return "Usage: timescale <value>";
-
-                if (!float.TryParse(parts[1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float value))
-                    return "Invalid value. Use dot, e.g. timescale 0.5";
-
-                if (value < 0f)
-                    return "TimeScale cannot be negative.";
-
-                Time.timeScale = value;
-                return $"TimeScale set to {Time.timeScale.ToString(System.Globalization.CultureInfo.InvariantCulture)}";
-
-            default:
-                return $"Unknown command: {command}. Use 'help' command";
-        }
     }
 
     private void AppendLine(string line)

@@ -377,11 +377,11 @@ public class DebugConsole : MonoBehaviour
         if (unit == null)
             return null;
 
-        if (unit.CompareTag("Enemy"))
-            return true;
-
-        if (unit.CompareTag("Player"))
-            return false;
+        UnitStats stats = unit.GetComponent<UnitStats>();
+        if (stats != null)
+        {
+            return !stats.ally;
+        }
 
         object target = unit;
         Type type = target.GetType();

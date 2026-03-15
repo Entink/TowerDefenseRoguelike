@@ -6,6 +6,8 @@ using TMPro;
 
 public class DebugConsoleUI : MonoBehaviour
 {
+    private static DebugConsoleUI instance;
+
     [Header("References")]
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI logText;
@@ -18,6 +20,18 @@ public class DebugConsoleUI : MonoBehaviour
 
     private readonly List<string> logLines = new();
     private bool isOpen;
+
+    private void Awake()
+    {
+        if(instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
@@ -54,6 +68,11 @@ public class DebugConsoleUI : MonoBehaviour
 
     private void OnDestroy()
     {
+        if(instance == this)
+        {
+            instance = null;
+        }
+
         if (commandInput != null)
             commandInput.onSubmit.RemoveListener(HandleInputSubmit);
     }

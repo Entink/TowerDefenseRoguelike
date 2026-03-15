@@ -6,7 +6,7 @@ public class BaseController : MonoBehaviour
 {
     [Header("Stats")]
     public float maxHP;
-    [SerializeField, ReadOnly] private float currentHP;
+    [SerializeField, ReadOnly] public float currentHP;
     [SerializeField] private BaseHPBarUI hPBarUI;
 
     [SerializeField] public bool isPlayerBase = false;

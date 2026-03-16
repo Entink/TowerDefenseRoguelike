@@ -11,6 +11,11 @@ public class Boss1Controller : MonoBehaviour
     [SerializeField] private float stunDuration = 2.0f;
     [SerializeField] private LayerMask playerUnitMask;
 
+    [Header("AOE Feedback")]
+    [SerializeField] private ParticleSystem stunAoeVfx;
+    [SerializeField] private AudioClip stunAoeClip;
+    [SerializeField, Range(0f, 1f)] private float stunAoeSfxVolume = 1f;
+
     [Header("Every Nth Attack")]
     [SerializeField] private int attackPerStun = 3;
     [SerializeField] private int attackCounter = 0;
@@ -23,16 +28,33 @@ public class Boss1Controller : MonoBehaviour
     [SerializeField] private GameObject[] summonPrefabs;
     [SerializeField] private int summonCount = 2;
 
+    [Header("Threshold SFX")]
+    [SerializeField] private AudioClip threshold1Clip;
+    [SerializeField] private AudioClip threshold2Clip;
+    [SerializeField] private AudioClip threshold3Clip;
+    [SerializeField, Range(0f, 1f)] private float thresholdSfxVolume = 1f;
+    
+
+
     [Header("Retreat")]
     [SerializeField] private Transform enemyBase;
     [SerializeField] private float retreatStopDistance = 0.5f;
+    [SerializeField] private bool isRetreating = false;
+
+
+    [Header("Screen Shake")]
+    [SerializeField] private float spawnShakeAmplitude = 0.35f;
+    [SerializeField] private float spawnShakeFrequency = 22f;
+    [SerializeField] private float spawnShakeDuration = 0.45f;
+    private bool spawnShakePlayed;
+
+
 
     private bool trig1, trig2, trig3;
     private UnitController ctrl;
     private UnitAttack atk;
     private UnitStats stats;
     private float maxHPCached;
-    [SerializeField] private bool isRetreating = false;
 
     private void Awake()
     {
@@ -44,6 +66,7 @@ public class Boss1Controller : MonoBehaviour
 
     private void Start()
     {
+        PlaySpawnShakeOnce();
         maxHPCached = stats.maxHP;
         if (atk != null) atk.OnAttackFired += HandleAttackFired;
 
@@ -63,9 +86,9 @@ public class Boss1Controller : MonoBehaviour
     {
         float hpratio = ctrl.CurrentHP / Mathf.Max(1, maxHPCached);
 
-        if(!trig1 && hpratio <= t1) { TriggerThreshold(); trig1 = true; }
-        if(!trig2 && hpratio <= t2) { TriggerThreshold(); trig2 = true; }
-        if(!trig3 && hpratio <= t3) { TriggerThreshold(); trig3 = true; }
+        if(!trig1 && hpratio <= t1) { TriggerThreshold(1); trig1 = true; }
+        if(!trig2 && hpratio <= t2) { TriggerThreshold(2); trig2 = true; }
+        if(!trig3 && hpratio <= t3) { TriggerThreshold(3); trig3 = true; }
 
         if(isRetreating && enemyBase != null)
         {
@@ -89,6 +112,12 @@ public class Boss1Controller : MonoBehaviour
 
     private void DoAoeStun()
     {
+        if (stunAoeVfx != null)
+            stunAoeVfx.Play();
+
+        if (SfxManager.I != null && stunAoeClip != null)
+            SfxManager.I.PlayWorldOneShot(stunAoeClip, transform.position, stunAoeSfxVolume);
+
         var hits = Physics2D.OverlapCircleAll(transform.position, stunRadius, playerUnitMask);
         for(int i = 0; i < hits.Length; i++)
         {
@@ -101,8 +130,11 @@ public class Boss1Controller : MonoBehaviour
         }
     }
 
-    private void TriggerThreshold()
+    private void TriggerThreshold(int thresholdIndex)
     {
+        PlayThresholdSfx(thresholdIndex);
+
+
         for (int i = 0; i < summonCount; i++)
         {
             var prefab = summonPrefabs != null && summonPrefabs.Length > 0
@@ -126,5 +158,44 @@ public class Boss1Controller : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, stunRadius);
+    }
+
+    private void PlaySpawnShakeOnce()
+    {
+        if (spawnShakePlayed)
+            return;
+
+        spawnShakePlayed = true;
+        CameraShake2D.Instance?.TriggerShake(spawnShakeAmplitude, spawnShakeFrequency, spawnShakeDuration);
+    }
+
+    private void PlayThresholdSfx(int thresholdIndex)
+    {
+        if (SfxManager.I == null)
+            return;
+
+        AudioClip clipToPlay = null;
+
+        switch(thresholdIndex)
+        {
+            case 1:
+                clipToPlay = threshold1Clip;
+                break;
+
+            case 2:
+                clipToPlay = threshold2Clip;
+                break;
+
+            case 3:
+                clipToPlay = threshold3Clip;
+                break;
+
+            default:
+                break;
+        }
+
+        if (clipToPlay != null)
+            SfxManager.I.PlayWorldOneShot(clipToPlay, transform.position, thresholdSfxVolume);
+
     }
 }

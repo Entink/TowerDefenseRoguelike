@@ -11,6 +11,7 @@ public class StatusController : MonoBehaviour
     public System.Action EffectsChanged;
 
     readonly List<StatusEffect> effects = new();
+    readonly Dictionary<Type, ParticleSystem> activeStatusVfx = new();
 
     float dmgMul = 1f;
     float atkSpeedMul = 1f;
@@ -26,8 +27,14 @@ public class StatusController : MonoBehaviour
     int pierceTargetsAdd = 0;
     float pierceSecondaryMulMul = 1f;
 
+    [Header("Status Setup")]
     [SerializeField] public bool applyBaselinesFromStats = true;
     bool baselinesApplied;
+
+    [Header("Status VFX")]
+    [SerializeField] private Transform statusVfxAnchor;
+    [SerializeField] private ParticleSystem burnVfxPrefab;
+    [SerializeField] private ParticleSystem poisionVfxPrefab;
 
     public struct StatusIconData { public string typeName; public int stacks; }
 
@@ -51,6 +58,9 @@ public class StatusController : MonoBehaviour
     }
     private void Awake()
     {
+        if (statusVfxAnchor == null)
+            statusVfxAnchor = transform;
+
         if (applyBaselinesFromStats) ApplyBaselinesFromStats();
     }
 
@@ -66,6 +76,7 @@ public class StatusController : MonoBehaviour
                 e.OnExpire(this);
                 effects.RemoveAt(i);
                 RebuildAggregates();
+                RefreshStatusVfx();
                 EffectsChanged?.Invoke();
             }
         }
@@ -83,6 +94,7 @@ public class StatusController : MonoBehaviour
             effects.Add(effect);
             effect.OnApply(this);
             RebuildAggregates();
+            RefreshStatusVfx();
             EffectsChanged?.Invoke();
             return;
         }
@@ -108,6 +120,7 @@ public class StatusController : MonoBehaviour
             {
                 current.AddStack();
                 current.ResetTimer();
+                RefreshStatusVfx();
                 EffectsChanged?.Invoke();
                 return;
             }
@@ -115,6 +128,7 @@ public class StatusController : MonoBehaviour
             effects[sameKeyIndex] = effect;
             effect.OnApply(this);
             RebuildAggregates();
+            RefreshStatusVfx();
             EffectsChanged?.Invoke();
             return;
         }
@@ -122,6 +136,7 @@ public class StatusController : MonoBehaviour
         effects.Add(effect);
         effect.OnApply(this);
         RebuildAggregates();
+        RefreshStatusVfx();
         EffectsChanged?.Invoke();
     }
 
@@ -235,6 +250,51 @@ public class StatusController : MonoBehaviour
         for (int i = 0; i < effects.Count; i++)
             list.Add(effects[i]);
         return list;
+    }
+
+    private void RefreshStatusVfx()
+    {
+        RefreshSingleStatusVfx<BurnFlatEffect>(burnVfxPrefab);
+        RefreshSingleStatusVfx<PoisonPercentEffect>(poisionVfxPrefab);
+    }
+
+    private void RefreshSingleStatusVfx<T>(ParticleSystem prefab) where T : StatusEffect
+    {
+        bool shouldExist = HasActiveEffect<T>();
+        Type key = typeof(T);
+
+        if(!shouldExist)
+        {
+            if(activeStatusVfx.TryGetValue(key, out ParticleSystem existing) && existing != null)
+            {
+                Destroy(existing.gameObject);
+            }
+
+            activeStatusVfx.Remove(key);
+            return;
+        }
+
+        if (prefab == null)
+            return;
+
+        if (activeStatusVfx.TryGetValue(key, out ParticleSystem current) && current != null)
+            return;
+
+        ParticleSystem spawned = Instantiate(prefab, statusVfxAnchor);
+        spawned.transform.localPosition = Vector3.zero;
+        spawned.transform.localRotation = Quaternion.identity;
+        activeStatusVfx[key] = spawned;
+    }
+
+    private bool HasActiveEffect<T>() where T : StatusEffect
+    {
+        for(int i = 0; i < effects.Count; i++)
+        {
+            if (effects[i] is T)
+                return true;
+        }
+
+        return false;
     }
 
     

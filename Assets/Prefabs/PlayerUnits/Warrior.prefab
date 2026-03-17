@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7643895282278327580, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: Effects.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7643895282278327580, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: 'Effects.Array.data[0]'

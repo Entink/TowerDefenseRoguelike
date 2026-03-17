@@ -4911,6 +4911,37 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!1 &646528670151800586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6173311910658210039}
+  m_Layer: 8
+  m_Name: StatusVFXAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6173311910658210039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646528670151800586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2203889305496423684}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1228949684234725477
 GameObject:
   m_ObjectHideFlags: 0
@@ -5362,6 +5393,7 @@ Transform:
   m_Children:
   - {fileID: 8897551670945327054}
   - {fileID: 6067393177948391388}
+  - {fileID: 6173311910658210039}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8882659606158400856
@@ -5643,6 +5675,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusController
   applyBaselinesFromStats: 1
+  statusVfxAnchor: {fileID: 6173311910658210039}
+  burnVfxPrefab: {fileID: 2231774934953131640, guid: c5e86b96aeaed7142a21a947fc783442, type: 3}
+  poisionVfxPrefab: {fileID: 4778027030248090373, guid: 4127c706e7efb9744895083083d03877, type: 3}
 --- !u!1 &7881763793435385390
 GameObject:
   m_ObjectHideFlags: 0

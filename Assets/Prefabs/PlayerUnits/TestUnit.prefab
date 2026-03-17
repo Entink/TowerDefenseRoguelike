@@ -104,6 +104,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -271,6 +272,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1327659905863972453
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -316,6 +318,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -325,7 +328,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &2644754188934576937
 Rigidbody2D:
@@ -421,6 +423,7 @@ MonoBehaviour:
     m_Bits: 0
   isStunned: 0
   stunEndTime: 0
+  animator: {fileID: 0}
   regenPerSecond: 0
   lifeSteal: 0
 --- !u!114 &4600127789261272449
@@ -448,6 +451,8 @@ MonoBehaviour:
   multiStrikeDelay: 0
   isAOE: 0
   aoeRadius: 0
+  piercingTargets: 1
+  piercingSecondaryMul: 1
   kbForce: 0
   kbRes: 0
   cost: 0
@@ -471,6 +476,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
+  animator: {fileID: 0}
 --- !u!114 &1821214662517968090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5379,7 +5385,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &147263091011924103
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5425,6 +5431,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5456,7 +5463,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &3142177889618705652
 GameObject:
   m_ObjectHideFlags: 0
@@ -5560,6 +5566,7 @@ GameObject:
   - component: {fileID: 1879403300529485748}
   - component: {fileID: 3504866300162254218}
   - component: {fileID: 5881200213035792861}
+  - component: {fileID: 7104075465966482589}
   m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
@@ -5677,6 +5684,20 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &7104075465966482589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3476618524024896347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41368b34ebdaae441b59bf1c25351ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldUIFixedScale
+  targetToCompensate: {fileID: 0}
+  updateEveryFrame: 1
 --- !u!1 &3982553624950662078
 GameObject:
   m_ObjectHideFlags: 0

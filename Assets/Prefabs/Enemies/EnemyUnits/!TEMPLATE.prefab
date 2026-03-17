@@ -4833,7 +4833,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &1633696349296851906
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4879,6 +4879,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4910,7 +4911,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &1228949684234725477
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,6 +5126,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -5188,6 +5189,7 @@ GameObject:
   - component: {fileID: 1506781182878572472}
   - component: {fileID: 3449242921563862645}
   - component: {fileID: 6242177818147453780}
+  - component: {fileID: 7250391007388002787}
   m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
@@ -5305,6 +5307,21 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &7250391007388002787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970211399251410072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41368b34ebdaae441b59bf1c25351ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldUIFixedScale
+  targetToCompensate: {fileID: 0}
+  updateEveryFrame: 1
+  autoFindTarget: 1
 --- !u!1 &5667778855852757539
 GameObject:
   m_ObjectHideFlags: 0
@@ -5349,6 +5366,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8882659606158400856
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5394,6 +5412,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5403,7 +5422,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &4981098448591504040
 Rigidbody2D:
@@ -5545,6 +5563,7 @@ MonoBehaviour:
     m_Bits: 0
   isStunned: 0
   stunEndTime: 0
+  animator: {fileID: 0}
   regenPerSecond: 0
   lifeSteal: 0
 --- !u!114 &3417997121379744153
@@ -5597,6 +5616,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
+  animator: {fileID: 0}
 --- !u!114 &-1127744040846299791
 MonoBehaviour:
   m_ObjectHideFlags: 0

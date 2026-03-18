@@ -24,6 +24,10 @@ public class UnitStats : MonoBehaviour
     public int multiStrikeCount;
     public float multiStrikeDelay;
 
+    [Header("Critical hit")]
+    [Range(0f, 1f)] public float critChance = 0f;
+    [Min(0)] public float critMultiplier = 1.0f;
+
     [Header("AOE")]
     public bool isAOE;
     public float aoeRadius;

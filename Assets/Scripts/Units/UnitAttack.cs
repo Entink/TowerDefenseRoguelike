@@ -242,21 +242,25 @@ public class UnitAttack : MonoBehaviour
                             typeMul = UnitTypeHelper.GetBonusMultiplier(attackerStats.unitype, targetStats.unitype);
 
                         float finalDamage = attackerStats.damage * typeMul * dmgMul * secondaryMul;
-                        uc.TakeDamage(finalDamage, effectiveKB);
-                        Debug.Log($"[UnitAttack] {this.controller.name} attacked {uc.name} for {finalDamage} [i:{i},tIndex:{tIndex}]");
+
+                        bool isCritical;
+                        float finalDamageWCrit = ApplyCriticalHit(finalDamage, stats, out isCritical);
+
+                        uc.TakeDamage(finalDamageWCrit, effectiveKB);
+                        Debug.Log($"[UnitAttack] {this.controller.name} attacked {uc.name} for {finalDamageWCrit} [i:{i},tIndex:{tIndex}]");
 
                         if(CombatStatsTracker.I != null)
                         {
                             if (controller != null && controller.IsAlly)
-                                CombatStatsTracker.I.OnDamageDealt(finalDamage);
+                                CombatStatsTracker.I.OnDamageDealt(finalDamageWCrit);
                             else
-                                CombatStatsTracker.I.OnDamageTaken(finalDamage);
+                                CombatStatsTracker.I.OnDamageTaken(finalDamageWCrit);
                         }
 
                         float lsBonus = status != null ? status.GetLifeStealAdd() : 0f;
                         float totalLS = Mathf.Max(0f, controller != null ? controller.lifeSteal + lsBonus : lsBonus);
                         if (totalLS > 0f && controller != null)
-                            controller.Heal(finalDamage * totalLS);
+                            controller.Heal(finalDamageWCrit * totalLS);
 
                         var scT = uc.GetComponent<StatusController>();
                         if (scT != null && hitSource != null)
@@ -269,6 +273,7 @@ public class UnitAttack : MonoBehaviour
                     if (bc != null)
                     {
                         float finalDamage = stats.damage * dmgMul * secondaryMul;
+
                         bc.TakeDamage(finalDamage);
 
                         if (CombatStatsTracker.I != null)
@@ -291,6 +296,26 @@ public class UnitAttack : MonoBehaviour
 
             yield return new WaitForSeconds(1f / effectiveAS);
         }
+    }
+
+    private float ApplyCriticalHit(float damage, UnitStats attackerStats, out bool isCritical)
+    {
+        isCritical = false;
+
+        if (attackerStats == null)
+            return damage;
+
+        float critChance = Mathf.Clamp01(attackerStats.critChance);
+        float critMul = attackerStats.critMultiplier;
+
+        if (critChance <= 0f)
+            return damage;
+
+        if (Random.value > critChance)
+            return damage;
+
+        isCritical = true;
+        return damage * critMul;
     }
 
     private void OnDrawGizmosSelected()

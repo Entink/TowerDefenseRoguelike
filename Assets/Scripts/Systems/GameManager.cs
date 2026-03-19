@@ -87,6 +87,13 @@ public class GameManager : MonoBehaviour
 
     public void OnBaseDestroyed(bool playerBase)
     {
+        if(DebugCombatSession.ReturnToBaseAfterFight)
+        {
+            DebugCombatSession.Clear();
+            SceneLoader.LoadScene("MainBaseScene");
+            return;
+        }
+
         if(playerBase)
         {
             OnPlayerDefeated();

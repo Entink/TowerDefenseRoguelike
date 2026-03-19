@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,6 +9,10 @@ using System.Reflection;
 public class DebugConsole : MonoBehaviour
 {
     private readonly Dictionary<string, Func<string[], string>> commands = new();
+
+    [SerializeField] private string combatSceneName = "FightScene";
+    [SerializeField] private string allyLayerName = "Allies";
+    [SerializeField] private string enemyLayerName = "Enemies";
 
     private void Awake()
     {
@@ -65,11 +70,14 @@ public class DebugConsole : MonoBehaviour
         commands["damageplayerbase"] = DamagePlayerBaseCommand;
         commands["damageenemybase"] = DamageEnemyBaseCommand;
         commands["showcombat"] = ShowCombatCommand;
+
+        commands["testfight"] = TestFightCommand;
+        commands["spawnunit"] = SpawnUnitCommand;
     }
 
     private string HelpCommand(string[] args)
     {
-        return "Available commands: help, clear, echo, timescale, save, deletesave, showrun, gold, killallenemies, damageplayerbase, damageenemybase, showcombat";
+        return "Available commands: help, clear, echo, timescale, save, deletesave, showrun, gold, killallenemies, damageplayerbase, damageenemybase, showcombat, testfight, spawnunit";
     }
 
     private string ClearCommand(string[] args)
@@ -252,6 +260,147 @@ public class DebugConsole : MonoBehaviour
             $"Time Scale = {Time.timeScale.ToString("0.##", CultureInfo.InvariantCulture)}";
     }
 
+    private string TestFightCommand(string[] args)
+    {
+        if (string.IsNullOrWhiteSpace(combatSceneName))
+            return "Combat scene name is empty";
+
+        DebugCombatSession.RequestEmptyTestFight();
+        SceneManager.LoadScene(combatSceneName);
+        return $"Loading empty test fight scene: {combatSceneName}";
+    }
+
+    private string SpawnUnitCommand(string[] args)
+    {
+        if (args.Length < 2)
+            return "Usage: spawnunit <id> <ally/enemy>";
+
+        string unitId = args[0];
+        string sideArg = args[1].ToLowerInvariant();
+
+        bool spawnsAsAlly;
+        if(sideArg == "ally" || sideArg == "player")
+        {
+            spawnsAsAlly = true;
+        }
+        else if (sideArg == "enemy")
+        {
+            spawnsAsAlly = false;
+        }
+        else
+        {
+            return "Second argument must be 'ally' or 'enemy'";
+        }
+
+        if (DebugUnitRegistry.I == null)
+            return "DebugUnitRegistry is missing";
+
+        GameObject prefab = DebugUnitRegistry.I.GetPrefab(unitId);
+        if (prefab == null)
+            return $"Unit '{unitId}' was not found in DebugUnitRegistry, Available: {DebugUnitRegistry.I.GetAllIds()}";
+
+        Vector3 spawnPosition = GetDebugSpawnPosition(spawnsAsAlly);
+        GameObject spawned = Instantiate(prefab, spawnPosition, Quaternion.identity);
+
+        ApplySpawnSide(spawned, spawnsAsAlly);
+
+        return $"Spawned '{unitId}' as {(spawnsAsAlly ? "ally" : "enemy")} at {spawnPosition}";
+    }
+
+    private Vector3 GetDebugSpawnPosition(bool spawnAsAlly)
+    {
+        BaseController[] bases = FindObjectsByType<BaseController>(FindObjectsSortMode.None);
+
+        BaseController playerBase = null;
+        BaseController enemyBase = null;
+
+        for (int i = 0; i< bases.Length; i++)
+        {
+            if (bases[i] == null)
+                continue;
+
+            if (bases[i].isPlayerBase)
+                playerBase = bases[i];
+            else
+                enemyBase = bases[i];
+        }
+
+        if (spawnAsAlly && playerBase != null)
+            return playerBase.transform.position + new Vector3(-2f, 0f, 0f);
+
+        if (!spawnAsAlly && enemyBase != null)
+            return enemyBase.transform.position + new Vector3(2f, 0f, 0f);
+
+        return Vector3.zero;
+    }
+
+    private void ApplySpawnSide(GameObject spawned, bool spawnAsAlly)
+    {
+        if (spawned == null)
+            return;
+
+        UnitStats stats = spawned.GetComponent<UnitStats>();
+
+        if(stats != null)
+        {
+            stats.ally = spawnAsAlly;
+        }
+
+        UnitController unitController = spawned.GetComponent<UnitController>();
+        if(unitController != null)
+        {
+            TrySetBoolMember(unitController, "isAlly", spawnAsAlly);
+            TrySetBoolMember(unitController, "isAlly", spawnAsAlly);
+            TrySetBoolMember(unitController, "isEnemy", !spawnAsAlly);
+            TrySetBoolMember(unitController, "isEnemy", !spawnAsAlly);
+        }
+
+
+        string targetLayerName = spawnAsAlly ? allyLayerName : enemyLayerName;
+        int targetLayer = LayerMask.NameToLayer(targetLayerName);
+
+        if(targetLayer != -1)
+        {
+            SetLayerRecursively(spawned.transform, targetLayer);
+        }
+        else
+        {
+            Debug.LogWarning($"[DebugConsole] Layer '{targetLayerName}' does not exist");
+        }
+    }
+
+    private void SetLayerRecursively(Transform root, int layer)
+    {
+        if (root == null)
+            return;
+
+        root.gameObject.layer = layer;
+
+        for (int i = 0; i < root.childCount; i++)
+        {
+            SetLayerRecursively(root.GetChild(i), layer);
+        }
+    }
+    private void TrySetBoolMember(object target, string memberName, bool value)
+    {
+        if (target == null)
+            return;
+
+        Type type = target.GetType();
+
+        FieldInfo field = type.GetField(memberName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        if(field != null && field.FieldType == typeof(bool))
+        {
+            field.SetValue(target, value);
+            return;
+        }
+
+        PropertyInfo property = type.GetProperty(memberName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        if (property != null && property.CanWrite && property.PropertyType == typeof(bool))
+        {
+            property.SetValue(target, value);
+        }
+    }
     private string DamageBase(string[] args, bool damagePlayerBase)
     {
         if (args.Length < 1)

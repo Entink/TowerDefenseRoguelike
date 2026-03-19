@@ -14,18 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightName: Test Fight 1
   isBoss: 0
+  isTutorialOnly: 0
   levelLenght: 20
-  enemies:
-  - enemyPrefab: {fileID: 5667778855852757539, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
-    delay: 1
-    quantity: 1
-    quantityInterval: 0.5
-    isInfinite: 1
-    repeatInterval: 5
-  - enemyPrefab: {fileID: 5667778855852757539, guid: e6e531da7782f774bae5bac63f17afa8, type: 3}
-    delay: 2
-    quantity: 5
-    quantityInterval: 0.5
-    isInfinite: 0
-    repeatInterval: 5
+  enemies: []
   difficulty: 1
+  act: 1

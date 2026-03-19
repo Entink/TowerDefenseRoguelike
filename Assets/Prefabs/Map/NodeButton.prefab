@@ -145,8 +145,8 @@ MonoBehaviour:
     columnIndex: 0
   eventDb: {fileID: 0}
   eventPanel: {fileID: 0}
-  connectionStartColor: {r: 0, g: 0, b: 0, a: 1}
-  connectionEndColor: {r: 0, g: 0, b: 0, a: 1}
+  connectionStartColor: {r: 0.6509434, g: 0.37767, b: 0.37767, a: 1}
+  connectionEndColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &3598287843803939393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +272,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

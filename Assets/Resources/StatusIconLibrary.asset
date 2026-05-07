@@ -22,4 +22,4 @@ MonoBehaviour:
   - typeName: ShieldEffect
     icon: {fileID: -6717884257390833292, guid: 63f3446ca4ca061429c29836beaf14a0, type: 3}
   - typeName: BuffStatModifierEffect
-    icon: {fileID: 6233934136529506686, guid: 13354bdb84b68a44d95349fca89f2476, type: 3}
+    icon: {fileID: -1513563777638607941, guid: 1c9cd540367921741a38f3eee441b76a, type: 3}

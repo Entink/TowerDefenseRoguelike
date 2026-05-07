@@ -96,29 +96,33 @@ public class MapGenerator : MonoBehaviour
             var currentColumn = map.columns[col];
             var nextColumn = map.columns[col + 1];
 
-            foreach (var current in currentColumn)
+            for (int currentIndex = 0; currentIndex < currentColumn.Count; currentIndex++)
             {
-                int connections = Random.Range(1, Mathf.Min(3, nextColumn.Count + 1));
-                var used = new HashSet<int>();
+                var current = currentColumn[currentIndex];
 
-                for (int i = 0; i < connections; i++)
+                List<int> candidateIndices = GetNeighborCandidateIndices(currentIndex, currentColumn.Count, nextColumn.Count);
+
+                int connections = Random.Range(1, Mathf.Min(3, candidateIndices.Count) + 1);
+
+                var shuffled = candidateIndices.OrderBy(_ => Random.value).ToList();
+
+                for(int i = 0; i < connections; i++)
                 {
-                    int index;
-                    do { index = Random.Range(0, nextColumn.Count); }
-                    while (!used.Add(index));
-
-                    current.connectedTo.Add(nextColumn[index].id);
+                    int targetIndex = shuffled[i];
+                    current.connectedTo.Add(nextColumn[targetIndex].id);
                 }
+
             }
 
-
-            foreach (var target in nextColumn)
+            for(int targetIndex = 0; targetIndex < nextColumn.Count; targetIndex++)
             {
-                bool isConnected = currentColumn.Any(node => node.connectedTo.Contains(target.id));
+                int targetId = nextColumn[targetIndex].id;
+                bool isConnected = currentColumn.Any(node => node.connectedTo.Contains(targetId));
+
                 if(!isConnected)
                 {
-                    var randomSource = currentColumn[Random.Range(0, currentColumn.Count)];
-                    randomSource.connectedTo.Add(target.id);
+                    int closestSourceIndex = GetClosestSourceIndex(targetIndex, currentColumn.Count, nextColumn.Count);
+                    currentColumn[closestSourceIndex].connectedTo.Add(targetId);
                 }
             }
         }
@@ -139,8 +143,55 @@ public class MapGenerator : MonoBehaviour
         return NodeType.Event;
     }
 
+    private List<int> GetNeighborCandidateIndices(int currentIndex, int currentCount, int nextCount)
+    {
+        int mappedIndex = MapIndexBetweenColumns(currentIndex, currentCount, nextCount);
 
-    
+        HashSet<int> result = new HashSet<int>();
+
+        for(int offset = -1; offset <= 1; offset++)
+        {
+            int candidate = mappedIndex + offset;
+            if (candidate >= 0 && candidate < nextCount)
+                result.Add(candidate);
+        }
+
+        if (result.Count == 0)
+            result.Add(Mathf.Clamp(mappedIndex, 0, nextCount - 1));
+
+        return result.OrderBy(i => i).ToList();
+    }
+
+    private int MapIndexBetweenColumns(int index, int fromCount, int toCount)
+    {
+        if (fromCount <= 1)
+            return 0;
+
+        float t = index / (float)(fromCount - 1);
+        return Mathf.RoundToInt(t * (toCount - 1));
+    }
+
+    private int GetClosestSourceIndex(int targetIndex, int currentCount, int nextCount)
+    {
+        int bestIndex = 0;
+        float bestDistance = float.MaxValue;
+
+        for(int currentIndex = 0; currentIndex < currentCount; currentIndex++)
+        {
+            int mappedIndex = MapIndexBetweenColumns(currentIndex, currentCount, nextCount);
+            float distance = Mathf.Abs(mappedIndex - targetIndex);
+
+            if(distance < bestDistance)
+            {
+                bestDistance = distance;
+                bestIndex = currentIndex;
+            }
+
+        }
+
+        return bestIndex;
+
+    }
     
 
 }

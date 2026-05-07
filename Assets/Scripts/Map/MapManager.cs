@@ -15,6 +15,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private RectTransform nodeContainer;
     [SerializeField] public RectTransform lineContainer;
     [SerializeField] private GameObject nodePrefab;
+    [SerializeField] private RectTransform connectionPrefab;
 
     [SerializeField] private MapGenerator generator;
 
@@ -30,6 +31,8 @@ public class MapManager : MonoBehaviour
 
     public event System.Action<MapNodeUI> OnNodeSelected;
     public static System.Action OnMapReady;
+
+    public RectTransform ConnectionPrefab => connectionPrefab;
 
     private void Awake()
     {
@@ -107,7 +110,7 @@ public class MapManager : MonoBehaviour
         for (int col = 0; col < map.columns.Count; col++)
         {
             GameObject columnGroup = new GameObject($"Column{col}", typeof(RectTransform));
-            columnGroup.transform.SetParent(nodeContainer);
+            columnGroup.transform.SetParent(nodeContainer, false);
             columnGroup.transform.localScale = Vector3.one;
 
             VerticalLayoutGroup layout = columnGroup.AddComponent<VerticalLayoutGroup>();
@@ -416,5 +419,15 @@ public class MapManager : MonoBehaviour
         }
         return bestIdx;
     }
+
+    public RectTransform GetContentRect()
+    {
+        return content;
+    }
     
+
+    public RectTransform GetNodeContainerRect()
+    {
+        return nodeContainer;
+    }
 }

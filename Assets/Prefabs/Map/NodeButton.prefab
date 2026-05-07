@@ -104,7 +104,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -145,8 +145,8 @@ MonoBehaviour:
     columnIndex: 0
   eventDb: {fileID: 0}
   eventPanel: {fileID: 0}
-  connectionStartColor: {r: 0.6509434, g: 0.37767, b: 0.37767, a: 1}
-  connectionEndColor: {r: 1, g: 1, b: 1, a: 1}
+  connectionNormalColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  connectionHighlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &3598287843803939393
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System.Collections.Generic;
 
-public class MapNodeUI : MonoBehaviour
+public class MapNodeUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public TextMeshProUGUI label;
     public MapNodeData data;
@@ -16,9 +17,10 @@ public class MapNodeUI : MonoBehaviour
     [SerializeField] private MapEventDatabase eventDb;
     [SerializeField] private MapEventPanel eventPanel;
 
-    [SerializeField] private Color connectionStartColor;
-    [SerializeField] private Color connectionEndColor;
+    [SerializeField] private Color connectionNormalColor = new Color(0.55f, 0.55f, 0.55f, 1f);
+    [SerializeField] private Color connectionHighlightColor = Color.white;
 
+    private readonly List<Image> outgoingConnectionImages = new();
 
     public void Setup(MapNodeData nodeData, MapManager manager, MapEventDatabase eventDb, MapEventPanel eventPanel)
     {
@@ -148,7 +150,7 @@ public class MapNodeUI : MonoBehaviour
     {
         if (data.wasVisisted)
         {
-            GetComponent<Image>().color = Color.gray;
+            GetComponent<Image>().color = new Color(0.7f, 0.7f, 0.7f, 1f);
         }
         else
         {
@@ -159,29 +161,39 @@ public class MapNodeUI : MonoBehaviour
 
     public void DrawConnectionTo(MapNodeUI target)
     {
-        GameObject lineGO = new GameObject("Line", typeof(LineRenderer));
-        lineGO.transform.SetParent(MapManager.instance.lineContainer, false);
-
-        LineRenderer lr = lineGO.GetComponent<LineRenderer>();
-        lr.positionCount = 2;
-        lr.startWidth = 0.05f;
-        lr.endWidth = 0.05f;
-
-        lr.material = new Material(Shader.Find("Sprites/Default"));
-        lr.startColor = connectionStartColor;
-        lr.endColor = connectionEndColor;
-        lr.sortingOrder = -1;
-        lr.useWorldSpace = false;
+        RectTransform nodeContainer = MapManager.instance.GetNodeContainerRect();
+        RectTransform lineContainer = MapManager.instance.lineContainer;
 
         RectTransform fromRT = GetComponent<RectTransform>();
         RectTransform toRT = target.GetComponent<RectTransform>();
 
-        var lc = MapManager.instance.lineContainer;
-        Vector3 fromLocal = lc.InverseTransformPoint(fromRT.TransformPoint(fromRT.rect.center));
-        Vector3 toLocal = lc.InverseTransformPoint(toRT.TransformPoint(toRT.rect.center));
+        Vector2 fromLocal = GetLocalCenterInContainer(fromRT, nodeContainer);
+        Vector2 toLocal = GetLocalCenterInContainer(toRT, nodeContainer);
 
-        lr.SetPosition(0, fromLocal);
-        lr.SetPosition(1, toLocal);
+        Vector2 direction = toLocal - fromLocal;
+        float length = direction.magnitude;
+
+        RectTransform prefab = MapManager.instance.ConnectionPrefab;
+        RectTransform lineRT = Instantiate(prefab, lineContainer, false);
+        lineRT.gameObject.name = "Line";
+        lineRT.SetAsFirstSibling();
+
+        Image lineImage = lineRT.GetComponent<Image>();
+        lineImage.color = connectionNormalColor;
+        outgoingConnectionImages.Add(lineImage);
+
+        lineRT.anchorMin = new Vector2(0f, 0.5f);
+        lineRT.anchorMax = new Vector2(0f, 0.5f);
+        lineRT.pivot = new Vector2(0.5f, 0.5f);
+
+        Vector2 size = lineRT.sizeDelta;
+        size.x = length;
+        lineRT.sizeDelta = size;
+
+        lineRT.anchoredPosition = (fromLocal + toLocal) * 0.5f;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        lineRT.localRotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     public Vector3 GetWorldCenter(RectTransform rt)
@@ -191,6 +203,35 @@ public class MapNodeUI : MonoBehaviour
         return (corners[0] + corners[2]) / 2f;
     }
 
-    
+    private Vector2 GetLocalCenterInContainer(RectTransform target, RectTransform container)
+    {
+        Vector3 worldCenter = target.TransformPoint(target.rect.center);
+        Vector3 localPoint3 = container.InverseTransformPoint(worldCenter);
+        return localPoint3;
+    }
 
+    
+    private void SetOutgoingConnectionsColor(Color color)
+    {
+        for(int i = outgoingConnectionImages.Count - 1; i >= 0; i--)
+        {
+            if(outgoingConnectionImages[i] == null)
+            {
+                outgoingConnectionImages.RemoveAt(i);
+                continue;
+            }
+
+            outgoingConnectionImages[i].color = color;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SetOutgoingConnectionsColor(connectionHighlightColor);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SetOutgoingConnectionsColor(connectionNormalColor);
+    }
 }

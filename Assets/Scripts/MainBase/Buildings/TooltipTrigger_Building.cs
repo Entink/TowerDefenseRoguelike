@@ -14,8 +14,12 @@ public class TooltipTrigger_Building : MonoBehaviour, IPointerEnterHandler, IPoi
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (ModifierTooltip.I == null || rt == null) return;
-        ModifierTooltip.I.ShowAt(rt,tooltipText,ModifierTooltip.TooltipSide.Auto);
+        Debug.Log($"Hover on {name}. Tooltip instance: {ModifierTooltip.I}");
+
+        if (ModifierTooltip.I == null || rt == null)
+            return;
+
+        ModifierTooltip.I.Show(tooltipText);
     }
     public void OnPointerExit(PointerEventData eventData)
     {

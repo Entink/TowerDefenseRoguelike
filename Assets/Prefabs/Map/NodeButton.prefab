@@ -143,6 +143,11 @@ MonoBehaviour:
     fightIndex: 0
     wasVisisted: 0
     columnIndex: 0
+  startIcon: {fileID: 21300000, guid: 619bb947a2bcb3e42a1871178f6afb72, type: 3}
+  fightIcon: {fileID: 21300000, guid: 720d34336b01a3144937058c36979811, type: 3}
+  shopIcon: {fileID: 21300000, guid: e135fcfeae429534581855e4d4c89675, type: 3}
+  eventIcon: {fileID: 21300000, guid: 619bb947a2bcb3e42a1871178f6afb72, type: 3}
+  bossIcon: {fileID: 21300000, guid: 720d34336b01a3144937058c36979811, type: 3}
   eventDb: {fileID: 0}
   eventPanel: {fileID: 0}
   connectionNormalColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}

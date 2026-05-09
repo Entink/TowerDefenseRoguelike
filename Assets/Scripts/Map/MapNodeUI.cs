@@ -12,6 +12,13 @@ public class MapNodeUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public MapNodeData data;
     private MapManager mapManager;
 
+    [Header("Node icons")]
+    [SerializeField] private Sprite startIcon;
+    [SerializeField] private Sprite fightIcon;
+    [SerializeField] private Sprite shopIcon;
+    [SerializeField] private Sprite eventIcon;
+    [SerializeField] private Sprite bossIcon;
+
     private readonly List<MapNodeUI> connectedNodes = new List<MapNodeUI>();
 
     [SerializeField] private MapEventDatabase eventDb;
@@ -148,15 +155,25 @@ public class MapNodeUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void UpdateVisual()
     {
+
+        Image nodeSprite = GetComponent<Image>();
+        Sprite icon = GetIconForNodeType(data.type);
+        nodeSprite.sprite = icon;
+
         if (data.wasVisisted)
         {
-            GetComponent<Image>().color = new Color(0.7f, 0.7f, 0.7f, 1f);
+            nodeSprite.color = new Color(0.7f, 0.7f, 0.7f, 1f);
         }
         else
         {
-            GetComponent<Image>().color = Color.white;
-
+            nodeSprite.color = Color.white;
         }
+
+        label.gameObject.SetActive(false);
+
+        
+
+
     }
 
     public void DrawConnectionTo(MapNodeUI target)
@@ -233,5 +250,24 @@ public class MapNodeUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerExit(PointerEventData eventData)
     {
         SetOutgoingConnectionsColor(connectionNormalColor);
+    }
+
+    private Sprite GetIconForNodeType(NodeType nodeType)
+    {
+        switch(nodeType)
+        {
+            case NodeType.Start:
+                return startIcon;
+            case NodeType.Fight:
+                return fightIcon;
+            case NodeType.Shop:
+                return shopIcon;
+            case NodeType.Event:
+                return eventIcon;
+            case NodeType.Boss:
+                return bossIcon;
+            default:
+                return null;
+        }
     }
 }

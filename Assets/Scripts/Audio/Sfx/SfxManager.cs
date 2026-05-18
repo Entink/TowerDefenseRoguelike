@@ -44,7 +44,7 @@ public class SfxManager : MonoBehaviour
     {
         if (clip == null) return;
 
-        float pitch = Random.RandomRange(randomPitch.x, randomPitch.y);
+        float pitch = Random.Range(randomPitch.x, randomPitch.y);
 
         var go = new GameObject("Sfx_OneShot");
         var src = go.AddComponent<AudioSource>();

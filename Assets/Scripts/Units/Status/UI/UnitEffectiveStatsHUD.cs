@@ -4,7 +4,7 @@ using TMPro;
 [DisallowMultipleComponent]
 public class UnitEffectiveStatsHUD : MonoBehaviour
 {
-    public static bool GlobalEnabled = true;
+    public static bool GlobalEnabled = false;
 
     public TextMeshProUGUI label;
     public float refreshInterval = 0.25f;

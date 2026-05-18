@@ -43,6 +43,7 @@ public class StatusController : MonoBehaviour
         var dict = new System.Collections.Generic.Dictionary<string, int>();
         for(int i = 0; i < effects.Count; i++)
         {
+
             var eff = effects[i];
             if (eff.uiHidden && !(eff is ShieldEffect)) continue;
             if (eff is ShieldEffect && GetShield() <= 0f) continue;
@@ -91,6 +92,7 @@ public class StatusController : MonoBehaviour
     {
         if(effect.IsPermament)
         {
+            
             effects.Add(effect);
             effect.OnApply(this);
             RebuildAggregates();
@@ -155,7 +157,7 @@ public class StatusController : MonoBehaviour
 
         if(us.hasBaseShield && us.baseShieldAmount > 0f)
         {
-            var permShield = new ShieldEffect { duration = 0f, shieldAmount = us.baseShieldAmount };
+            var permShield = new ShieldEffect { duration = 0f, shieldAmount = us.baseShieldAmount, uiHidden = true };
             Apply(permShield);
         }
 

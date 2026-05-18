@@ -130,27 +130,42 @@ public static class UnitSkillTreeRuntime
         }
 
         var sc = controller != null ? controller.GetComponent<StatusController>() : stats.GetComponent<StatusController>();
-        if(sc != null)
+        if (sc != null)
         {
             float baseRange = stats.attackRange;
             float rangeAddTotal = baseRange * (rangeMult - 1f) + rangeFlat;
 
-            var perm = new BuffStatModifierEffect
-            {
-                duration = 0f,
-                damageMul = dmgMult,
-                rangeAdd = rangeAddTotal,
-                lifeStealAdd = lifesteal
-            };
-            sc.Apply(perm);
+            bool hasStatModifier =
+                dmgMult != 1f ||
+                rangeAddTotal != 0f ||
+                lifesteal != 0f;
 
-            if(regenPS > 0f)
+            if (hasStatModifier)
             {
-                sc.Apply(new RegenFlatEffect { duration = 0f, healPerSecond = regenPS });
+                var perm = new BuffStatModifierEffect
+                {
+                    duration = 0f,
+                    damageMul = dmgMult,
+                    rangeAdd = rangeAddTotal,
+                    lifeStealAdd = lifesteal,
+                    uiHidden = true
+                };
+
+                sc.Apply(perm);
+            }
+
+            if (regenPS > 0f)
+            {
+                sc.Apply(new RegenFlatEffect
+                {
+                    duration = 0f,
+                    healPerSecond = regenPS,
+                    uiHidden = true
+                });
             }
         }
 
-        if(controller != null)
+        if (controller != null)
         {
             controller.regenPerSecond += 0f;
             controller.lifeSteal = controller.lifeSteal + 0f;

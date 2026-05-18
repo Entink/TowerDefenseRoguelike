@@ -27,8 +27,8 @@ public class ShopOfferButton : MonoBehaviour
         string price = def.currency switch
         {
             ShopCurrency.Cash => $"{def.priceCash}$",
-            ShopCurrency.Materials => $"{def.priceMaterials} materials",
-            ShopCurrency.Both => $"{def.priceCash}$ + {def.priceMaterials} materials",
+            ShopCurrency.Materials => $"{def.priceMaterials}M",
+            ShopCurrency.Both => $"{def.priceCash}$ + {def.priceMaterials}M",
             _ => ""
         };
 

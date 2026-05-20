@@ -120,6 +120,8 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("Win");
+
+        FightResultCarrier.SetVictory();
         SceneLoader.LoadScene("VictoryScene");
     }
 
@@ -128,13 +130,47 @@ public class GameManager : MonoBehaviour
         if (defeatProcessed) return;
         defeatProcessed = true;
 
+        var fight = BattleDataCarrier.selectedFight;
+        bool isBossFight = fight != null && fight.isBoss;
+
+        if(BaseIntegrityManager.I != null && BaseIntegrityManager.I.CanLoseMoreIntegrity() && !isBossFight)
+        {
+            BaseIntegrityManager.I.TryApplyLoss();
+
+            var snap = CombatStatsTracker.I?.ToSnapshot();
+            FightStatsCarrier.Set(snap);
+
+            if(snap != null)
+            {
+                RunStatsCollector.AddFromFightSnapshot(snap);
+                RunStatsCollector.OnFightResult(false);
+            }
+            else
+            {
+                RunStatsCollector.AddFromFight(CombatStatsTracker.I);
+                RunStatsCollector.OnFightResult(false);
+            }
+
+            
+
+            MapRunData.nodeToMarkVisited = MapRunData.pendingNodeId;
+
+
+            RunSaveManager.Save();
+
+            FightResultCarrier.SetRecoverableDefeat(BaseIntegrityManager.I.GetDisplayText());
+
+            Debug.Log($"[BaseIntegrity] Fight lost. Integrity lowered to {BaseIntegrityManager.I.GetDisplayText()}");
+
+            SceneLoader.LoadScene("VictoryScene");
+            return;
+        }
+
         runState = RunState.Lost;
         RunStatsCollector.AddFromFight(CombatStatsTracker.I);
         RunStatsCollector.OnFightResult(false);
 
         var cfg = rewardConfig != null ? rewardConfig : Resources.Load<RewardConfig>("RewardConfig");
-        var fight = BattleDataCarrier.selectedFight;
-        var isBoss = fight != null && fight.isBoss;
 
         var totalMaterials = RunStatsCollector.S.materialsEarned;
         var payoutMaterials = Mathf.RoundToInt(totalMaterials * 0.7f);

@@ -42,4 +42,11 @@ public class BaseController : MonoBehaviour
         //GameManager.instance.EndFight();
         Destroy(gameObject);
     }
+
+    public void SetCurrentHPPerecnt(float percent)
+    {
+        percent = Mathf.Clamp01(percent);
+        currentHP = Mathf.Max(1f, maxHP * percent);
+        hPBarUI?.SetHP(currentHP, maxHP);
+    }
 }

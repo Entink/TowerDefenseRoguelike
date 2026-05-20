@@ -63,7 +63,7 @@ public class VictoryScreenManager : MonoBehaviour
         materialsReward = Mathf.RoundToInt(result.materials * FightResultCarrier.materialsMultiplier);
 
         RunResources.AddCash(cashReward);
-        RunResources.AddMaterials(materialsReward);
+        RunStatsCollector.AddMaterials(materialsReward);
 
         RefreshResultText();
 

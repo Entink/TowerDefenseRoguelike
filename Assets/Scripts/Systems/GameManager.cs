@@ -172,10 +172,13 @@ public class GameManager : MonoBehaviour
 
         var cfg = rewardConfig != null ? rewardConfig : Resources.Load<RewardConfig>("RewardConfig");
 
-        var totalMaterials = RunStatsCollector.S.materialsEarned;
-        var payoutMaterials = Mathf.RoundToInt(totalMaterials * 0.7f);
 
-    
+
+        int totalMaterials = RunStatsCollector.S.materialsEarned;
+        int payoutMaterials = Mathf.RoundToInt(totalMaterials * 0.7f);
+
+        Debug.Log($"[DEFEAT MATERIALS] RunStatsCollector={RunStatsCollector.S.materialsEarned}, RunResources={RunResources.GetMaterials()}");
+
         DefeatPayoutCarrier.materials = payoutMaterials;
         RunStatsCollector.S.materialsEarned = 0;
 

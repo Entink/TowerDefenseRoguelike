@@ -106,4 +106,14 @@ public class BaseIntegrityManager : MonoBehaviour
 
         currentLevel = (BaseIntegrityLevel)saved;
     }
+
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause) Save();
+    }
 }

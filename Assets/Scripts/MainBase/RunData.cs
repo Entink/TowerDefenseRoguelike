@@ -67,7 +67,7 @@ public partial class RunData : MonoBehaviour
         UnitStatsModifiers.Reset();
         RunResources.Reset();
         MapRunData.Reset();
-
+        BaseIntegrityManager.I.ResetIntegrity();
 
     }
 

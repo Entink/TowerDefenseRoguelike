@@ -122,6 +122,12 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f;
         Resume();
         RunData.ResetRun();
+
+        if (BaseIntegrityManager.I != null)
+        {
+            BaseIntegrityManager.I.ResetIntegrity();
+        }
+
         MapRunData.Reset();
 
         PlayerPrefs.Save();
@@ -135,6 +141,11 @@ public class PauseManager : MonoBehaviour
         {
             MapRunData.Reset();
             RunData.ResetRun();
+
+            if (BaseIntegrityManager.I != null)
+            {
+                BaseIntegrityManager.I.ResetIntegrity();
+            }
             PlayerPrefs.Save();
         }
         catch { }

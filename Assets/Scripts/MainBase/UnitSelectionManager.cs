@@ -129,6 +129,10 @@ public class UnitSelectionManager : MonoBehaviour
         }
         RunSaveManager.Delete();
         RunStatsCollector.Reset();
+        if (BaseIntegrityManager.I != null)
+        {
+            BaseIntegrityManager.I.ResetIntegrity();
+        }
         SceneLoader.LoadScene("MapScene");
     }
 

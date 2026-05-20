@@ -107,6 +107,18 @@ public class BaseIntegrityManager : MonoBehaviour
         currentLevel = (BaseIntegrityLevel)saved;
     }
 
+    public int GetSaveValue()
+    {
+        return (int)currentLevel;
+    }
+
+    public void LoadFromSaveValue(int value)
+    {
+        value = Mathf.Clamp(value, 0, 3);
+        currentLevel = (BaseIntegrityLevel)value;
+        Save();
+    }
+
     private void OnApplicationQuit()
     {
         Save();
@@ -116,4 +128,6 @@ public class BaseIntegrityManager : MonoBehaviour
     {
         if (pause) Save();
     }
+
+    
 }

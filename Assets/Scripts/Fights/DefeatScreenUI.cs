@@ -18,6 +18,11 @@ public class DefeatScreenUI : MonoBehaviour
         MapRunData.Reset();
         RunData.ResetRun();
 
+        if (BaseIntegrityManager.I != null)
+        {
+            BaseIntegrityManager.I.ResetIntegrity();
+        }
+
         Time.timeScale = 1f;
 
         RunSaveManager.Delete();

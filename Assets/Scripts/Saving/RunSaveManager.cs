@@ -16,6 +16,7 @@ public class RunSaveDTO
 
     public int cash;
     public int materialsBanked;
+    public int baseIntegrityLevel = 0;
 
     public int fightsWon, fightsLost;
     public float timeInFights, totalDamageDealt, totalDamageTaken;
@@ -76,6 +77,7 @@ public static class RunSaveManager
 
         dto.cash = RunResources.GetCash();
         dto.materialsBanked = RunStatsCollector.S.materialsEarned;
+        dto.baseIntegrityLevel = BaseIntegrityManager.I != null ? BaseIntegrityManager.I.GetSaveValue() : 0;
 
         var s = RunStatsCollector.S;
         dto.fightsWon = s.fightsWon;
@@ -113,6 +115,11 @@ public static class RunSaveManager
             
 
         RunResources.SetCash(dto.cash);
+
+        if (BaseIntegrityManager.I != null)
+        {
+            BaseIntegrityManager.I.LoadFromSaveValue(dto.baseIntegrityLevel);
+        }
 
         var s = RunStatsCollector.S;
         s.materialsEarned = dto.materialsBanked;

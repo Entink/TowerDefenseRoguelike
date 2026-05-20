@@ -154,6 +154,12 @@ public class VictoryScreenManager : MonoBehaviour
             PlayerPrefs.SetInt("finished_key", 1);
 
             RunData.ResetRun();
+
+            if (BaseIntegrityManager.I != null)
+            {
+                BaseIntegrityManager.I.ResetIntegrity();
+            }
+
             MapRunData.Reset();
             RunSaveManager.Delete();
             RunStatsCollector.Reset();
@@ -174,6 +180,11 @@ public class VictoryScreenManager : MonoBehaviour
             RunStatsCollector.S.materialsEarned = 0;
 
             RunData.ResetRun();
+
+            if (BaseIntegrityManager.I != null)
+            {
+                BaseIntegrityManager.I.ResetIntegrity();
+            }
 
             MapRunData.Reset();
             RunResources.Reset();

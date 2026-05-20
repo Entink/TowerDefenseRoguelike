@@ -10,6 +10,11 @@ public class BaseIntegrityUI : MonoBehaviour
         Refresh();
     }
 
+    private void Update()
+    {
+        Refresh();
+    }
+
     private void OnEnable()
     {
         Refresh();

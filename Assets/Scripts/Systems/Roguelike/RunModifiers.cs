@@ -26,6 +26,7 @@ public static class RunModifiers
                 case RunModifierId.BetterPlatings: eff = new BetterPlatingsModifier(); break;
                 case RunModifierId.SharpenedBlades: eff = new SharpenedBladesModifier(); break;
                 case RunModifierId.BlackMarket: eff = new BlackMarketModifier(); break;
+                case RunModifierId.EmergencyProtocol: eff = new EmergencyProtocolModifier(); break;
                 default: eff = new NoOpModifier(); break;
                 
             }

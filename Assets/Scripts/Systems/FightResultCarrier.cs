@@ -8,6 +8,7 @@ public static class FightResultCarrier
 
     public static string resultTitle = "VICTORY";
     public static string integrityText = "";
+    public static string integrityHeader = "";
 
     public static void SetVictory()
     {
@@ -17,9 +18,10 @@ public static class FightResultCarrier
         materialsMultiplier = 1f;
         resultTitle = "VICTORY";
         integrityText = "";
+        integrityHeader = "";
     }
 
-    public static void SetRecoverableDefeat(string newIntegrityText)
+    public static void SetRecoverableDefeat(string newIntegrityText, string newIntegrityHeader = "Base Integrity decreased")
     {
         fightWon = false;
         recoverableDefeat = true;
@@ -29,6 +31,7 @@ public static class FightResultCarrier
 
         resultTitle = "DEFEAT";
         integrityText = newIntegrityText;
+        integrityHeader = newIntegrityHeader;
     }
 
     public static void Clear()

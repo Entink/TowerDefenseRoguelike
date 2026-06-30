@@ -7,5 +7,6 @@ public enum RunModifierId
     GoldMine = 5,
     BetterPlatings = 6,
     SharpenedBlades = 7,
-    BlackMarket = 8
+    BlackMarket = 8,
+    EmergencyProtocol = 9
 }

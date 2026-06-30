@@ -223,8 +223,17 @@ public class VictoryScreenManager : MonoBehaviour
         {
             if(recoverableDefeat)
             {
+                string header = string.IsNullOrWhiteSpace(FightResultCarrier.integrityHeader)
+                    ? "Base Integrity decreased"
+                    : FightResultCarrier.integrityHeader;
+                integrityText.text =
+                    header + "\n"
+                    + FightResultCarrier.integrityText;
+
                 integrityText.gameObject.SetActive(true);
-                integrityText.text = $"Base Integrity decreased\n{FightResultCarrier.integrityText}";
+
+
+
             }
             else
             {

@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1327659905863972453, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 149f67c3582caaa42bca54e0ff5194f6, type: 3}
     - target: {fileID: 2005501345440514604, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: m_Name
       value: Nanomage
@@ -123,6 +127,14 @@ PrefabInstance:
     - target: {fileID: 4600127789261272449, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: baseShieldAmount
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633094224591314503, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633094224591314503, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 7643895282278327580, guid: b9d7d6bb446cffa4b8de165ef94b3e49, type: 3}
       propertyPath: Effects.Array.size

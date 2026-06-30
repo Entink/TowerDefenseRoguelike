@@ -29,6 +29,7 @@ public class UnitSelectionManager : MonoBehaviour
         maxSelectableUnits = UpgradeManager.GetCurrentUnitLimit();
         GenerateUnitButtons();
         confirmButton.interactable = false;
+        confirmButton.onClick.RemoveListener(OnConfirm);
         confirmButton.onClick.AddListener(OnConfirm);
 
     }
@@ -42,6 +43,7 @@ public class UnitSelectionManager : MonoBehaviour
 
         GenerateUnitButtons();
         confirmButton.interactable = false;
+        confirmButton.onClick.RemoveListener(OnConfirm);
         confirmButton.onClick.AddListener(OnConfirm);
 
         if(continueButton != null)
@@ -117,8 +119,19 @@ public class UnitSelectionManager : MonoBehaviour
 
     private void OnConfirm()
     {
-        RunData.selectedUnits = selectedUnits;
-        if(TutorialState.I != null && TutorialState.I.Active)
+        var selectedUnitsForRun = new List<GameObject>(selectedUnits);
+
+        
+        RunSaveManager.Delete();
+        RunData.ResetRun();
+        RunStatsCollector.Reset();
+
+        if (BaseIntegrityManager.I != null)
+        {
+            BaseIntegrityManager.I.ResetIntegrity();
+        }
+
+        if (TutorialState.I != null && TutorialState.I.Active)
         {
             MapRunData.currentSeed = TutorialState.I.Profile.tutorialSeed;
         }
@@ -127,12 +140,13 @@ public class UnitSelectionManager : MonoBehaviour
             MapRunData.currentSeed = Random.Range(0, int.MaxValue);
 
         }
-        RunSaveManager.Delete();
-        RunStatsCollector.Reset();
-        if (BaseIntegrityManager.I != null)
-        {
-            BaseIntegrityManager.I.ResetIntegrity();
-        }
+
+        FightResultCarrier.Clear();
+        FightStatsCarrier.Clear();
+        DefeatPayoutCarrier.materials = 0;
+
+        RunData.selectedUnits = selectedUnitsForRun;
+
         SceneLoader.LoadScene("MapScene");
     }
 

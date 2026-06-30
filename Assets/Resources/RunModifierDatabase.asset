@@ -21,6 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc5aef3ea2a0826488d7b8163ad46791, type: 2}
   - {fileID: 11400000, guid: 118f1ace59184194896976423b9ac6fc, type: 2}
   - {fileID: 11400000, guid: 027ca667062d76343a7b43a72e00cd92, type: 2}
+  - {fileID: 11400000, guid: 61bbcc245f6c2794b829943433ccc301, type: 2}
   commonW: 100
   uncommonW: 50
   rareW: 20

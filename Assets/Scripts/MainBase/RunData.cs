@@ -137,9 +137,41 @@ public partial class RunData : MonoBehaviour
 
     public static void ClearModifiers()
     {
-        if (I != null) I.activeModifiers.Clear();
+        if (I != null)
+            I.RemoveAllModifiers();
+        else
+            RunDataPersistence.Clear();
     }
 
     public static void ClearSelectedUnits() => selectedUnits.Clear();
+
+    public int GetModifierStacks(RunModifierId id)
+    {
+        var exisiting = activeModifiers.Find(m => m.id == id);
+        return exisiting != null ? exisiting.stacks : 0;
+    }
+
+    public bool TryConsumeModifierStack(RunModifierId id, int amount = 1)
+    {
+        if (amount <= 0)
+            return false;
+
+        var exisiting = activeModifiers.Find(m => m.id == id);
+
+        if (exisiting == null || exisiting.stacks < amount)
+            return false;
+
+
+        exisiting.stacks -= amount;
+
+        if (exisiting.stacks <= 0)
+            activeModifiers.Remove(exisiting);
+
+        SaveState();
+        OnModifiersChanged?.Invoke();
+
+        return true;
+    }
+
 
 }

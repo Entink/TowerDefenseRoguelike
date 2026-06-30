@@ -135,7 +135,12 @@ public class GameManager : MonoBehaviour
 
         if(BaseIntegrityManager.I != null && BaseIntegrityManager.I.CanLoseMoreIntegrity() && !isBossFight)
         {
-            BaseIntegrityManager.I.TryApplyLoss();
+            bool emergencyTriggered =
+                RunData.I != null &&
+                RunData.I.TryConsumeModifierStack(RunModifierId.EmergencyProtocol);
+
+            if (!emergencyTriggered)
+                BaseIntegrityManager.I.TryApplyLoss();
 
             var snap = CombatStatsTracker.I?.ToSnapshot();
             FightStatsCarrier.Set(snap);
@@ -158,9 +163,19 @@ public class GameManager : MonoBehaviour
 
             RunSaveManager.Save();
 
-            FightResultCarrier.SetRecoverableDefeat(BaseIntegrityManager.I.GetDisplayText());
+            string resultHeader = emergencyTriggered ? "Emergency Protocol activated" : "Base Integrity decreased";
 
-            Debug.Log($"[BaseIntegrity] Fight lost. Integrity lowered to {BaseIntegrityManager.I.GetDisplayText()}");
+            FightResultCarrier.SetRecoverableDefeat(BaseIntegrityManager.I.GetDisplayText(), resultHeader);
+
+            if(emergencyTriggered)
+            {
+                Debug.Log($"[EmergencyProtocol] Prevented integrity loss. CUrrent: {BaseIntegrityManager.I.GetDisplayText()}");
+            }
+            else
+            {
+                Debug.Log($"[BaseIntegrity] Fight lost. Integrity lowered to {BaseIntegrityManager.I.GetDisplayText()}");
+            }
+
 
             SceneLoader.LoadScene("VictoryScene");
             return;

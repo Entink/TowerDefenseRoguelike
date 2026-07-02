@@ -15,6 +15,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioClip mainBaseLoop;
     [SerializeField] private AudioClip fightLoop;
     [SerializeField] private AudioClip victoryLoop;
+    [SerializeField] private AudioClip mainMenuLoop;
 
     [Header("Fade")]
     [SerializeField, Range(0.1f, 5f)] private float fadeTime = 1.2f;
@@ -38,7 +39,10 @@ public class MusicManager : MonoBehaviour
 
         active = a;
 
+        ApplySavedVolumes();
+
         SceneManager.sceneLoaded += OnSceneLoaded;
+        PlayForScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnDestroy()
@@ -48,14 +52,24 @@ public class MusicManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene s, LoadSceneMode m)
     {
-        if (s.name == "MainBaseScene") Play(mainBaseLoop);
-        else if (s.name == "FightScene") Play(fightLoop);
-        else if (s.name == "VictoryScene") Play(victoryLoop);
+        PlayForScene(s.name);
+    }
+
+    private void PlayForScene(string sceneName)
+    {
+        if (sceneName == "MainBaseScene") Play(mainBaseLoop);
+        else if (sceneName == "FightScene") Play(fightLoop);
+        else if (sceneName == "VictoryScene") Play(victoryLoop);
+        else if (sceneName == "MainMenuScene") Play(mainMenuLoop);
     }
 
     public void Play(AudioClip clip)
     {
         if (clip == null) return;
+
+        if (active != null && active.clip == clip && active.isPlaying)
+            return;
+
         var from = active;
         var to = (active == a) ? b : a;
 
@@ -93,6 +107,14 @@ public class MusicManager : MonoBehaviour
     {
         if (!masterMixer.GetFloat(exposedParam, out float db)) return 1f;
         return Mathf.Clamp01(Mathf.InverseLerp(-30f, 0f, db));
+    }
+
+    public void ApplySavedVolumes()
+    {
+        SetVolume01("MasterVolume", PlayerPrefs.GetFloat("vol_master", 0.8f));
+        SetVolume01("MusicVolume", PlayerPrefs.GetFloat("vol_music", 0.8f));
+        SetVolume01("SFXVolume", PlayerPrefs.GetFloat("vol_sfx", 0.8f));
+        SetVolume01("UIVolume", PlayerPrefs.GetFloat("vol_ui", 0.8f));
     }
 
 }
